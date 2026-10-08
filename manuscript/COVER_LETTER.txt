@@ -1,0 +1,24 @@
+[Date]
+
+Editors
+Conservation Biology
+
+Dear Editors,
+
+We submit the manuscript “Dynamic conservation networks under environmental change and hidden biodiversity” for consideration as a Contributed Paper in Conservation Biology.
+
+When should an animal be held in managed care, moved, returned to its origin, or left to habitat protection, and how does the answer change when some of the species at stake have not yet been detected? Conservation practice increasingly links reserves, zoos, breeding centers, prerelease facilities, rehabilitation, survey, and biobanking, yet these components are usually debated one institution or one objective at a time. Our study asks a conditional question instead: under which ecological, informational, and welfare conditions does a dynamic conservation network outperform a fixed strategy, and when does that advantage disappear or reverse?
+
+We address this with a transparent individual-based simulation spanning 100 years, eight synthetic species of which three are initially undetected, and nine wild and managed node types. Policies are compared under finite budgets, directional environmental change, noisy and delayed observation, welfare, genetics, disease, human engagement, and origin fidelity, and each objective is kept separate rather than collapsed into a single score.
+
+The central result is that no conservation network is universally best. A habitat-first policy retained slightly higher mean year-100 survival than a hybrid dynamic policy (0.529 vs. 0.473), yet six of eight policies were Pareto-nondominated once survival, welfare, genetic outcome, extinction before discovery, cost, and future option value were evaluated jointly. Which policy is favored reverses across identifiable boundaries in habitat change, survey cost, movement harm, and managed-care benefit. These boundaries, rather than a ranking, are the contribution.
+
+We believe the work suits Conservation Biology because its relevance extends beyond any single species, site, or institution. It offers a reusable way to state the conditions under which integrated in situ and ex situ management is worth its costs, including costs borne by individual animals and by species not yet known to science. The results are synthetic conditional experiments, not empirical forecasts, and the manuscript makes no general recommendation for or against zoos, translocation, return to origin, or habitat-first conservation.
+
+All code, configuration, and generated outputs needed to reproduce every number, figure, and table are available in a public repository, cited in the data availability statement. The manuscript has been prepared for double-blind review. It is not under consideration elsewhere, and all authors have approved its submission.
+
+Sincerely,
+
+[Corresponding author name]
+[Affiliation]
+[Email address]

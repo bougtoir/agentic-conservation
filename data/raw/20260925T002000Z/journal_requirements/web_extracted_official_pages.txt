@@ -1,0 +1,521 @@
+## Page 1: Journal list menu
+URL: https://conbio.onlinelibrary.wiley.com/hub/journal/15231739/homepage/forauthors.html
+
+The Society for Conservation Biology
+Society for Conservation Biology
+Society for Conservation Biology
+**
+Search withinThis JournalAnywhere
+* Search term
+Advanced SearchCitation Search
+* Search term
+Advanced SearchCitation Search
+Login / Register
+* **Individual login
+* **Institutional login
+* **SCB Member Log-in**
+* REGISTER
+**
+# Journal list menu
+* **Journal
+* About****
+* Overview
+* Journal Metrics
+* Society Information
+* Contact
+* Editorial Board
+* OA Advantages
+* News
+* Advertise
+* Permissions
+* Equity, Diversity, and Inclusion
+* Authors****
+* Author Guidelines
+* Open Access
+* Submit a Manuscript**
+* For Referees**
+* **Articles
+* Browse****
+* Early View
+* Current Issue
+* All Issues
+* Most Accessed
+* Virtual Issues
+* Actions**
+## Tools
+* **Submit an article
+* **Journal Metrics
+* **Browse sample issue
+* **Subscribe to this journal
+## Follow journal
+* **Alert
+* **X channel
+* **Most recent (RSS)
+* **Most cited (RSS)
+# Conservation Biology
+Conservation Biology
+****
+## *Conservation Biology*Instructions for Authors
+### Journal Scope
+*Conservation Biology*welcomes submissions that develop new theory and methods, define key problems, and propose solutions, exploring the social, ecological, and philosophical dimensions of the conservation of biological diversity. Articles emphasize conservation issues germane to any ecosystem or geographic region. Manuscript topics that transcend the particular ecosystem, species, or situation described are prioritized for publication.
+We assess manuscripts based on sound science and reasoning. English expression should not be an impediment to submission. Foraccepted manuscripts, we provide, free of charge, substantive editing for authors for whom communicating in English is difficult.
+### Presubmission Queries
+The editors of*Conservation Biology*will consider presubmission queries about the suitability of manuscripts, particularly about the scope of the study and transferability of its results.
+### Free Format at Submission
+See “Manuscript Specifications at Submission” below.
+### Authorship
+All authors are expected to conform to the Society for Conservation Biology's (SCB) Code of Ethics, available under the Instructions and Forms tab in ScholarOne (https://mc.manuscriptcentral.com/conbio). This includes claiming authorship only when the person has contributed substantially to the conception, design, data collection, analyses, or interpretation or contributed substantially to drafting or revising the manuscript and approved the accepted version. Deceased contributors can be listed as authors if they met this standard.
+If the person or persons who collected the data are not authors of the paper, consider adding these people as authors so as to be fully inclusive, in accordance with standards for authorship (see above). Consider whether each region that the data originated from is represented in authorship to the extent that is appropriate. Avoid adding authors after submission.
+### SCB Journals’ Publication Partner Program
+In the Publication Partner Program, experienced scientists form partnerships with authors who want additional input. The aim is to increase the likelihood of worthy papers being published in the journal, and the focus is on authors from developing and non-English speaking jurisdictions. When editors receive manuscripts that are not publishable but which could be, given the right construction, analysis, and emphasis, they may ask the authors if they would like to partner with an experienced scientist to develop a revision. If the author agrees, then the editor puts them in contact with a publication partner, an experienced volunteer committed to the program’s goals. The partner then works with the authors to develop a resubmission. The manuscript’s authors may acknowledge their publication partner or they may invite the partner to be a coauthor, depending on the partner’s contribution.
+### Article Categories and Word Limits
+Word count includes text from the Abstract through Acknowledgments. It does not include the list of references, table or figure legends, or the body of tables. Manuscripts substantially exceeding the word limits specified below will not be sent for review.**Revisions should not exceed word limits even if reviewers request additional information.**
+*Contributed Paper*(7000 words)
+Papers on original theoretical, empirical, or synthetic research in the natural or social sciences and humanities that are data-driven in a typically hypothetical-deductive model. All manuscripts should have clearly delineated introduction, methods, results, and discussion (IMRAD format) sections. Methods should supply sufficient detail such that the study could be replicated. If data are constructed in a logic of argumentation and used to illustrate a point or provide an example, this is not the correct category. Meta-analyses without systematic review (see below) are categorized as Contributed Papers, but authors of meta-analyses should complete the Systematic Review Checklist (see “Systematic Review” below).
+*Review*(8000 words)
+Comprehensive treatment of a topic generally well developed in the literature that provides a thorough synthesis of findings or illuminates trends and has relevance at global and local levels.
+*Systematic Review*(8000 words)
+The category for a systematic review is Review. However, systematic reviews differ substantially in rigor, objectivity, and transparency from narrative-based reviews or synthesis articles. Upload a completed Systematic Review Checklist (available under Instructions and Forms tab in ScholarOne) to ScholarOne as an additional file for review but not for publication. We suggest authors of systematic reviews consult Pullin and Stewart (2006 Guidelines for Systematic Review in Conservation and Environmental Management.*Conservation Biology*20: 1647-16-56). Systematic reviews may contain a meta-analysis of data from the included studies.
+*Essay*(5000 words)
+Essays on novel issues in the natural or social sciences important to conservation science and practice that are grounded in evidence from the literature, policy, or legal documents; that are typically relevant beyond a single case study; and that propose evidence-based solutions to problems. Well-reasoned and supported submissions that debate alternative perspectives, challenge current paradigms, or advance new conservation-science approaches are encouraged.
+*Research Letter*(3500 words)
+Similar to Contributed Paper but results and inferences may be more focused or preliminary.
+*Practice and Policy*(5000 words)
+Papers on applications of conservation science to specific goals for management, policy, or education that report findings important to decision-making, planning, and implementation of conservation and that provide opportunities for learning. They can include discussions of setbacks, failures, and unintended consequences.
+*Methods*(5000 words)
+Papers on a novel conservation-science method or tests of an existing conservation method.
+*Registered Report*(**stage 1,**\~3500 words;**stage 2,**7000 words)
+Reviewed in 2 stages: stage 1 includes the introduction and a detailed description of the study protocol that explains the importance of the research question, strength of the scientific rationale, and the details of the proposed methods of data collection and analyses (i.e., Introduction and Methods of a formal paper). Stage 2 is the stage-1 manuscript with Results and Discussion added. If the stage-1 submission is positively peer reviewed, in-principle acceptance (IPA) is granted, which commits the journal to publishing the final paper provided the authors adhered to their protocol, performed work at a high standard, and offer conclusions supported by the evidence. Stage-2 manuscripts cannot be submitted as Registered Reports unless stage 1 has received IPA at*Conservation Biology*. See Registered Report Instructions for detailed requirements and information on how to submit (available under the Instructions and Forms tab in ScholarOne).
+*Comment*(2000 words)
+Papers that respond to material previously published in*Conservation Biology*. If accepted, authors of the article being commented on will have the opportunity to submit a rejoinder. Publication of the initial Comment is delayed until the rejoinder, if one is submitted, has been peer-reviewed and rejected or accepted. If the rejoinder is accepted, both comments are published simultaneously.
+*Diversity*(2000 words)
+Short opinion pieces on conservation concepts, methods, or applications or on current and immediate, national, regional, or global conservation problems.
+Letter (1000 words)
+Communications regarding topics of interest to readers, including observations on controversial subjects.
+*Book Reviews*
+All books for possible review should be sent directly to Gabor Lövei (gabor.lovei@agro.au.dk), our book review editor.**Book reviews are by invitation only.**
+### Submission Requirements
+*Conservation Biology*has free format submission. However, there are still some requirements (explicated in this section and below in “Manuscript Specifications at Submission”).
+#### Where to submit
+Submit manuscripts online athttp://mc.manuscriptcentral.com/conbio. If you do not have adequate internet access for online submission via ScholarOne Manuscripts, please contact Frith Jarrad (fjarrad@conbio.org).
+#### Blinding
+*Conservation Biology*uses double-blind peer review; that is, neither authors nor reviewers know each other’s identities.
+In the
+* submitted manuscript,
+* supporting information (online appendices), and
+* file names
+there should be**no content**, except for self-citations,**through which authors or their institutions could be identified**. If data, for example, are being made available through a data-storage service, make sure you cannot be identified from these files. FigShare allows authors to remain anonymous.
+**\*\*\***Submit*a separate*manuscript cover page with specified information (see “Cover Page” below).
+
+---
+
+## Page 2: Society for Conservation Biology | Conservation Biology
+URL: https://conbio.org/publications/conservation-biology
+
+Society for Conservation Biology | Conservation Biology
+
+## Conservation Biology
+
+> 
+> 
+> "The discipline of conservation biology defines the scope of the journal, but it is also true that the journal has played an influential role in defining conservation biology."
+> 
+> - Stanley A. Temple, SCB President ('91-'93) 
+
+Conservation Biology is the leading journal in the field of conservation. Launched in 1987, Conservation Biology is owned by the Society and remains our flagship journal. Its ground-breaking research articles, essays, and reviews develop new theory and methods, define key problems, and propose solutions, exploring the social, ecological, and philosophical dimensions of the conservation of biological diversity. The journal offers globally relevant novel insights, approaches, and syntheses.
+
+Conservation Biology (ISSN 0888-8892) is published six times a year (February, April, June, August, October, December) by Wiley. The journal has robust submission rates, and rigorous review and revision processes ensure that accepted papers are of high quality and clarity.
+
+Journal Metrics: In 2022, its impact factor, a measure of the frequency with which the “average article” in a journal has been cited in a given period, was 6.3 . Impact factor reflects data over a three-year period and can be interpreted as the number of times an article is cited in the two years following its publication. 
+
+According to the 2022 Journal Citation Report from Clarivate Analytics, Conservation Biology​'s impact factor ranked:
+
+- 3rd out of 64 in journals that focus on biodiversity conservation and
+- 15th of 169 in journals with an ecological focus.
+
+Conservation Biology's h5 index is 63. This h5 index ranks 6th among biodiversity and conservation biology journals. Its cited half-life of 13.3 indicates that many papers published in ​ Conservation Biology ​continue to be cited even 10 years after their original publication (i.e., half of citations earned in 2021 were ~13 years old).
+
+Conservation Biology has a CiteScore of 10.5 CiteScore is the average number of citations received in a calendar year by all items published in that journal in the preceding three years. 
+
+Such impressive statistics and high rankings across multiple disciplines affirm Conservation Biology as one of the most respected scientific journals in the field and reflect the work of a dedicated and talented editorial board. 
+
+Manuscript Submissions: Conservation Biology welcomes submissions that address the science and practice of conserving Earth's biological diversity. We encourage submissions that emphasize issues germane to any of Earth's ecosystems or geographic regions and that apply diverse approaches to analyses and problem solving. The conservation relevance of articles published in Conservation Biology transcends the particular ecosystem, species, and situation described.
+
+- Submit a Manuscript
+- Instructions for Authors
+
+The journal is indexed or abstracted by more than 45 services, including BIOSIS, Biology Digest, General Science Abstracts, General Science Index, Geo Abstracts, Current Contents/Agriculture, Biology and Environmental Sciences, Research Alert, and SciSearch.
+
+Peerage of Science: A different kind of peer review system. Authors decide the REVIEW deadlines and anonymity settings, validated peers decide themselves whether to peer review (Open Engagement), and peer reviews themselves are judged and scored by peers to increase and quantify the quality of peer reviewing work. You can use this link to submit a manuscript FOR REVIEW THROUGH Peerage of Science so that it's reserved for consideration by Conservation Biology.
+
+Accessing Journal Content: SCB members who subscribe to Conservation Biology can access journal content online via their SCB member homepage or through the Conservation Biology page in the Wiley Online Library (enter your SCB username and password). 
+
+Subscription Questions: Please send us an email (info@conbio.org) if you are having trouble accessing your online subscription. 
+
+Print On Demand: On 1 January, 2021, Conservation Biology moved to an online only format. If you still wish to receive print issues of the journal, you can purchase a subscription through Sheridan Press. SCB members receive a discount on annual subscriptions. Email us (membership@conbio.org) to get the discount code. 
+
+Back Issues: Single issues from current and recent volumes are available at the current single-issue price from cs-journals@wiley.com. Earlier issues may be obtained from Periodicals Service Company, 11 Main Street, Germantown, NY 12526, USA, telephone (518) 537-4600, fax (518) 537-5899, email psc@periodicals.com.
+
+- Society for Conservation Biology
+- 1133 15th St. NW, Suite 300
+- Washington, D.C. 20005
+- USA
+
+- info@conbio.org
+
+---
+
+## Page 3: Best Practice Guidelines on Publishing Ethics | Wiley
+URL: https://authors.wiley.com/ethics-guidelines/index.html
+
+Best Practice Guidelines on Publishing Ethics | Wiley
+
+### Page Content
+
+Aims and scope Research integrity at Wiley Academic debate Appeals Artificial Intelligence Authorship Citations Conflicts of interest Copyright and intellectual property Corrections, expressions of concern, retractions, and withdrawals Data and reporting guidelines Diversity, Equity and Inclusion Fabrication, falsification, and image manipulation Investigation of questionable research practices Juristictional neutrality/a> Peer review Plagiarism, duplicate/redundant publication, text recycling, and translations Preprints Research ethics Research funding Sanctions
+
+Systemic manipulation of the publication process 
+
+## Aims and scope
+
+The policies outlined here aim to support authors and researchers in all aspects of scholarly publishing in Wiley journals and publications. These policies are also available in Chinese.
+
+## Research integrity at Wiley
+
+Wiley’s Research Integrity team develops and implements policies and best practices across our publishing workflows. We also share our findings with the scholarly community and lead critical discussions on research integrity across the industry. Through our Integrity Assurance & Case Resolution team, we investigate and resolve research integrity concerns in line with our own policies and workflows, which are informed by the Committee on Publication Ethics (COPE) guidelines, correcting the scholarly record where necessary. Research integrity concerns can be raised by emailing researchintegrity@wiley.com; the Integrity Assurance and Case Resolution team will work with the journal’s editor to review and take the appropriate action. 
+
+## Academic debate
+
+Wiley journals encourage academic debate by giving authors the opportunity to publish letters to the editor or correspondence articles where appropriate. Please note that submitting post-publication critique of an article does not guarantee publication. Letters critiquing articles are often peer reviewed, and the authors of the original article are usually given an opportunity to respond. When correspondence discusses a published article, we follow COPE guidance on handling of post-publication critiques. 
+
+## Appeals
+
+Wiley journals consider substantiated appeals of editorial decisions if they provide new evidence or information. Authors should submit their appeal to the relevant journal using the contact details provided on Wiley Online Library. 
+
+### General Guidance & Best Practice
+
+Authors may wish to use artificial intelligence tools or technologies (“AI Technology”) when preparing a manuscript for submission to a Wiley journal. When used responsibly, AI Technology can help authors maintain high editorial standards, safeguard intellectual property and other rights, and foster transparency with readers. We welcome the responsible use of AI technology, and our AI guidelines for researchers provide more detailed information. Authors remain fully accountable for their submissions and any tools or sources they use.
+
+- Review terms and conditions Authors should carefully review the terms and conditions, terms of use, and any other conditions or licenses associated with the AI Technology they are considering. Authors must confirm that the AI Technology does not claim ownership or copyright of their content or impose limitations on how it could be used. These restrictions could affect the author’s or Wiley's rights, including the ability to publish a submission following acceptance. Authors should periodically revisit the AI Technology’s terms to ensure ongoing compliance.
+- Human Oversight 
+
+ Authors may only use AI Technology as an additional tool in their writing process, not a replacement for their own expertise and judgement. As always, authors remain fully responsible for the accuracy of all content and must verify that all claims, citations, and analyses align with their expertise and research. Before including AI-generated content in a journal submission, authors must carefully review it to ensure the final work reflects their own expertise, voice, and originality and that it complies with Wiley's ethical and editorial standards.
+- Disclosure 
+
+Authors should document all AI Technology used, including its purpose, whether it influenced key arguments or conclusions, and how they personally reviewed and verified any AI-generated content. Authors must also disclose their use of AI Technologies when submitting a manuscript to a Wiley journal. If disclosure is not provided at submission, it may be requested during peer review or after publication. Transparency is essential to our commitment to ethical publishing and integrity. Additional, specific guidance around AI disclosure is available in the section titled ‘Specific guidance’
+- Rights Protection 
+
+Authors must not use any AI Technology that restricts their own, Wiley’s, or any other party’s use of the submission. Authors must ensure the AI Technology and the provider of that AI Technology does not gain any rights over the author’s underlying content, including the right to “train” their AI Technology on the content, The only exception is the limited right to access and use the submission to provide the service. By reviewing an AI Technology’s terms and conditions, especially for clauses related to “ownership,” “data reuse,” “training,” or “opt out” among others, authors can prevent unintended transfers of rights.
+- Responsible and Ethical Use 
+
+Authors must use AI Technology in a way that aligns with privacy, confidentiality, and compliance obligations. This includes respecting data protection laws, avoiding the use of AI to replicate the unique style or voice of others, and fact-checking AI-generated content for accuracy and neutrality. Authors should be aware of potential biases in AI outputs and remove any stereotypes or misinformation. For guidance on what to look for when evaluating AI Technologies to protect your research and data, please refer to this table. 
+- Adherence to Agreements 
+
+Authors must adhere to the terms and conditions of their license agreement with Wiley. Authors remain responsible for upholding the warranties in those agreements. The terms potentially affected by using AI Technology are: ensuring their submission is original, that it has not been previously published, and that they have the right to grant the necessary permissions to Wiley as written in their agreement. Standard author agreements are explained in more detail in understanding copyright and licensing. 
+
+We value authors' unique creativity and expertise, and view AI Technologies as tools that enhance, rather than replace, creativity. We remain committed to providing clear guidance that builds trust with readers, protects authors' and Wiley’s rights, and upholds the quality of published content. These guidelines will continue to evolve along with technology and author needs. For additional context, please refer to the STM’s guidance on generative AI in scholarly communications regarding the role of generative AI technologies.
+
+### Specific guidance
+
+Disclosure: If an author has used AI Technology to substantially edit, develop, or translate any part of a manuscript, its use must be described transparently and integrated into the manuscript as described in our guidance on disclosure and declaration of AI use. AI Tools used solely for spelling, grammar, and general editing are not included in these disclosure requirements. Please see the example disclosure statements provided. Authors remain fully responsible for the accuracy of any information provided by the AI Technology and for correctly referencing any supporting work. AI Technology may be used for creating data visualizations and illustrations, however, important restrictions apply to photograph enhancement to protect research integrity, see guidance on data visualizations, illustrations and photographs with AI. The final decision on whether using AI Technology is appropriate or permissible for a submitted manuscript or a published article belongs to the journal’s editor or other party responsible for the publication’s editorial policy.
+
+AI & Authorship: AI Technology is not considered capable of initiating an original piece of research without human direction. Such tools cannot be held accountable for published work or for research design, which are both requirements of authorship (as discussed in the Authorship section in these guidelines). AI Technology also lacks legal standing and cannot hold or assign copyright. Therefore, in accordance with COPE’s position statement on Authorship and AI tools these tools cannot fulfil the role of an author and must not be listed as one on an article. 
+
+Peer Review: Authors should be aware that editors or peer reviewers may use AI Technology to help improve the clarity or quality of the written feedback in a peer review report. If this occurs, the reviewer must disclose that use to the handling editor when the review is submitted. Beyond this limited use, editors and peer reviewers are not permitted to upload manuscripts (or any parts of manuscripts including figures and tables) into AI Technology. Such tools may store or reuse input data for training or other purposes, which could compromise the confidentiality of the peer review process, the privacy of authors and reviewers, and the copyright associated with the submitted work. Peer review remains a fundamental human endeavor. Responsibility for the accuracy, integrity, and overall content of a peer review report rests entirely with the individual reviewer and must not be delegated to AI Technology. Editors have the right to disregard peer reviewer reports that show signs of inappropriate AI use. 
+
+## Authorship
+
+Authorship gives researchers recognition, accountability, and legal rights for their work. While authorship definitions and criteria vary across disciplines, the core requirements for authorship are a substantial contribution to the research and accou
+
+---
+
+## Page 4: AI in Research Publishing: Editor Questions Answered | Wiley
+URL: https://www.wiley.com/en-us/publish/ai-insights/research-publishing-faq/
+
+AI in Research Publishing: Editor Questions Answered | Wiley
+
+1. Home
+2. Publish
+3. AI in research and books
+4. How Active Learning Models Are Proving to Boost Student
+
+# Using Artificial Intelligence in research publishing: your questions answered
+
+Over 300 of you responded to our 2024 ExplanAItions study. 64% agreed that future AI applications could significantly benefit the research community. Our editor respondents showed just as much interest in using AI as other participants, such as identifying gaps in current literature or finding potential collaborators.
+
+At the same time, many raised ethical concerns, including concerns about AI inaccuracies (‘hallucinations’), responsible use, and data privacy. These concerns were echoed by over 900 of you in our recent editor survey.
+
+We know you have questions about how AI should be used, both in your own research and in your role as editors handling submissions.
+
+These FAQs are here to help you find clear, up-to-date answers. We will be continually updating this page as we create new guidance and update our policies on the use of AI.
+
+### 1. Does Wiley have guidelines on AI use?
+
+Yes, please see our current AI guidelines and the AI section of the Research Integrity and Publication Ethics guide for best practice.
+
+The current ‘common questions and answers’ section is aimed at book authors, with a specific version for journal authors coming soon.
+
+However, many of these common questions and answers will apply to journal authors – such as how to ensure sensitive data and manuscript content is protected, and how authors must declare AI use.
+
+### 2. Are there AI tools available for researchers – editors, reviewers, and authors – to use?
+
+Yes, please see and share our AI tools comparison resource, which compares AI tools currently available to researchers and their effective use cases during the research process and manuscript preparation.
+
+Institutions may also have enterprise or professional versions of AI tools, which have clearer terms of service and may offer more intellectual property and content protection.
+
+There are many different types of AI tools, which we outline here. Forthcoming guidance will give further advice on how to assess the right AI tools for the right use case
+
+### 3. What current AI tools are in use on Wiley’s manuscript systems?
+
+At Wiley, our Research Exchange platform utilizes AI-powered tools. They function across both our Screening and Review sites – from journal scope checks to a reviewer finder service.
+
+These tools are intended to provide additional information and support editors in making more informed decisions when handling manuscripts.
+
+You can review our Research Exchange and AI resource for more information on each check.
+
+### 4. Does Wiley have tools to detect AI use within a manuscript?
+
+Yes, integrated into Research Exchange Screening there is an AI-generated content detection tool. This tool scans a manuscript, checking for text that may appear to be AI-generated.
+
+However, please take into consideration that more and more authors use AI tools for spelling and grammar checks – in our recent AI survey, the top use case for AI tools was ‘help with translation’. As such, detecting AI use within a manuscript does not necessarily indicate a potential research integrity issue and/or the quality of a manuscript.
+
+If your concerns are related to potential paper mill content, Research Exchange Screening also offers a problematic phrase check and paper mill similarity detection check. The results of all three checks can then be taken into consideration together to help you better understand and inform your initial decision.
+
+You can review our Research Exchange and AI resource for more information on these checks.
+
+### 5. What are the acceptable uses of AI for authors?
+
+Authors may use generative AI tools to:
+
+• Improve grammar, spelling, punctuation, tone, and overall readability of their manuscripts.
+
+• Use as part of their research methodology (e.g., data analysis, image processing, or modeling).
+
+• Perform literature discovery.
+
+Please see and share our AI tools comparison resource, which compares AI tools currently available to researchers and their use cases.
+
+Authors must ensure their final work reflects their expertise, voice, and originality. Please see our advice on maintaining author voice when using AI.
+
+For literature discovery, authors must ensure the citations are accurate by always checking the primary resource and that any claims made by the AI about the paper are real and correct.
+
+At Wiley, the acceptability of AI-assisted image creation depends on the image’s purpose and the rights to use the image. In general, authors should document how and when AI-generated images were created, keep a record of the AI tool’s terms of service at the time of creation, and confirm that the AI tool’s terms allow reuse of the generated image. Please see our AI-assisted image creation section for more information.
+
+Please also see our AI principles– which outline our four core principles on AI solutions and technology.
+
+### 6. Where must authors disclose their use of AI, and what do they need to confirm in their declaration statement?
+
+If an author has used AI technology to develop any portion of a manuscript, its use must be described, transparently and in detail, in the Methods section (or via a disclosure or within the Acknowledgements section, as applicable). This includes generating supplementary materials, such as images, tables, or charts, substantial editing of existing content, or performing significant analyses.
+
+The authors should disclose the name of the AI tool used, its purpose, whether it impacted key arguments or conclusions, and how they personally reviewed and verified AI-generated content. Authors must disclose the use of AI tools upon submission to a Wiley journal.
+
+Authors must also confirm that the platform and/or provider of the AI tool does not claim ownership of their content or impose limitations on its use, as this could interfere with the author’s rights or Wiley's rights, including Wiley’s ability to publish a submission following acceptance.
+
+Please note that AI tools that are used to improve spelling, grammar, and general editing are not included in the scope of these disclosure guidelines.
+
+Please see here for more information, as well as an example declaration.
+
+### 7. Can peer reviewers use AI writing tools?
+
+Neither editors nor peer reviewers should upload manuscripts (or any parts of manuscripts including figures and tables) into AI technology, since it may use input data for training or other purposes. This could then violate the confidentiality of the peer review process, privacy of authors and reviewers, and the copyright of the manuscript under review.
+
+However, an editor or peer reviewer can use AI tools to improve the spelling and grammar, tone, and clarity of their written feedback. A reviewer’s use must be declared upon submission of the peer review report to the manuscript’s handling editor and an editor must declare this upon submitting their written feedback.
+
+The peer review process is a human endeavor, and reviewers are ultimately responsible and remain accountable for providing a peer review report. This process should not be delegated to a GenAI tool.
+
+Please refer to the AI section of our Best Practice Guidelines on Research Integrity and Publishing Ethics for further information.
+
+### 8. Can the accuracy of AI-produced or AI-edited content be trusted?
+
+AI models can generate content that sounds authoritative but contains factual errors, invented citations, or outdated information. These are sometimes called ‘hallucinations’.
+
+It should also be noted that AI models can reflect biases– linguistically or broad stereotypes and generalizations; this bias can be present in the data the model was trained on and/or from the user’s perceived bias (sometimes called sycophantic behaviour). Authors should check AI responses to identify potential biases and revise their content accordingly.
+
+Authors are ultimately responsible for ensuring the accuracy of their final work.
+
+Please see and share our advice on verifying accuracy of AI-generated content.
+
+### 9. How can researchers securely protect their information and content from AI tools?
+
+Some AI tools may include clauses in their terms of service that grant the AI provider rights to reuse, distribute, or train their AI technology on content processed through their platform. Please see the privacy features and IP protection sections for more information on understanding common terms of service phrases and how to ensure content is protected.
+
+Authors must use AI tools in a manner that aligns with privacy, confidentiality, and compliance obligations. For researchers working with sensitive content, private details from text or data sets should be removed before using publicly available generative AI tools. Please see our safe use section for more information on safe and responsible use of AI tools.
+
+Institutions may also have enterprise or professional versions of AI tools when available, which have clearer terms of service and may offer more intellectual property and content protection.
+
+### 10. Do AI tools ‘own’ the content or the text they generate?
+
+AI technology cannot be considered capable of initiating an original piece of research without direction by humans, nor does it have legal standing or the ability to hold or assign copyright.
+
+However, some providers claim ownership and/or impose limitations on the use of the underlying content provided to and/or generated by their AI tool. This could interfere with the author’s rights or Wiley's rights, including Wiley’s ability to publish a submission following acceptance.
+
+Please see the IP protection section on our AI guidelines for more information.
+
+Page last updated: September 2025
+
+### Related articles
+
+#### Author Resources
+
+Turn your publishing goals into reality with expert guidance from
+
+---
+
+## Page 5: Style Guide for Authors
+URL: https://conbio.onlinelibrary.wiley.com/pb-assets/assets/15231739/Author%20Style%20Guide%20feb2019-1551741575403.pdf
+
+### Conservation Biology Style Guide for Authors
+
+Word count 
+Conservation Biology tries to balance the depth of each article with the number of articles that 
+can be published. Manuscripts must not exceed the following word counts even if reviewers 
+have asked for additional material. The number of words includes all text from the Abstract 
+through Literature Cited; it does not include tables or figure legends or text in the body of tables. 
+The Abstract should not exceed 300 words. Do not include an abstract with Letters, Comments, 
+or Diversity pieces. 
+Contributed Papers: 6000 
+Research Notes: 3000 
+Reviews: 7500 
+Essays: 6000 
+Conservation Methods: 6000 
+Conservation Practice and Policy: 5000 
+Comments: 2000 
+Diversity: 2000 
+Letters: 1000 
+More information on these categories and the types of papers published in Conservation Biology 
+is available from http://onlinelibrary.wiley.com/journal/10.1111/(ISSN)1523- 
+1739/homepage/ForAuthors.html. 
+Number of tables and figures 
+Include no more than 1 supporting element (i.e., table or figure) for every 4 pages of text (from 
+the Abstract through the Literature Cited). If a table or figure has only a few data points, 
+incorporate the data in the text. 
+Appendices and supporting information 
+We rarely allow appendices in the print version of the journal. Supplementary materials 
+typically should be provided as online Supporting Information (see below for further 
+information). 
+Section headings and order of sections 
+Contributed Papers, Research Notes, and Conservation Methods papers should contain 
+the following sections in the following order: Abstract, Introduction, Methods, Results, 
+Discussion, Supporting Information (paragraph describing online appendices if there are 
+any), Literature Cited, tables, figure-legend page, and figures with legends. Do not 
+combine sections (e.g., Results and Discussion). The Acknowledgments section will be 
+added to the body of the paper after the manuscript has been accepted. Do not number 
+section headings or subheadings. Do not include a Conclusion section (conclusions are 
+part of the Discussion). 
+
+Title 
+Most people will decide whether to read a paper solely on the basis of its title. Indexing and 
+abstracting services and internet search engines also depend heavily on words in the title. And, 
+researchers search for particular topics and then read the titles. If your title does not reflect the 
+contents of your paper well or if the meaning of your title is not immediately clear, your paper 
+will not be read. Titles should be clear and concise. Do NOT use 1. hanging titles (those with a 
+colon, dash, or sometimes a comma), 2. titles that are complete sentences, 3. headline-like titles, 
+4. interrogative titles, 5. titles that reference colloquialisms or popular culture, or 6. titles that 
+contain jargon that will not be understood by our international and interdisciplinary conservation 
+audience. 
+The problem with titles that are complete sentences is that they tend to create dogma (e.g., Wind 
+Energy Development Does Not Affect Nesting Ecology of a Grassland Bird). Scientific 
+knowledge is constantly evolving; thus, what is considered true currently may be questioned and 
+proven inaccurate in the future. It does not follow that because science is evolving interrogative 
+titles are thus a good idea. Interrogatives make poor titles because they are vague, disguise the 
+answer to the question, and do not provide particular motivation to read the article. Hanging 
+titles are overused and can almost always be shortened to a title that is more effective and eye 
+catching without being sensational. There is evidence that articles with short titles are cited more 
+often than articles with long titles. 
+Abstract 
+At the top of the abstract page provide the title of the paper. The Abstract should summarize the 
+Introduction, Methods, Results, and Discussion in that order (i.e., it should be a miniversion of 
+the paper). Key points from each of these sections should be identifiable within the Abstract. Do 
+not include incomplete or uninformative descriptions (e.g., "A new method of analysis is 
+described." or “We discuss how our approach promotes sustainable management of forest 
+systems.”). Do not state conclusions that are not supported by evidence reported in the abstract. 
+Keywords 
+Include on the cover page 5-8 words or phrases that will be useful for indexing and literature 
+searches. Do not use words in the title as keywords, and avoid general terms such as 
+conservation. 
+Article impact statement 
+In ≤140 characters (including spaces and punctuation), convey the paper’s practical or policy 
+importance. The statement may be a report of the primary result or theme if the practical or 
+policy importance of the result is obvious. It should not be a reiterated or lengthened title or 
+describe what is presented (e.g., “A method to x is presented.”). It should not contain personal 
+pronouns or statements resembling “X was examined.” 
+Statement on human or animal subjects 
+When reporting on studies that involve human participants or animal subjects, supply a statement 
+in methods that specifies the ethical guidelines with which you complied. Include permit 
+numbers, if applicable. 
+
+Acknowledgments 
+Place the acknowledgment paragraph on the cover page of your manuscript. (Reviewers 
+are not provided with a cover page.) Do not spell out first (given) names. Provide the first 
+initial of the first name, even if the initial starts a sentence. Do not use titles (e.g., Dr. or 
+Professor). Refer to authors of the manuscript by their initials only (e.g., “S.T.W. was 
+supported by a grant from the Torrey Foundation.”). 
+Footnotes 
+Do not use footnotes in the body of the manuscript. 
+
+#### Citations
+
+Do not cite work or data that have not been published or are not available. Include such work or 
+data as online Supporting Information and cite it as such in the text. If the data are available in a 
+publically accessible database, you may cite that database. Include databases in Literature Cited. 
+In-text citations 
+In the body of the paper, order citations from oldest to newest and use author-year format. 
+In most cases, enclose citations in text in parentheses. “Populations in sagebrush have higher 
+reproductive success than populations in cheatgrass (Byrd & Elder 2000).” is better than 
+“According to Byrd and Elder (2000), populations in sagebrush . . . .” 
+Use an ampersand (&) between author surnames when the citation is parenthetical: (Bird & 
+Sanchez 2010). 
+When a citation is not parenthetical, use and: “Our results are consistent with the predictions of 
+Wolf and Rhymer (2011).” 
+For citations with more than two authors, use et al.: (Hatchwell et al. 1996). Do not italicize et al. 
+List parenthetical citations chronologically (from oldest to most recent) and separate entries with 
+a semicolon: (Zorenstein et al. 1991; Waddell & Fretwell 2001). 
+Separate the years with commas when citing multiple papers by the same author: (Cox et al. 
+1991, 1992; Chapman 2001). 
+“In press” means the cited paper has been accepted officially for publication. Provide the year of 
+publication in the text (Bird 2015), and in Literature Cited provide the volume number and 
+substitute “in press” for page numbers or DOI (Byrd IM. 2015. Effects of desertification on birds 
+in the southwestern United States. Conservation Biology 29: in press.). 
+Cite databases in text with an author-year format. 
+Software: capitalize the first letter only if the name of the program is a word (e.g., Partition, 
+ArcInfo). If the name of the program is not a word, use all capital letters (e.g., SAS). 
+Do not use trademark symbols. 
+
+Ensure that all references cited in text are listed in Literature Cited and vice versa. 
+Do not use “in. lit.” citations. Provide the original citations. 
+Unpublished information 
+To further transparency and reproducibility, avoid citations of unpublished data and phrases such 
+as data not shown. Provide data in online Supporting Information (cite as Supporting 
+Information in text) or in a publically accessible database (cite in text and in Literature Cited). 
+Literature Cited section 
+Provide the full names of all journal titles. Do not italicize titles. 
+If there are more than 10 authors, use et al. (Howard G, et al.) instead of listing the names of all 
+authors. 
+Personal communications should not be included in Literature Cited. 
+Proceedings and abstracts from conferences may be cited only if they have a publisher and the 
+location of the publisher (or the organization from which the document may be obtained) can be 
+provided. The location of the meeting is rarely the location of the sponsoring organization. 
+Example Citations 
+Journal articles: 
+Christensen ND, Eu J, Hebbble W. 2003. Changing ecology of cranberry bogs. Ecology 
+59:1147–1167, 1178–1187. 
+Reed, FM. 2001. Title of paper. Journal 13(supplement 1):172–180. 
+Online journal articles: 
+Hunstanton V. 2008. Effects of deep-sea injection of carbon dioxide. PLOS Biology 
+DOI: 10.1371/journal.pbio.1001222. 
+Fernandez-Gimenez M, Ballard H, Sturtevant V. 2008. Adaptive management in 
+community-based monitoring. Ecology and Society 13 DOI: 10.5757/ES-10034-230409. 
+No access dates are needed for citations of online journals. 
+Edited books: 
+Cran B, Boy C, Shi L. 1911. Native forest birds of Guam. Pages 4–8 in Wu T, Lee L, 
+editors. Flora and fauna of Guam. 2 nd edition. Tell Books, Sydney. 
+Reports: 
+Barnes J, Craig S. 2003. Conservation status of riparian areas in southeastern Oregon. 
+General technical report N-24. U.S. Fish and Wildlife Service, Portland, Oregon. 
+
+Internet sources other than journals: 
+Include the name of the organization hosting the website, the city in which they are 
+located, and access date (month year). 
+Carne A. 2003. Ranges of endangered Colombian birds. BirdLife International, 
+Cambridge. Available from http:www.BLI.org/pub2/birdranges (accessed March 2014). 
+Datab

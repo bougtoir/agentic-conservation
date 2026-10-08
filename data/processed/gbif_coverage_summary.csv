@@ -1,0 +1,4 @@
+species,scientific_name,gbif_taxon_key,gbif_query_total,records_2000_2025,records_2015_2025,years_with_records,first_record_year,last_record_year
+Przewalski's horse,"Equus ferus przewalskii Poliakov, 1881",5787170,785,700,663,23,2002,2026
+Scimitar-horned oryx,"Oryx dammah (Cretzschmar, 1827)",5220165,227,133,125,25,1899,2026
+California condor,"Gymnogyps californianus (Shaw, 1797)",2481920,33646,31951,25910,116,1805,2026

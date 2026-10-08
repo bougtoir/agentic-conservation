@@ -1,0 +1,97 @@
+{
+  "s3_failure": {
+    "base_directional_change": {},
+    "stable_excellent_origin": {
+      "scenario": "stationary",
+      "origin_quality_override": 0.95,
+      "habitat_deterioration": 0.0,
+      "climate_velocity": 0.0,
+      "catastrophe_probability": 0.0
+    },
+    "zero_relocation_mortality": {
+      "relocation_mortality": 0.0
+    },
+    "zero_relocation_stress": {
+      "relocation_stress": 0.0
+    },
+    "no_movement_disease": {
+      "movement_disease_risk": 0.0
+    },
+    "restored_origin": {
+      "scenario": "restoration",
+      "origin_quality_override": 0.45,
+      "habitat_deterioration": 0.02,
+      "catastrophe_probability": 0.0,
+      "s3_refuge_trigger": 0.60,
+      "s3_return_threshold": 0.58
+    },
+    "zero_release_penalty": {
+      "release_survival_penalty": 0.0
+    },
+    "adequate_budget": {
+      "initial_budget": 220.0
+    },
+    "earlier_return": {
+      "s3_return_delay": 0,
+      "s3_refuge_trigger": 0.55,
+      "s3_return_threshold": 0.58
+    }
+  },
+  "s0_controls": {
+    "base_directional_change": {},
+    "stationary_environment": {
+      "scenario": "stationary",
+      "habitat_deterioration": 0.0,
+      "climate_velocity": 0.0
+    },
+    "stable_excellent_origin": {
+      "scenario": "stationary",
+      "origin_quality_override": 0.95,
+      "habitat_deterioration": 0.0,
+      "climate_velocity": 0.0,
+      "catastrophe_probability": 0.0
+    },
+    "no_catastrophes": {
+      "catastrophe_probability": 0.0
+    },
+    "no_anthropogenic_pressure": {
+      "anthropogenic_pressure_multiplier": 0.0
+    },
+    "lower_background_mortality": {
+      "mortality_multiplier": 0.75
+    },
+    "benign_combined": {
+      "scenario": "stationary",
+      "origin_quality_override": 0.95,
+      "habitat_deterioration": 0.0,
+      "climate_velocity": 0.0,
+      "catastrophe_probability": 0.0,
+      "funding_collapse_probability": 0.0,
+      "anthropogenic_pressure_multiplier": 0.0,
+      "predation_multiplier": 0.5,
+      "mortality_multiplier": 0.75
+    }
+  },
+  "population_cap": {
+    "quick_replications": 4,
+    "full_replications": 24,
+    "caps": [1200, 2400],
+    "policies": ["S6", "S7"]
+  },
+  "budget_robustness": {
+    "quick_replications": 3,
+    "full_replications": 12,
+    "quick_candidates": 5,
+    "full_candidates": 12,
+    "training_replications": 3,
+    "holdout_replications": 8,
+    "dirichlet_concentration": 30.0,
+    "diagnostic_utility_weights": {
+      "survival_100": 0.40,
+      "species_retained_100": 0.25,
+      "mean_individual_welfare": 0.15,
+      "future_option_value": 0.10,
+      "ebd_avoidance": 0.10
+    }
+  }
+}

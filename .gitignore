@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.venv/
+
+# Full-text and publisher-page snapshots are retained locally for audit only;
+# redistribution rights were not established.
+data/raw/**/literature_fulltext_audit/*.pdf
+data/raw/**/literature_fulltext_audit/*.html
+data/raw/**/literature_finishing_audit/*.pdf
+data/raw/**/literature_finishing_audit/*.html
+data/processed/condor_junk_fulltext.txt
+data/raw/**/journal_style_guide/*.pdf
+data/raw/**/journal_style_guide/*.html

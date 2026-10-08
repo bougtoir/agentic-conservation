@@ -1,0 +1,24 @@
+{
+  "retrieved_utc": "2026-09-25T04:23:08Z",
+  "access_notes": "Public journal and publisher-policy pages; retained for submission-day requirements verification. No redistribution restriction was asserted by the pages, but snapshots are preserved as provenance rather than republished as project content.",
+  "files": [
+    {
+      "url": "https://conbio.onlinelibrary.wiley.com/hub/journal/15231739/homepage/forauthors.html",
+      "identifier_or_version": "live Conservation Biology Instructions for Authors",
+      "retrieval_condition": "Extracted through the authenticated web-fetch tool after direct curl returned HTTP 403",
+      "local_path": "data/raw/20260925T042308Z/journal_requirements/web_extracted_official_pages.txt",
+      "size_bytes": 20335,
+      "sha256": "1cf0fc61da4c5f7ee820229ac6b838d4ff8952649de1c45a5469bd584adb1a09",
+      "completeness": "Text extraction includes the current journal instructions and the fetched Wiley ethics page; no claim of byte-identical HTML completeness"
+    },
+    {
+      "url": "https://authorservices.wiley.com/ethics-guidelines/index.html",
+      "identifier_or_version": "live Wiley Best Practice Guidelines on Research Integrity and Publishing Ethics",
+      "retrieval_condition": "Direct public HTTPS download",
+      "local_path": "data/raw/20260925T042308Z/journal_requirements/wiley_ethics_guidelines.html",
+      "size_bytes": 87411,
+      "sha256": "7c9e31c2f33448faa6d8604bb80b10c510e5231a5cda4a6b07df81410e072524",
+      "completeness": "Complete HTTP response body retained"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "information_utility_weights": {
+    "survival_100": 0.35,
+    "future_option_value": 0.20,
+    "habitat_integrity": 0.15,
+    "ebd_avoidance": 0.15,
+    "mean_individual_welfare": 0.15
+  },
+  "information_weight_scenarios": {
+    "registered": {
+      "survival_100": 0.35,
+      "future_option_value": 0.20,
+      "habitat_integrity": 0.15,
+      "ebd_avoidance": 0.15,
+      "mean_individual_welfare": 0.15
+    },
+    "equal_components": {
+      "survival_100": 0.20,
+      "future_option_value": 0.20,
+      "habitat_integrity": 0.20,
+      "ebd_avoidance": 0.20,
+      "mean_individual_welfare": 0.20
+    },
+    "persistence_priority": {
+      "survival_100": 0.60,
+      "future_option_value": 0.10,
+      "habitat_integrity": 0.10,
+      "ebd_avoidance": 0.10,
+      "mean_individual_welfare": 0.10
+    },
+    "welfare_priority": {
+      "survival_100": 0.10,
+      "future_option_value": 0.10,
+      "habitat_integrity": 0.10,
+      "ebd_avoidance": 0.10,
+      "mean_individual_welfare": 0.60
+    },
+    "future_option_priority": {
+      "survival_100": 0.10,
+      "future_option_value": 0.60,
+      "habitat_integrity": 0.10,
+      "ebd_avoidance": 0.10,
+      "mean_individual_welfare": 0.10
+    },
+    "ebd_priority": {
+      "survival_100": 0.10,
+      "future_option_value": 0.10,
+      "habitat_integrity": 0.10,
+      "ebd_avoidance": 0.60,
+      "mean_individual_welfare": 0.10
+    }
+  },
+  "quick": {
+    "pilot_replications": 8,
+    "policy_replications": 12,
+    "sensitivity_designs": 24,
+    "sensitivity_replicates": 2,
+    "sweep_grid_points": 3,
+    "sweep_replicates": 3,
+    "named_design_replicates": 2
+  },
+  "full": {
+    "pilot_replications": 32,
+    "policy_replications": 192,
+    "sensitivity_designs": 128,
+    "sensitivity_replicates": 4,
+    "sweep_grid_points": 5,
+    "sweep_replicates": 8,
+    "named_design_replicates": 12
+  }
+}

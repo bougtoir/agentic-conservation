@@ -1,0 +1,70 @@
+{
+  "created_utc": "2026-09-25T00:20:00Z",
+  "files": [
+    {
+      "source_id": "conservation-biology-for-authors",
+      "source": "Conservation Biology Instructions for Authors",
+      "url": "https://conbio.onlinelibrary.wiley.com/hub/journal/15231739/homepage/forauthors.html",
+      "identifier_version": "live author-guidelines page",
+      "accessed_utc": "2026-09-25T00:15:00Z",
+      "retrieval_condition": "Public page fetched through the Devin web extractor because direct HTTP GET returned 403; the saved text snapshot also contains the other official pages fetched in the same request",
+      "local_path": "data/raw/20260925T002000Z/journal_requirements/web_extracted_official_pages.txt",
+      "file_size": 45706,
+      "sha256": "dfd35a560e169900647459ebbf847b54374402a5c75bf12b74c5c6a0d30f3aa9",
+      "license": "Official publisher instructions; retained for research-submission audit and not redistributed as an independent publication",
+      "completeness": "machine-extracted page text; navigation and page text are present, but this is not the original HTML response"
+    },
+    {
+      "source_id": "scb-conservation-biology-scope",
+      "source": "Society for Conservation Biology journal page",
+      "url": "https://conbio.org/publications/conservation-biology",
+      "identifier_version": "live journal-scope page",
+      "accessed_utc": "2026-09-25T00:15:00Z",
+      "retrieval_condition": "HTTP GET; public page; no authentication",
+      "local_path": "data/raw/20260925T002000Z/journal_requirements/scb_conservation_biology_scope.html",
+      "file_size": 29084,
+      "sha256": "05dbc7e31670cb6dbd92b69e2f3c68c83e1cde4957ada3da2a95798b5217f50c",
+      "license": "Official Society for Conservation Biology page; retained for submission audit",
+      "completeness": "complete HTTP response"
+    },
+    {
+      "source_id": "conservation-biology-style-guide-2019",
+      "source": "Conservation Biology Style Guide for Authors",
+      "url": "https://conbio.onlinelibrary.wiley.com/pb-assets/assets/15231739/Author%20Style%20Guide%20feb2019-1551741575403.pdf",
+      "identifier_version": "February 2019 PDF",
+      "accessed_utc": "2026-09-25T00:15:00Z",
+      "retrieval_condition": "HTTP GET; public PDF; no authentication",
+      "local_path": "data/raw/20260925T002000Z/journal_requirements/conservation_biology_style_guide_2019.pdf",
+      "file_size": 188203,
+      "sha256": "21a1326b4c71a942332d63a5adff1baf1017659d5260a4995c1c69ed16cb553c",
+      "license": "Official publisher style guide; retained for submission audit",
+      "completeness": "complete PDF response"
+    },
+    {
+      "source_id": "wiley-ethics-ai-guidance",
+      "source": "Wiley Best Practice Guidelines on Research Integrity and Publishing Ethics",
+      "url": "https://authors.wiley.com/ethics-guidelines/index.html",
+      "identifier_version": "live ethics-guidelines page",
+      "accessed_utc": "2026-09-25T00:15:00Z",
+      "retrieval_condition": "HTTP GET; public page; no authentication",
+      "local_path": "data/raw/20260925T002000Z/journal_requirements/wiley_ethics_guidelines.html",
+      "file_size": 87411,
+      "sha256": "7c9e31c2f33448faa6d8604bb80b10c510e5231a5cda4a6b07df81410e072524",
+      "license": "Official publisher guidance; retained for research-integrity audit",
+      "completeness": "complete HTTP response"
+    },
+    {
+      "source_id": "wiley-ai-faq",
+      "source": "Wiley AI in Research Publishing FAQ",
+      "url": "https://www.wiley.com/en-us/publish/ai-insights/research-publishing-faq/",
+      "identifier_version": "live AI FAQ page",
+      "accessed_utc": "2026-09-25T00:15:00Z",
+      "retrieval_condition": "HTTP GET; public page; no authentication",
+      "local_path": "data/raw/20260925T002000Z/journal_requirements/wiley_ai_faq.html",
+      "file_size": 469579,
+      "sha256": "5cff81aa094298a86dbe64d60e55faaa73881f62205263098cfb4f71b918a70c",
+      "license": "Official publisher guidance; retained for research-integrity audit",
+      "completeness": "complete HTTP response"
+    }
+  ]
+}

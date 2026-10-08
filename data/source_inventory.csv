@@ -1,0 +1,4 @@
+source_id,species,data_type,analysis_use,not_used_as,selected,selection_reason
+gbif-occurrence-przewalski_horse,Przewalski's horse,georeferenced occurrence year-facet metadata,observation-coverage and reproducibility screen,"abundance, demographic trend, or intervention effect",yes,substantial conservation-management history and openly reproducible occurrence metadata
+gbif-occurrence-scimitar_horned_oryx,Scimitar-horned oryx,georeferenced occurrence year-facet metadata,observation-coverage and reproducibility screen,"abundance, demographic trend, or intervention effect",yes,substantial conservation-management history and openly reproducible occurrence metadata
+gbif-occurrence-california_condor,California condor,georeferenced occurrence year-facet metadata,observation-coverage and reproducibility screen,"abundance, demographic trend, or intervention effect",yes,substantial conservation-management history and openly reproducible occurrence metadata
