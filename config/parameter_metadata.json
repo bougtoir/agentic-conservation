@@ -1,0 +1,432 @@
+{
+  "years": {
+    "range_or_distribution": "100; audited at shorter horizons in quick tests",
+    "unit": "years",
+    "status": "C",
+    "source_or_rationale": "Illustrative century-scale decision horizon.",
+    "doi_or_source": "none; synthetic design choice",
+    "sensitivity_included": "no",
+    "manuscript_location": "Methods: model design",
+    "action": "Label as synthetic horizon; do not treat as forecast period."
+  },
+  "initial_budget": {
+    "range_or_distribution": "30-220",
+    "unit": "abstract budget units per year",
+    "status": "C",
+    "source_or_rationale": "Dimensionless resource constraint used for policy contrasts.",
+    "doi_or_source": "none; synthetic design choice",
+    "sensitivity_included": "yes; Latin hypercube",
+    "manuscript_location": "Methods: finite resources",
+    "action": "Retain only as a normalized resource index."
+  },
+  "max_individuals": {
+    "range_or_distribution": "1200; audited at 2400",
+    "unit": "individuals",
+    "status": "C",
+    "source_or_rationale": "Synthetic computational population cap.",
+    "doi_or_source": "none; implementation convenience",
+    "sensitivity_included": "twofold population-cap audit",
+    "manuscript_location": "Reproducibility repository: computation",
+    "action": "Base conclusions on endpoint robustness, not capped abundance."
+  },
+  "observation_noise": {
+    "range_or_distribution": "lognormal sigma 0-0.18; perfect-observation ablation at 0",
+    "unit": "log-scale standard deviation",
+    "status": "C",
+    "source_or_rationale": "Illustrative abundance-observation uncertainty.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "ablation",
+    "manuscript_location": "Methods: partial observability",
+    "action": "Describe as synthetic and report perfect-observation contrast."
+  },
+  "quality_observation_noise": {
+    "range_or_distribution": "normal sigma 0-0.10, clipped to [0,1]",
+    "unit": "quality-index standard deviation",
+    "status": "C",
+    "source_or_rationale": "Illustrative habitat-quality measurement error.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "ablation",
+    "manuscript_location": "Methods: partial observability",
+    "action": "Describe as synthetic and test leakage."
+  },
+  "observation_delay": {
+    "range_or_distribution": "0-1",
+    "unit": "years",
+    "status": "C",
+    "source_or_rationale": "One-step reporting delay.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "perfect-observation ablation",
+    "manuscript_location": "Methods: partial observability",
+    "action": "Report delay explicitly."
+  },
+  "background_detection_probability": {
+    "range_or_distribution": "0-0.005 per year before survey effects",
+    "unit": "probability per latent species-year",
+    "status": "C",
+    "source_or_rationale": "Synthetic incidental detection floor.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "EBD boundary audit",
+    "manuscript_location": "Methods: discovery",
+    "action": "Separate incidental detection from funded survey effects."
+  },
+  "climate_velocity": {
+    "range_or_distribution": "0-0.05",
+    "unit": "quality-index displacement per year",
+    "status": "C",
+    "source_or_rationale": "Synthetic directional environmental-change gradient.",
+    "doi_or_source": "none; not calibrated to geographic climate velocity",
+    "sensitivity_included": "yes; Latin hypercube and sweep",
+    "manuscript_location": "Methods: environmental change",
+    "action": "Avoid physical climate-velocity interpretation."
+  },
+  "habitat_deterioration": {
+    "range_or_distribution": "0-0.025",
+    "unit": "quality-index loss per year",
+    "status": "C",
+    "source_or_rationale": "Synthetic habitat-quality trajectory.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "yes; Latin hypercube and sweep",
+    "manuscript_location": "Methods: environmental change",
+    "action": "Base conclusions on reversal regions, not the point value."
+  },
+  "relocation_mortality": {
+    "range_or_distribution": "0-0.20",
+    "unit": "probability per moved individual",
+    "status": "C",
+    "source_or_rationale": "Synthetic immediate movement-associated mortality.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "yes; Latin hypercube and sweep",
+    "manuscript_location": "Methods: movement",
+    "action": "Keep individual-specific implementation and label synthetic."
+  },
+  "relocation_stress": {
+    "range_or_distribution": "0-0.55",
+    "unit": "health-index decrement scale",
+    "status": "C",
+    "source_or_rationale": "Synthetic relocation burden moderated by stress tolerance.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "yes; Latin hypercube and sweep",
+    "manuscript_location": "Methods: movement and welfare",
+    "action": "Report alternative high-harm conditions."
+  },
+  "movement_disease_risk": {
+    "range_or_distribution": "0-0.40",
+    "unit": "infection probability per moved susceptible individual",
+    "status": "C",
+    "source_or_rationale": "Synthetic transit-associated infection risk.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "yes; Latin hypercube",
+    "manuscript_location": "Methods: disease",
+    "action": "Do not describe as empirically calibrated."
+  },
+  "s3_refuge_trigger": {
+    "range_or_distribution": "0.48; scenario-specific alternatives",
+    "unit": "observed origin suitability-quality index",
+    "status": "C",
+    "source_or_rationale": "Operational threshold defining when return-to-origin enters refuge mode.",
+    "doi_or_source": "none; policy-archetype definition",
+    "sensitivity_included": "S3 failure decomposition",
+    "manuscript_location": "Methods: S3 policy",
+    "action": "Label as an archetype threshold."
+  },
+  "s3_return_threshold": {
+    "range_or_distribution": "0.62; scenario-specific alternatives",
+    "unit": "observed origin suitability-quality index",
+    "status": "C",
+    "source_or_rationale": "Operational threshold for return after refuge.",
+    "doi_or_source": "none; policy-archetype definition",
+    "sensitivity_included": "S3 failure decomposition",
+    "manuscript_location": "Methods: S3 policy",
+    "action": "Label as an archetype threshold."
+  },
+  "s3_return_delay": {
+    "range_or_distribution": "0-5",
+    "unit": "years",
+    "status": "C",
+    "source_or_rationale": "Minimum delay before return is considered.",
+    "doi_or_source": "none; policy-archetype definition",
+    "sensitivity_included": "S3 failure decomposition",
+    "manuscript_location": "Methods: S3 policy",
+    "action": "Report timing sensitivity."
+  },
+  "captivity_welfare_penalty": {
+    "range_or_distribution": "0-0.50",
+    "unit": "welfare-index decrement scale",
+    "status": "C",
+    "source_or_rationale": "Synthetic restriction burden moderated by stress tolerance.",
+    "doi_or_source": "none; synthetic normative coding",
+    "sensitivity_included": "yes; Latin hypercube and sweep",
+    "manuscript_location": "Methods: welfare",
+    "action": "Test alternative welfare definitions and avoid calibration language."
+  },
+  "ex_situ_breeding_benefit": {
+    "range_or_distribution": "0-0.55",
+    "unit": "fertility multiplier increment",
+    "status": "C",
+    "source_or_rationale": "Synthetic managed-breeding benefit.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "yes; Latin hypercube and sweep",
+    "manuscript_location": "Methods: reproduction",
+    "action": "Report zero-benefit adverse condition."
+  },
+  "release_survival_penalty": {
+    "range_or_distribution": "0-0.30",
+    "unit": "probability per released individual",
+    "status": "C",
+    "source_or_rationale": "Synthetic immediate release-associated mortality.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "yes; Latin hypercube and S3 audit",
+    "manuscript_location": "Methods: movement",
+    "action": "Keep release-specific implementation."
+  },
+  "survey_cost": {
+    "range_or_distribution": "0.5-60",
+    "unit": "budget units per survey scale",
+    "status": "C",
+    "source_or_rationale": "Synthetic trade-off between survey effort and other actions.",
+    "doi_or_source": "none; normalized cost",
+    "sensitivity_included": "yes; Latin hypercube and sweep",
+    "manuscript_location": "Methods: discovery",
+    "action": "Interpret only relative to normalized budget."
+  },
+  "engagement_coefficient": {
+    "range_or_distribution": "-0.15 to 0.25",
+    "unit": "budget-feedback coefficient",
+    "status": "C",
+    "source_or_rationale": "Hypothetical positive, null, or negative public-engagement feedback.",
+    "doi_or_source": "none; exploratory hypothesis",
+    "sensitivity_included": "yes; Latin hypercube, sweep, ablation, adverse condition",
+    "manuscript_location": "Methods: engagement",
+    "action": "Remove causal educational claims and retain as exploratory."
+  },
+  "habitat_protection_efficiency": {
+    "range_or_distribution": "0.005-0.08",
+    "unit": "quality-index gain per normalized investment",
+    "status": "C",
+    "source_or_rationale": "Synthetic habitat-investment response.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "yes; Latin hypercube and sweep",
+    "manuscript_location": "Methods: habitat investment",
+    "action": "Report efficient-restoration adverse condition."
+  },
+  "biobank_future_value": {
+    "range_or_distribution": "0-0.05",
+    "unit": "future-option index per covered species",
+    "status": "C",
+    "source_or_rationale": "Exploratory option-value increment; no resurrection mechanism.",
+    "doi_or_source": "none; synthetic exploratory index",
+    "sensitivity_included": "feature-off ablation",
+    "manuscript_location": "Methods: biobank",
+    "action": "Keep in exploratory interpretation."
+  },
+  "catastrophe_probability": {
+    "range_or_distribution": "0-0.035 annually",
+    "unit": "probability per year",
+    "status": "C",
+    "source_or_rationale": "Synthetic environmental shock frequency.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "S0 and adverse-condition controls",
+    "manuscript_location": "Methods: stochastic environment",
+    "action": "Do not map to a specific disturbance regime."
+  },
+  "funding_collapse_probability": {
+    "range_or_distribution": "0-0.015 annually",
+    "unit": "probability per year",
+    "status": "C",
+    "source_or_rationale": "Synthetic resource-shock frequency.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "benign controls",
+    "manuscript_location": "Methods: finite resources",
+    "action": "Label as synthetic."
+  },
+  "origin_fidelity": {
+    "range_or_distribution": "0-0.20",
+    "unit": "node-choice score increment",
+    "status": "C",
+    "source_or_rationale": "Normative preference for historical origin.",
+    "doi_or_source": "none; normative policy weight",
+    "sensitivity_included": "feature-off ablation",
+    "manuscript_location": "Methods: origin fidelity",
+    "action": "Never present as an empirical ecological coefficient."
+  },
+  "mortality_multiplier": {
+    "range_or_distribution": "0.75-1 in S0 controls",
+    "unit": "multiplier",
+    "status": "C",
+    "source_or_rationale": "Diagnostic control for benign demography.",
+    "doi_or_source": "none; audit control",
+    "sensitivity_included": "S0 audit",
+    "manuscript_location": "Reproducibility repository: S0 audit",
+    "action": "Use only for structural diagnostics."
+  },
+  "anthropogenic_pressure_multiplier": {
+    "range_or_distribution": "0-1",
+    "unit": "multiplier",
+    "status": "C",
+    "source_or_rationale": "Diagnostic control for anthropogenic pressure.",
+    "doi_or_source": "none; audit control",
+    "sensitivity_included": "S0 audit",
+    "manuscript_location": "Reproducibility repository: S0 audit",
+    "action": "Use only for structural diagnostics."
+  },
+  "predation_multiplier": {
+    "range_or_distribution": "0.5-1 in S0 controls",
+    "unit": "multiplier",
+    "status": "C",
+    "source_or_rationale": "Diagnostic control for wild predation burden.",
+    "doi_or_source": "none; audit control",
+    "sensitivity_included": "S0 audit",
+    "manuscript_location": "Reproducibility repository: S0 audit",
+    "action": "Use only for structural diagnostics."
+  },
+  "quarantine_effectiveness": {
+    "range_or_distribution": "0-1",
+    "unit": "fraction of movement infection risk prevented",
+    "status": "C",
+    "source_or_rationale": "Synthetic quarantine effectiveness.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "disease feature audit",
+    "manuscript_location": "Reproducibility repository: disease module",
+    "action": "Do not interpret as a measured quarantine effect."
+  },
+  "quarantine_cost_per_move": {
+    "range_or_distribution": "0-1",
+    "unit": "budget units per moved individual",
+    "status": "C",
+    "source_or_rationale": "Synthetic resource accounting within rescue spending.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "disease feature audit",
+    "manuscript_location": "Reproducibility repository: disease module",
+    "action": "Report as relative cost, not currency."
+  },
+  "infection_fertility_penalty": {
+    "range_or_distribution": "0-0.6",
+    "unit": "proportional fertility reduction",
+    "status": "C",
+    "source_or_rationale": "Synthetic disease-demography coupling.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "disease feature audit",
+    "manuscript_location": "Reproducibility repository: disease module",
+    "action": "Retain as illustrative."
+  },
+  "wild_predation_welfare_weight": {
+    "range_or_distribution": "0-0.25",
+    "unit": "welfare decrement per predation-risk unit",
+    "status": "C",
+    "source_or_rationale": "Synthetic wild-hazard welfare burden.",
+    "doi_or_source": "none; normative synthetic weight",
+    "sensitivity_included": "alternative welfare definitions",
+    "manuscript_location": "Reproducibility repository: welfare module",
+    "action": "Report welfare rankings across alternative weights."
+  },
+  "food_insecurity_welfare_weight": {
+    "range_or_distribution": "0-0.35",
+    "unit": "welfare decrement per habitat shortfall",
+    "status": "C",
+    "source_or_rationale": "Synthetic food and habitat insecurity burden.",
+    "doi_or_source": "none; normative synthetic weight",
+    "sensitivity_included": "alternative welfare definitions",
+    "manuscript_location": "Reproducibility repository: welfare module",
+    "action": "Report welfare rankings across alternative weights."
+  },
+  "managed_crowding_welfare_weight": {
+    "range_or_distribution": "0-0.3",
+    "unit": "welfare decrement per occupancy ratio",
+    "status": "C",
+    "source_or_rationale": "Synthetic managed crowding burden.",
+    "doi_or_source": "none; normative synthetic weight",
+    "sensitivity_included": "alternative welfare definitions",
+    "manuscript_location": "Reproducibility repository: welfare module",
+    "action": "Report welfare rankings across alternative weights."
+  },
+  "managed_restriction_welfare_weight": {
+    "range_or_distribution": "0-0.3",
+    "unit": "welfare decrement per migration-need unit",
+    "status": "C",
+    "source_or_rationale": "Synthetic behavioral-restriction burden.",
+    "doi_or_source": "none; normative synthetic weight",
+    "sensitivity_included": "alternative welfare definitions",
+    "manuscript_location": "Reproducibility repository: welfare module",
+    "action": "Report welfare rankings across alternative weights."
+  },
+  "infection_welfare_weight": {
+    "range_or_distribution": "0-0.3",
+    "unit": "welfare decrement while infected",
+    "status": "C",
+    "source_or_rationale": "Synthetic disease welfare burden.",
+    "doi_or_source": "none; normative synthetic weight",
+    "sensitivity_included": "alternative welfare definitions",
+    "manuscript_location": "Reproducibility repository: welfare module",
+    "action": "Report welfare rankings across alternative weights."
+  },
+  "habituation_welfare_weight": {
+    "range_or_distribution": "0-0.25",
+    "unit": "welfare decrement scale",
+    "status": "C",
+    "source_or_rationale": "Synthetic habituation-by-migration-need burden.",
+    "doi_or_source": "none; normative synthetic weight",
+    "sensitivity_included": "alternative welfare definitions",
+    "manuscript_location": "Reproducibility repository: welfare module",
+    "action": "Report welfare rankings across alternative weights."
+  },
+  "relocation_welfare_weight": {
+    "range_or_distribution": "0-0.3",
+    "unit": "welfare decrement per relocation-stress unit",
+    "status": "C",
+    "source_or_rationale": "Synthetic acute movement burden.",
+    "doi_or_source": "none; normative synthetic weight",
+    "sensitivity_included": "alternative welfare definitions",
+    "manuscript_location": "Reproducibility repository: welfare module",
+    "action": "Report welfare rankings across alternative weights."
+  },
+  "inbreeding_fertility_penalty": {
+    "range_or_distribution": "0-0.7",
+    "unit": "proportional fertility reduction",
+    "status": "C",
+    "source_or_rationale": "Synthetic inbreeding-depression mechanism.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "genetics feature audit",
+    "manuscript_location": "Reproducibility repository: genetics module",
+    "action": "Do not interpret as a taxon-specific estimate."
+  },
+  "inbreeding_mortality_penalty": {
+    "range_or_distribution": "0-0.2",
+    "unit": "annual mortality increment per inbreeding unit",
+    "status": "C",
+    "source_or_rationale": "Synthetic inbreeding-depression mechanism.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "genetics feature audit",
+    "manuscript_location": "Reproducibility repository: genetics module",
+    "action": "Do not interpret as a taxon-specific estimate."
+  },
+  "engagement_habitat_feedback": {
+    "range_or_distribution": "0-0.04",
+    "unit": "engagement change per habitat-index year",
+    "status": "C",
+    "source_or_rationale": "Synthetic non-exposure feedback.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "engagement feature audit",
+    "manuscript_location": "Reproducibility repository: engagement module",
+    "action": "Disable with engagement coefficient for the feature-off case."
+  },
+  "biobank_annual_decay": {
+    "range_or_distribution": "0-0.05",
+    "unit": "annual viability fraction lost",
+    "status": "C",
+    "source_or_rationale": "Synthetic storage viability decay.",
+    "doi_or_source": "none; synthetic assumption",
+    "sensitivity_included": "biobank feature audit",
+    "manuscript_location": "Reproducibility repository: biobank module",
+    "action": "Treat coverage as option value, not resurrection."
+  },
+  "scenario": {
+    "range_or_distribution": "stationary, slow deterioration, rapid deterioration, restoration, directional change, abrupt collapse",
+    "unit": "categorical",
+    "status": "C",
+    "source_or_rationale": "Synthetic environmental scenario family.",
+    "doi_or_source": "none; scenario design",
+    "sensitivity_included": "adverse conditions and S0/S3 audits",
+    "manuscript_location": "Methods: scenarios",
+    "action": "Frame conclusions as conditional on scenario families."
+  }
+}

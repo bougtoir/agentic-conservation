@@ -1,0 +1,16 @@
+Office document validation: PASS
+manuscript_sha256=c7919f0e6591c9f01c105f170046eaa53c351603e2d4efa8cb30b9689066883c
+editable_tables_sha256=4d17ffb001671241a5256dd5b766c651d7f66fde5681b534ab6ce0dc5a7cebd2
+figure_deck_sha256=4ad2248b40f34bc84fb843ca9c2bffa996370fa4228e9bee37ef0f22d302e46c
+manuscript_word_limit=7000
+manuscript_word_range=Abstract through Acknowledgments; display captions and table contents excluded
+manuscript_abstract_through_acknowledgments_words=3092
+abstract_words=216
+keywords=7
+impact_statement_characters=119
+main_figures=9
+main_tables=9
+supporting_information=none; all content integrated in main text
+cross_references=PASS
+anonymous_office_xml_scan=PASS
+zip_integrity=PASS
