@@ -1,18 +1,25 @@
-# Final Hostile Review — EM Manuscript Integration
+# FINAL_HOSTILE_REVIEW (post-merge, independent QC pass)
 
-Questions posed, answers, and corrections applied:
+As skeptical handling editor for Ecological Modelling:
 
-1. Is Psi a derivation or a fitted restatement? — Semi-analytical: channel structure derived from E1/E2 semantics; 4 constants fitted on dev only. Manuscript explicitly calls it "not a closed-form theorem". OK.
-2. Holdout untouched? — 56 cells disjoint from dev; seeds disjoint; formula frozen pre-holdout. OK.
-3. Shifted/OOD/hostile reported separately? — Cell groups recorded in holdout_metrics.csv; failure concentrations named in 3.7 (captivity/all-latent). Groups tabled in Supplement-level files, text reports counts.
-4. Is 0.846 conditioned on an outcome-defined subset? — Yes; stated verbatim in 3.7 with the all-cell 0.393 alongside. No conflation.
-5. Does 0.393 make it unsuitable as a decision rule? — Text frames it as a criterion for sign prediction, not a deployable decision rule; regret 0.045 reported with B0 0.084 comparator; abstention labelled post-hoc.
-6. Attribution vs confounding? — Manuscript states the S7–S6 contrast bundles reallocation + rule; "a positive Psi certifies the package, not circulation in isolation" (Discussion).
-7. Mechanism ladder causally interpretable? — Toggles are config interventions on the reduced model only; described as "load-bearing components", not causal claims about the field.
-8. Failure prominence? — Dedicated paragraph 2 in 3.7 with quantified near-boundary and hostile-cell failures.
-9. Bounded, not universal? — "model-specific, bounded condition — not a general ecological law" stated in Discussion.
-10. Falsifiable transferable-limited contribution? — Methods 2.8 + Results 3.7 state the pre-registration-style protocol (frozen formula, disjoint seeds, baselines) making the claim testable.
+1. Prior Conservation Biology criticisms re-checked:
+   (i) missing dynamics → Algorithms 1–2 + Eqs 1–3 + parameter tables in main
+       text; PASS. (ii) jargon → "oracle" eliminated; comparator defined; PASS.
+   (iii) weak empirical link → honestly reframed: GBIF = motivation, all
+       parameters declared synthetic class C; no real-world calibration
+       claimed; PASS. (iv) transferable message → falsifiable reversal map +
+       bounded criterion; PASS.
+2. Is the reduced criterion a fitted restatement? Semi-analytical with 4
+   dev-fitted constants — disclosed; formula frozen before holdout. Acceptable.
+3. Is 84.6% cherry-picked conditioning? Conditioning disclosed inline with
+   the 39.3% all-cell figure adjacent; failure region quantified. Acceptable.
+4. Bundled-contrast causality? Explicitly denied in text. Acceptable.
+5. Significance: is a synthetic-parameter IBM publishable at EM? The journal
+   publishes process-based models; novelty claim is bounded (falsifiable
+   decision maps + mechanistic reversal condition). This is an editorial
+   judgment, not a defect; manuscript does not oversell.
+6. Any residual tautology/leakage? None found (see REVERSAL_THEORY_AUDIT).
 
-Corrections applied while drafting: near-boundary accuracy quantified (0.174);
-post-hoc abstention explicitly labelled; B1 parameter named (climate_velocity) so
-the dev-fitted baseline is transparent rather than oracle-like.
+Remaining soft risks (editorial, not blocking): synthetic parameters invite
+"so what" pressure; EBD endpoint is model-defined; S7–S6 bundling limits
+causal reading of circulation — all disclosed.

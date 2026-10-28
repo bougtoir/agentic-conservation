@@ -105,16 +105,13 @@ def build_em_manuscript(root: Path) -> Path:
     # ---- Highlights
     _add_heading(document, "Highlights", 1)
     for hl in [
-        ( "A fully specified individual-based model couples wild habitat, managed "
-          "facilities, and a non-living biobank."),
-        ( "Fixed, interpretable decision rules are compared, not optimized policies; no "
-          "POMDP or MCMC machinery is used."),
-        ( "Habitat-first and circulation policies reverse across two-factor environmental "
-          "sweeps with no universal winner."),
-        ( "Species lost before becoming visible to managers ('extinction before discovery') "
-          "persist under most policies."),
-        ( "Perfect current-state information does not improve outcomes, because the binding "
-          "constraint is action capacity, not observation."),
+        ( "Individual-based model couples wild habitat, managed care, and a "
+          "biobank."),
+        ( "Fixed decision rules compared; no POMDP or MCMC machinery."),
+        ( "Habitat-first versus circulation ranking reverses across "
+          "environmental sweeps."),
+        ( "Latent species go extinct before discovery under most policies."),
+        ( "Perfect current-state information does not improve outcomes."),
     ]:
         paragraph = document.add_paragraph()
         paragraph.paragraph_format.left_indent = Pt(18)
@@ -147,8 +144,7 @@ def build_em_manuscript(root: Path) -> Path:
         "circulation policy (S7); robust sweep cells favoured S7 in "
         f"{s7adv} cells and S6 in {s7s6} cells, with {ind} "
         "indeterminate. Six of eight policies were non-dominated across "
-        "six objectives, so no weighting collapses the trade-off to a "
-        "single best policy. The paired perfect-information effect on "
+        "six objectives. The paired perfect-information effect on "
         "the prespecified utility index was "
         f"{info_effect.estimate:.3f} [{info_effect.lower:.3f}, "
         f"{info_effect.upper:.3f}], indistinguishable from zero. The "
@@ -168,7 +164,7 @@ def build_em_manuscript(root: Path) -> Path:
         document,
         "Keywords: individual-based model; ex situ conservation; "
         "reintroduction; decision analysis; stochastic simulation; "
-        "latent biodiversity; Monte Carlo",
+        "latent biodiversity",
     )
 
     # ---- 1 Introduction

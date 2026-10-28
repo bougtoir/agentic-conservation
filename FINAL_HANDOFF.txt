@@ -43,3 +43,15 @@ Integrated the verdict-B reversal criterion into EM_MANUSCRIPT.docx:
 - Audits: audits/REVERSAL_THEORY_INTEGRATION_EVIDENCE.md, FINAL_HOSTILE_REVIEW.md,
   FINAL_HARDCODE_AUDIT.md, FINAL_QC_REPORT.md
 - 43 tests pass, ruff clean, 4,118 words.
+
+=== FINAL PRE-SUBMISSION QC (post-#744+#749, branch devin/1793164552-em-final-qc) ===
+Fixed: orphan Figure1/Table-coverage placement, figure/table first-mention
+order (now 1-10 contiguous), missing in-text Fig. citations, highlight
+spacing+85-char limit, 6 keywords, 249-word abstract, citation-parser
+collision with taxonomic authorities. All 40 DOIs verified on Crossref.
+Public mirror manually synced (d2751ec). Audits: FINAL_JOURNAL_REQUIREMENTS,
+FINAL_MODEL_TRACEABILITY_AUDIT, FINAL_REVERSAL_THEORY_AUDIT,
+FINAL_PUBLIC_REPRODUCTION, FINAL_VISUAL_QC, audits/FINAL_*.
+VERDICT: B (CONDITIONAL GO) — human actions: Editorial Manager submission,
+title-page details, optional APC decision, update public mirror with QC-fixed
+package after merge.
