@@ -1,0 +1,45 @@
+FINAL HANDOFF — Conservation Reversal Theory (post-merge continuation)
+
+Baseline: PR #733 merged at df40a91fd3efd2d2cd6604c60fea4d83225a759f.
+Branch: devin/1793300000-reversal-theory. Sequential, one VM.
+
+VERDICT: B (LIMITED) per the frozen gates in THEORY_GO_NO_GO.md.
+  - A STRONG failed (all-cell sign acc 0.393 < 0.85; regret 0.045 > 0.03).
+  - B passed: determinate-cell sign accuracy 0.846 (>=0.70), beats all three
+    baselines, regret 0.045 (<=0.06), failure region characterized
+    (abstention absent; |Psi| < 0.2 unreliable; captivity/all-latent cells).
+
+DELIVERED:
+- Minimal model: src/agentic_conservation/minimal_model.py + tests (8 pass)
+- Derived condition Psi = habitat channel + circulation channel
+  (THEORY_DERIVATION.md, MINIMAL_MODEL_SPECIFICATION.md)
+- Factorial attribution: circulation drives S7-favored cells (+0.16/+0.30);
+  bundled allocation shift drives S6-favored cells (-0.54). S7-S6 is NOT a
+  pure circulation effect. (POLICY_ATTRIBUTION_AUDIT.md)
+- Holdout: 56 untouched cells, 1,344 IBM runs. (HOLDOUT_PROTOCOL_AND_RESULTS.md)
+- Mechanism ladder: latent cohort load-bearing; mate limit sets boundary.
+  (MECHANISM_LADDER_REPORT.md)
+- New IBM config keys: decision_rule_override, movement_disabled.
+- Docs: THEORY_GO_NO_GO.md, POLICY_ATTRIBUTION_AUDIT.md,
+  HOLDOUT_PROTOCOL_AND_RESULTS.md, MECHANISM_LADDER_REPORT.md,
+  FINAL_HOSTILE_REVIEW.md, FINAL_HARDCODE_AUDIT.md, FINAL_QC_REPORT.md.
+- Matrix updated: EQUATION_ALGORITHM_CODE_MATRIX.csv (+8 rows M1-M5 + stages).
+
+REPRODUCE: PYTHONPATH=src python3 scripts/run_reversal_theory.py all (~18 min).
+Tests: PYTHONPATH=src python3 -m pytest tests/ -q (43 tests).
+
+BLOCKERS/DEFERRED: JCR quartile still unverified (explicitly deferred).
+Manuscript integration (Phase 9) is permitted under verdict B as a bounded
+conditional claim but requires the user's approval to touch EM_MANUSCRIPT.
+No submission, merge, or release performed.
+
+=== REVERSAL THEORY INTEGRATION (post-#744) ===
+Integrated the verdict-B reversal criterion into EM_MANUSCRIPT.docx:
+- Methods 2.8 "Reduced reversal criterion and independent validation" (Psi = H + C, OMML equation)
+- Results 3.7 "Reversal criterion: predictive scope and failure regions" (Fig. 10, Table 9)
+- Discussion: bounded criterion paragraph (model-specific, not a general law; bundled-contrast caveat)
+- Abstract + cover letter updated to balanced success + limitation
+- Registry: results/reversal/manuscript_reversal_values.csv (canonical; stage_metrics)
+- Audits: audits/REVERSAL_THEORY_INTEGRATION_EVIDENCE.md, FINAL_HOSTILE_REVIEW.md,
+  FINAL_HARDCODE_AUDIT.md, FINAL_QC_REPORT.md
+- 43 tests pass, ruff clean, 4,118 words.

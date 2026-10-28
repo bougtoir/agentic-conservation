@@ -1,0 +1,52 @@
+ALGORITHM 1 — One annual step of the individual-based conservation simulation
+(implemented order; src/agentic_conservation/simulation.py::run_simulation)
+
+Input: agents, node-quality vector q, knowledge stages k, biobank b,
+       engagement e, budget B, policy pi, seed, year t.
+All randomness uses generators keyed by (seed, process, t).
+
+ 1  if pi != S0 and U(0,1) < p_fund = 0.015:
+        B <- 0.72 * B                                   # funding collapse
+ 2  for each channel c in {habitat, survey, rescue, ex_situ,
+          genetics, biobank, engagement}:
+        spend_c <- B * a_{pi,c} / sum_c a_{pi,c}        # enforce sum a <= 1
+ 3  ENVIRONMENT (E2):
+        q_wild <- q_wild - trend(scenario)              # deterioration
+        q_0 <- q_0 - climate_velocity * t/100           # directional shift
+        q_1 <- q_1 + 0.65 * climate_velocity * t/100
+        q_wild <- q_wild + spend_habitat/B0 * 0.025 * restoration_j
+        if abrupt_collapse and t = 33: q_0 <- q_0 - 0.70
+        if U(0,1) < 0.035: random wild node loses U(0.16,0.38)  # catastrophe
+        q <- clip(q, 0.05, 0.98)
+ 4  OBSERVATION (E3-E4):
+        suit_true <- suitability(q)                     # ecological truth (E1)
+        n_obs_s <- n_s * LogNormal(0,0.18) if stage_s>=2 else NaN
+        q_obs <- clip(q_{t-1} + N(0,0.10), 0, 1)         # 1-year delay
+        (comparator runs substitute n_s and q_t directly)
+        suit_decision <- suitability(q_obs)             # what policies see
+ 5  DISCOVERY (E5): each latent species advances <= 1 stage
+        with stage-specific probability in survey_spend, detectability.
+ 6  ACTION (Algorithm 2): if pi not in {S0,S6} and spend_rescue>0:
+        move eligible individuals; apply relocation stress to
+        health/habituation/wildness/release_ready;
+        kill moved with p=0.025 and released managed->wild with p=0.08;
+        infect susceptible movers with p = 0.03*(1-cov*0.65)
+ 7  DISEASE (E10): per node j<8: infect susceptibles with
+        p = clip(disease_j * prevalence_j, 0, 0.65);
+        recover infected -> recovered with p = 0.32.
+ 8  SURVIVAL (E11): each living i survives with p_i (Eq. E11),
+        else dies. 
+ 9  age_i += 1; health_i random walk clipped to [0.35,1].
+10 REPRODUCTION (E12-E14): per species-node with both sexes age>=2:
+        births ~ Poisson(n_females * rate); diversity-aware paternity
+        if genetics spend > 0; child inbreeding updated;
+        append births while total alive <= 1200.
+11 BIOKEEPING (E15-E16): b_s *= 0.99; grow b_s for extant stage>=2
+        species; record EBD year for latent species extinct at stage<2.
+12 WELFARE (E17): compute w_i, accumulate mean and person-year sums
+        and per-burden decomposition.
+13 FEEDBACK (E18): engagement <- clip(e + 0.08*(exposure +
+        0.2*spend_engagement/B) + 0.02*mean(q_0..2), 0, 1.5);
+        if pi != S0: B <- 100*(0.82 + 0.24*e).
+14 if t = 50: record year-50 survival snapshot.
+Output: updated agents, q, k, b, e, B, event log, trajectory row.

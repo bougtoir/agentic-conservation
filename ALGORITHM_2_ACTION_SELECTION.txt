@@ -1,0 +1,52 @@
+ALGORITHM 2 — Conservation action selection per annual step
+(src/agentic_conservation/simulation.py::_move_agents + _target_node)
+
+Preconditions: called only when policy pi not in {S0,S6} and
+spend_rescue > 0. S0 never acts; S6 is habitat-first and never moves
+individuals (its rescue share is spent but unused — documented).
+
+ 1  C_move <- floor(spend_rescue / 2.5)           # annual move capacity
+ 2  visible <- {s : stage_s >= 2}                # latent species invisible
+ 3  for s in visible, rank decreasing by risk
+        r_s = 1/(1 + n_obs_s) + (1 - suit_decision[s,0])
+ 4  for s in ranked order, while moved < C_move:
+ 5     ELIGIBILITY by policy:
+        S1: individuals currently in managed nodes
+        S2,S4,S5,S7: individuals with suit_decision[s, node_i] < 0.58
+        S3:  refuge mode if suit_decision[s,0] < 0.48
+               -> individuals at origin node
+             return mode if t >= 5 and suit_decision[s,0] >= 0.62
+               -> non-origin individuals with release_ready >= 0.40
+             else no move for s
+ 6     TARGET by policy:
+        S1: argmax over wild nodes of suit_decision[s,j]
+        S2: the conventional-zoo node (fixed)
+        S3: refuge -> argmax over {conservation_zoo, breeding} of
+             suit_decision[s,j]; return -> origin (node 0)
+        S4,S5,S7: argmax_j of
+             suit_decision[s,j] - 0.04*cost_j + 0.03*research_j
+             + S4: 0.10 * 1{type in {protected_reserve, conservation_zoo,
+                     breeding_center, semi_wild_pre_release}}
+             + S7: 0.08*restoration_j + 0.05*research_j
+             + (S4,S7): 0.20 * 1{j = origin}      # origin fidelity
+             with score_8 = -1 (biobank never a target)
+ 7     take <- min(#candidates, C_move - moved,
+                   max(1, floor(#candidates/5)),
+                   target_capacity - target_occupancy_s)
+        if take <= 0: continue
+ 8     choose `take` individuals at random (keyed movement stream);
+        set node <- target; health *= 1 - 0.1*(1 - stress_tolerance);
+        habituation += 0.08 if managed else -0.05;
+        wildness += 0.06 if wild else -0.07;
+        release_ready += 0.05 if semi_wild else -0.01.
+ 9  (back in Algorithm 1 step 6) movement mortality p=0.025;
+        extra release mortality p=0.08 for managed->wild moves;
+        transit infection p = 0.03*(1 - cov*0.65),
+        cov = min(1, spend_rescue/(0.25*moved)).
+
+Tie handling: argmax picks the lowest node index on ties
+(np.argmax); no stochastic tie-breaking.
+
+Policy differences are exactly: budget allocation shares
+(config/base.json::policy_allocations), eligibility, and target
+scoring. S5 vs S7 differ only in scoring bonuses and allocation.

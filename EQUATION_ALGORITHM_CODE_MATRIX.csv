@@ -1,0 +1,32 @@
+mechanism,equation_id,algorithm_line,source_file,function_name,config_parameter,tests,output_metric
+suitability score,E1,A1-4 A2-1/6,simulation.py,_species_node_suitability,species.* nodes.*,tests/test_simulation.py,all movement & demography via suit
+habitat quality dynamics,E2,A1-3,simulation.py,_quality_update,quality_noise deterioration climate_velocity habitat_investment_effect catastrophe_p quality_floor quality_cap,tests/test_simulation.py,habitat_integrity
+observation model,E3,A1-4,simulation.py,_observed_state,observation_noise observation_delay,tests/test_simulation.py,information_value observed_state
+discovery stage advance,E4,A1-5,simulation.py,_discover,discovery_base_rate discovery_scale survey_cost,tests/test_simulation.py,discovered_latent species_knowledge
+budget split,E5,A1-2,simulation.py,run_simulation,policy_allocations budget,tests/test_simulation.py,spend cost
+movement capacity & eligibility,E6-E7,A2-1..5,simulation.py,_move_agents,refuge_trigger refuge_return_threshold origin_fidelity move_suitability_threshold,tests/test_simulation.py,refuge_moves origin_returns successful_reintroductions
+per-policy target scoring,E7,A2-6,simulation.py,_target_node,target_penalty_cost target_bonus_research origin_fidelity,tests/test_simulation.py,movement log
+relocation stress & mortality,E8,A1-6 A2-8,simulation.py,_move_agents,relocation_mortality release_mortality relocation_stress,tests/test_simulation.py,total_deaths successful_reintroductions
+transit infection quarantine,E9,A1-6 A2-9,simulation.py,_move_agents,move_infection_rate quarantine_efficacy quarantine_cost_share,tests/test_simulation.py,disease_prevalence quarantine_cost
+within-node disease,E10,A1-7,simulation.py,run_simulation,disease_recovery nodes.disease,tests/test_simulation.py,disease_prevalence welfare
+survival hazard,E11,A1-8,simulation.py,run_simulation,mortality_predation mortality_anthropogenic_multiplier inbreeding_penalty,tests/test_simulation.py,survival_50 survival_100 species_retained
+reproduction rate,E12,A1-10,simulation.py,_append_births,captive_breeding_benefit infection_fecundity_penalty breeding_rate,tests/test_simulation.py,total_abundance wild_abundance
+genetics & inbreeding,E13,A1-10,simulation.py,_append_births _genetic_metrics,diversity_aware_breeding inbreeding_step inbreeding_penalty,tests/test_simulation.py,founder_effective mean_inbreeding heterozygosity_proxy
+population cap,E14,A1-10,simulation.py,_append_births,max_individuals,tests/test_simulation.py,total_abundance
+biobank growth & decay,E15,A1-11,simulation.py,run_simulation,biobank_growth biobank_decay,tests/test_simulation.py,biobank_coverage
+extinction before discovery,E16,A1-11,simulation.py,run_simulation discovery gating,species.known stage thresholds,tests/test_simulation.py,n_ebd fraction_ebd
+welfare & burden,E17,A1-12,simulation.py,run_simulation,welfare_predation welfare_food welfare_crowding welfare_restriction welfare_infection welfare_habituation welfare_relocation captivity_stress,tests/test_simulation.py,lifetime_welfare mean_welfare welfare_burden_*
+engagement feedback & budget,E18,A1-13,simulation.py,run_simulation,engagement_feedback engagement_spending_feedback budget_base budget_engagement,tests/test_simulation.py,engagement available_budget
+paired-seed RNG & replicate aggregation,,,analysis.py,_keyed_rng _execute select_replications,seed streams replication counts,tests/test_simulation.py,all means intervals mcse
+sensitivity (LHS Spearman),,,analysis.py,latin_hypercube sensitivity_audit,SENSITIVITY_RANGES,tests/test_simulation.py,sensitivity_audit.csv
+threshold stability,,,analysis.py,threshold_stability_audit,SWEEPS robust criterion,tests/test_simulation.py,threshold stability sweeps csv
+Pareto dominance,,,analysis.py,pareto_flags dominance,PARETO_OBJECTIVES tolerance,tests/test_simulation.py,pareto_frontier
+comparator (perfect info),,,analysis.py,information_value,oracle_perfect_info comparator flag,tests/test_simulation.py,information_effect_*
+minimal-model suitability,M1,—,minimal_model.py,suitability,nodes/species traits,tests/test_minimal_model.py,run_minimal survival
+minimal-model scenario trend,M2,—,minimal_model.py,_scenario_trend,deterioration climate_velocity latent_fraction_proxy,tests/test_minimal_model.py,origin quality trajectory
+minimal-model species rollout,M3,—,minimal_model.py,run_minimal_species,allocation overrides quota_series,tests/test_minimal_model.py,n_T_known n_T_latent moved
+minimal-model aggregate survival,M4,—,minimal_model.py,run_minimal,policy_allocations latent_fraction_proxy,tests/test_minimal_model.py,survival extant_frac moved
+reversal condition index,M5,—,minimal_model.py,psi_index,policy_allocations overrides,tests/test_minimal_model.py,psi habitat_channel circulation_channel
+factorial comparators,—,—,run_reversal_theory.py,stage_attribution,decision_rule_override movement_disabled,results/reversal/factorial_variants.csv,attribution_cells.csv
+holdout evaluation,—,—,run_reversal_theory.py,stage_holdout,holdout_cells seeds,results/reversal/holdout_runs.csv,holdout_metrics.csv
+mechanism ladder,—,—,run_reversal_theory.py,stage_ladder,mechanism toggles,results/reversal/mechanism_ladder_psi.csv,ladder table

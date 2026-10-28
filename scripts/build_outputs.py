@@ -61,8 +61,7 @@ def _save_figure(fig: plt.Figure, figures: Path, stem: str) -> None:
 def _write_markdown_table(frame: pd.DataFrame, path: Path) -> None:
     values = frame.fillna("").astype(str)
     widths = [
-        max(len(str(column)), *(len(item) for item in values[column]))
-        for column in values.columns
+        max(len(str(column)), *(len(item) for item in values[column])) for column in values.columns
     ]
     lines = [
         "| " + " | ".join(str(column).ljust(width) for column, width in zip(values, widths)) + " |",
@@ -271,9 +270,7 @@ def _figure_thresholds(root: Path, figures: Path) -> None:
 
 def _figure_latent_survey(root: Path, figures: Path) -> None:
     sweeps = pd.read_csv(root / "results/threshold_sweeps.csv")
-    frame = sweeps[
-        (sweeps.sweep == "latent_survey") & (sweeps.policy == "S7")
-    ].copy()
+    frame = sweeps[(sweeps.sweep == "latent_survey") & (sweeps.policy == "S7")].copy()
     aggregate = frame.groupby(["x", "y"], as_index=False).fraction_ebd.mean()
     matrix = aggregate.pivot(index="y", columns="x", values="fraction_ebd").sort_index(
         ascending=False
@@ -293,9 +290,7 @@ def _figure_latent_survey(root: Path, figures: Path) -> None:
 
 def _figure_tradeoffs(root: Path, figures: Path) -> None:
     pareto = pd.read_csv(root / "results/pareto_front.csv").set_index("policy")
-    normalized = pareto[
-        ["survival", "welfare", "genetics", "ebd", "cost", "future_option"]
-    ].copy()
+    normalized = pareto[["survival", "welfare", "genetics", "ebd", "cost", "future_option"]].copy()
     normalized["ebd"] = -normalized.ebd
     normalized["cost"] = -normalized.cost
     metrics = list(normalized.columns)
@@ -411,9 +406,7 @@ def _figure_observation_architecture(figures: Path) -> None:
 
 def _figure_exploration(root: Path, figures: Path) -> None:
     sweeps = pd.read_csv(root / "results/threshold_sweeps.csv")
-    frame = sweeps[
-        (sweeps.sweep == "latent_survey") & (sweeps.policy == "S7")
-    ].copy()
+    frame = sweeps[(sweeps.sweep == "latent_survey") & (sweeps.policy == "S7")].copy()
     aggregate = (
         frame.groupby(["x", "y"], as_index=False)
         .agg(
@@ -497,6 +490,93 @@ def _figure_origin_future(root: Path, figures: Path) -> None:
     _save_figure(fig, figures, "fig9_origin_future_optimum")
 
 
+def _figure_reversal_psi(root: Path, figures: Path) -> None:
+    """Psi index vs observed S7-S6 survival difference on held-out cells."""
+    m = pd.read_csv(root / "results/reversal/holdout_metrics.csv")
+    fig, ax = plt.subplots(figsize=(8, 5.2))
+    det = m[m.obs_sign != 0]
+    ind = m[m.obs_sign == 0]
+    ax.axvline(0, color="#777777", lw=1.0, ls="--")
+    ax.axhline(0, color="#777777", lw=1.0, ls="--")
+    ax.scatter(
+        det.psi,
+        det.mean_diff,
+        c=np.where(det.obs_sign > 0, "#2878b5", "#c1443c"),
+        s=42,
+        edgecolor="black",
+        linewidth=0.4,
+        zorder=3,
+        label="determinate cell (|mean diff| > 2 x MCSE)",
+    )
+    ax.scatter(
+        ind.psi,
+        ind.mean_diff,
+        c="#bbbbbb",
+        s=34,
+        marker="x",
+        linewidth=1.4,
+        zorder=2,
+        label="indeterminate cell",
+    )
+    ax.set_xscale("symlog", linthresh=0.5)
+    ax.set(
+        xlabel="Reduced reversal criterion Psi (symlog scale)",
+        ylabel="Observed S7 - S6 year-100 survival difference",
+        title="Mechanistic Psi vs observed policy contrast on held-out cells",
+    )
+    ax.grid(alpha=0.25)
+    ax.legend(loc="upper left", fontsize=9)
+    ax.text(
+        0.02,
+        0.03,
+        "Psi frozen before holdout; sign(Psi) is the predicted direction.",
+        transform=ax.transAxes,
+        fontsize=9,
+    )
+    _save_figure(fig, figures, "fig10_reversal_psi")
+
+
+def _table_reversal_predictors(root: Path, tables: Path) -> None:
+    v = (
+        pd.read_csv(root / "results/reversal/manuscript_reversal_values.csv")
+        .set_index("value_id")
+        .estimate
+    )
+    rows = [
+        {
+            "predictor": "Psi (minimal-model criterion)",
+            "all_cell_accuracy": float(v.psi_acc_all),
+            "determinate_accuracy": float(v.psi_acc_det),
+            "balanced_accuracy_3class": float(v.psi_bacc3),
+            "regret": float(v.regret_psi),
+        },
+        {
+            "predictor": "B0 always-S6",
+            "all_cell_accuracy": float(v.B0_acc_all),
+            "determinate_accuracy": 0.0,
+            "balanced_accuracy_3class": float(v.B0_bacc),
+            "regret": float(v.regret_B0),
+        },
+        {
+            "predictor": "B1 single-parameter threshold (dev-fitted)",
+            "all_cell_accuracy": float(v.B1_acc_all),
+            "determinate_accuracy": float("nan"),
+            "balanced_accuracy_3class": float(v.B1_bacc),
+            "regret": float("nan"),
+        },
+        {
+            "predictor": "B2 logistic surrogate (dev-fitted)",
+            "all_cell_accuracy": float(v.B2_acc_all),
+            "determinate_accuracy": float("nan"),
+            "balanced_accuracy_3class": float(v.B2_bacc),
+            "regret": float("nan"),
+        },
+    ]
+    frame = pd.DataFrame(rows).round(3)
+    frame.to_csv(tables / "table9_reversal_predictors.csv", index=False)
+    _write_markdown_table(frame, tables / "table9_reversal_predictors.md")
+
+
 def _build_tables(root: Path, tables: Path) -> None:
     tables.mkdir(parents=True, exist_ok=True)
     config = json.loads((root / "config/base.json").read_text())
@@ -565,20 +645,14 @@ def _build_tables(root: Path, tables: Path) -> None:
     _write_markdown_table(strongest, tables / "table4_sensitivity.md")
     interactions = pd.read_csv(root / "results/sensitivity_interactions.csv")
     strongest_interactions = (
-        interactions.assign(
-            absolute=lambda frame: frame.partial_rank_interaction.abs()
-        )
-        .sort_values(
-            ["policy", "metric", "absolute"], ascending=[True, True, False]
-        )
+        interactions.assign(absolute=lambda frame: frame.partial_rank_interaction.abs())
+        .sort_values(["policy", "metric", "absolute"], ascending=[True, True, False])
         .groupby(["policy", "metric"], as_index=False)
         .head(3)
         .drop(columns="absolute")
         .round(3)
     )
-    strongest_interactions.to_csv(
-        tables / "table4_sensitivity_interactions.csv", index=False
-    )
+    strongest_interactions.to_csv(tables / "table4_sensitivity_interactions.csv", index=False)
     _write_markdown_table(
         strongest_interactions,
         tables / "table4_sensitivity_interactions.md",
@@ -591,9 +665,7 @@ def _build_tables(root: Path, tables: Path) -> None:
     literature = pd.read_csv(root / "data/processed/selected_literature.csv")
     literature_audit = pd.read_csv(root / "provenance/literature_claim_audit.csv")
     literature = literature.merge(
-        literature_audit[
-            ["doi", "full_text_access", "support_level", "required_action"]
-        ],
+        literature_audit[["doi", "full_text_access", "support_level", "required_action"]],
         on="doi",
         how="left",
     )
@@ -632,15 +704,9 @@ def _build_tables(root: Path, tables: Path) -> None:
         robustness_rows.append(aggregate)
     robustness = pd.concat(robustness_rows, ignore_index=True)
     robustness.to_csv(tables / "table7_robustness.csv", index=False)
-    _write_markdown_table(
-        robustness.round(3), tables / "table7_robustness.md"
-    )
-    information_weights = pd.read_csv(
-        root / "results/information_weight_sensitivity.csv"
-    )
-    information_weights.to_csv(
-        tables / "table8_information_weight_sensitivity.csv", index=False
-    )
+    _write_markdown_table(robustness.round(3), tables / "table7_robustness.md")
+    information_weights = pd.read_csv(root / "results/information_weight_sensitivity.csv")
+    information_weights.to_csv(tables / "table8_information_weight_sensitivity.csv", index=False)
     _write_markdown_table(
         information_weights.round(3),
         tables / "table8_information_weight_sensitivity.md",
@@ -704,9 +770,9 @@ def _append_derived_values(root: Path) -> None:
                 "seed/config": "information_utility_weights",
             }
         )
-    diagnostic_weights = json.loads(
-        (root / "config/audit_designs.json").read_text()
-    )["budget_robustness"]["diagnostic_utility_weights"]
+    diagnostic_weights = json.loads((root / "config/audit_designs.json").read_text())[
+        "budget_robustness"
+    ]["diagnostic_utility_weights"]
     for outcome, weight in diagnostic_weights.items():
         rows.append(
             {
@@ -721,9 +787,7 @@ def _append_derived_values(root: Path) -> None:
                 "seed/config": "budget_robustness.diagnostic_utility_weights",
             }
         )
-    weight_sensitivity = pd.read_csv(
-        root / "results/information_weight_sensitivity.csv"
-    )
+    weight_sensitivity = pd.read_csv(root / "results/information_weight_sensitivity.csv")
     for row in weight_sensitivity.itertuples():
         rows.append(
             {
@@ -756,8 +820,7 @@ def _append_derived_values(root: Path) -> None:
                     "source_file": "results/threshold_sweep_audit.csv",
                     "source_code": "src/agentic_conservation/analysis.py",
                     "seed/config": (
-                        "paired sweep seeds; stable N=4 to N=8 and "
-                        ">1.96 Monte Carlo SE"
+                        "paired sweep seeds; stable N=4 to N=8 and >1.96 Monte Carlo SE"
                     ),
                 }
             )
@@ -793,8 +856,7 @@ def _append_derived_values(root: Path) -> None:
     if convergence_path.exists():
         convergence = pd.read_csv(convergence_path)
         final = convergence[
-            (convergence.contrast == "S7-S6")
-            & (convergence.n == convergence.n.max())
+            (convergence.contrast == "S7-S6") & (convergence.n == convergence.n.max())
         ]
         for row in final.itertuples():
             rows.append(
@@ -816,10 +878,7 @@ def _append_derived_values(root: Path) -> None:
         "value_id",
     ].unique()
     if len(duplicates):
-        raise ValueError(
-            "Duplicate manuscript value IDs: "
-            + ", ".join(sorted(duplicates))
-        )
+        raise ValueError("Duplicate manuscript value IDs: " + ", ".join(sorted(duplicates)))
     registry.to_csv(root / "results/manuscript_values.csv", index=False)
 
 
@@ -827,12 +886,8 @@ def _verify_pareto_consistency(root: Path) -> None:
     pareto = pd.read_csv(root / "results/pareto_front.csv").set_index("policy")
     summary = pd.read_csv(root / "results/policy_summary.csv")
     summary = summary[~summary.oracle].set_index(["policy", "metric"])
-    table = pd.read_csv(root / "tables/table3_policy_outcomes.csv").set_index(
-        "policy"
-    )
-    values = pd.read_csv(root / "results/manuscript_values.csv").set_index(
-        "value_id"
-    )
+    table = pd.read_csv(root / "tables/table3_policy_outcomes.csv").set_index("policy")
+    values = pd.read_csv(root / "results/manuscript_values.csv").set_index("value_id")
     metric_map = {
         "survival": "survival_100",
         "welfare": "mean_individual_welfare",
@@ -845,14 +900,10 @@ def _verify_pareto_consistency(root: Path) -> None:
         for objective, metric in metric_map.items():
             expected = float(summary.loc[(policy, metric), "estimate"])
             if not np.isclose(row[objective], expected):
-                raise ValueError(
-                    f"Pareto {policy} {objective} differs from policy summary"
-                )
+                raise ValueError(f"Pareto {policy} {objective} differs from policy summary")
             table_estimate = float(str(table.loc[policy, metric]).split()[0])
             if not np.isclose(table_estimate, expected, atol=0.0005):
-                raise ValueError(
-                    f"Table 3 {policy} {metric} differs from policy summary"
-                )
+                raise ValueError(f"Table 3 {policy} {metric} differs from policy summary")
         value_id = f"pareto_efficient_{policy}"
         if int(values.loc[value_id, "estimate"]) != int(row.pareto_efficient):
             raise ValueError(f"{value_id} differs from Pareto output")
@@ -891,10 +942,15 @@ def main() -> None:
     _figure_observation_architecture(figures)
     _figure_exploration(root, figures)
     _figure_origin_future(root, figures)
+    if (root / "results/reversal/holdout_metrics.csv").exists():
+        _figure_reversal_psi(root, figures)
+        _table_reversal_predictors(root, tables)
     _build_tables(root, tables)
     _append_derived_values(root)
     _verify_pareto_consistency(root)
-    print("Generated nine figures in PNG/PDF/SVG and seven result tables")
+    print(
+        "Generated figures and result tables (reversal assets added when results/reversal exists)"
+    )
 
 
 if __name__ == "__main__":
