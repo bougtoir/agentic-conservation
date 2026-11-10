@@ -1,0 +1,6 @@
+source_id,kind,identifier,content,role_in_manuscript,license,provenance
+gbif-przewalski,GBIF occurrence facet,taxon_key=5787170,year-facet aggregate (785 total records),motivational anchor only (§2.7 Table 6),GBIF ToU; CC0/CC BY/CC BY-NC underlying,provenance/source_ledger.csv
+gbif-oryx,GBIF occurrence facet,taxon_key=5220165,year-facet aggregate (227 total records),motivational anchor only,GBIF ToU; CC0/CC BY/CC BY-NC underlying,provenance/source_ledger.csv
+gbif-condor,GBIF occurrence facet,taxon_key=2481920,year-facet aggregate (33646 total records),motivational anchor only,GBIF ToU; CC0/CC BY/CC BY-NC underlying,provenance/source_ledger.csv
+crossref-4-queries,Crossref relevance queries,rows=20 ×4,metadata records for exemplar + decision-theory topics,bibliography verification only,Crossref metadata terms,provenance/source_ledger.csv
+openalex-4-works,OpenAlex work records,4 DOIs,work metadata for 4 exemplar studies,evidence-level tracking (FULL_TEXT_LOCAL audit),OpenAlex CC0,provenance/source_ledger.csv

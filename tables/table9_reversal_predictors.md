@@ -1,0 +1,6 @@
+| predictor                                  | all_cell_accuracy | determinate_accuracy | balanced_accuracy_3class | regret |
+| ------------------------------------------ | ----------------- | -------------------- | ------------------------ | ------ |
+| Psi (minimal-model criterion)              | 0.393             | 0.846                | 0.519                    | 0.045  |
+| B0 always-S6                               | 0.161             | 0.0                  | 0.333                    | 0.084  |
+| B1 single-parameter threshold (dev-fitted) | 0.286             |                      | 0.471                    |        |
+| B2 logistic surrogate (dev-fitted)         | 0.196             |                      | 0.338                    |        |

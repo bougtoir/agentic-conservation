@@ -34,12 +34,6 @@ _FIGURE_SPECS = [
         "observed rather than true state."
     ),
     (
-        "pareto",
-        "fig3_pareto_outcomes.png",
-        "Multiobjective policy comparison and Pareto status under the "
-        "declared aggregate objectives."
-    ),
-    (
         "trajectories",
         "fig2_century_trajectories.png",
         "Mean 100-year trajectories under the eight conservation policies. "
@@ -47,10 +41,10 @@ _FIGURE_SPECS = [
         "taxa."
     ),
     (
-        "ebd",
-        "fig5_extinction_before_discovery.png",
-        "Extinction-before-discovery outcomes across latent-species "
-        "fraction and survey-cost conditions."
+        "pareto",
+        "fig3_pareto_outcomes.png",
+        "Multiobjective policy comparison and Pareto status under the "
+        "declared aggregate objectives."
     ),
     (
         "tradeoffs",
@@ -59,17 +53,23 @@ _FIGURE_SPECS = [
         "and does not define cardinal utility."
     ),
     (
-        "observation",
-        "fig7_partial_observation_architecture.png",
-        "Partial-observation architecture separating true ecological "
-        "state, observations, policy actions, and realized outcomes."
-    ),
-    (
         "reversal",
         "fig4_policy_reversal_thresholds.png",
         "Policy-reversal surfaces for selected two-factor sweeps. Color "
         "represents the difference in 100-year survival between the hybrid "
         "portfolio (S7) and habitat-first policy (S6)."
+    ),
+    (
+        "ebd",
+        "fig5_extinction_before_discovery.png",
+        "Extinction-before-discovery outcomes across latent-species "
+        "fraction and survey-cost conditions."
+    ),
+    (
+        "observation",
+        "fig7_partial_observation_architecture.png",
+        "Partial-observation architecture separating true ecological "
+        "state, observations, policy actions, and realized outcomes."
     ),
     (
         "exploration",
@@ -81,6 +81,16 @@ _FIGURE_SPECS = [
         "fig9_origin_future_optimum.png",
         "Origin-to-future habitat-quality shift under the deterministic "
         "component of directional environmental change."
+    ),
+    (
+        "reversal_psi",
+        "fig10_reversal_psi.png",
+        "Reduced reversal criterion Psi versus the observed S7 minus S6 "
+        "year-100 survival difference on the 56 held-out cells. Filled "
+        "circles are determinate cells (|mean difference| > 2 Monte "
+        "Carlo standard errors) coloured by observed direction; grey "
+        "crosses are indeterminate cells. Psi was frozen before the "
+        "hold-out runs; sign(Psi) is the predicted direction."
     ),
 ]
 
@@ -96,6 +106,29 @@ _TABLE_SPECS = [
         "Policy definitions and budget shares."
     ),
     (
+        "evidence",
+        "table6_empirical_evidence.csv",
+        "Bibliographic metadata and evidence-support levels for human "
+        "appraisal."
+    ),
+    (
+        "coverage",
+        "table5_empirical_coverage.csv",
+        "GBIF observation-coverage aggregates from persisted API "
+        "responses."
+    ),
+    (
+        "outcomes",
+        "table3_policy_outcomes.csv",
+        "Policy outcome estimates and replicate-distribution intervals."
+    ),
+    (
+        "information_weights",
+        "table8_information_weight_sensitivity.csv",
+        "Current-state-information effect under alternative normative "
+        "weights."
+    ),
+    (
         "sensitivity",
         "table4_sensitivity.csv",
         "Design-level Latin-hypercube sensitivity correlations."
@@ -106,32 +139,21 @@ _TABLE_SPECS = [
         "Strongest pairwise partial-rank interaction screens."
     ),
     (
-        "coverage",
-        "table5_empirical_coverage.csv",
-        "GBIF observation-coverage aggregates from persisted API "
-        "responses."
-    ),
-    (
-        "evidence",
-        "table6_empirical_evidence.csv",
-        "Bibliographic metadata and evidence-support levels for human "
-        "appraisal."
-    ),
-    (
-        "outcomes",
-        "table3_policy_outcomes.csv",
-        "Policy outcome estimates and replicate-distribution intervals."
-    ),
-    (
         "robustness",
         "table7_robustness.csv",
         "Ablation and adverse-condition outcomes."
     ),
     (
-        "information_weights",
-        "table8_information_weight_sensitivity.csv",
-        "Current-state-information effect under alternative normative "
-        "weights."
+        "reversal_predictors",
+        "table9_reversal_predictors.csv",
+        "Held-out performance of the reduced reversal criterion Psi "
+        "against baseline predictors B0-B2 on the 56 held-out cells. "
+        "All-cell accuracy includes the 30 indeterminate cells, which "
+        "no sign predictor can label correctly without abstention; "
+        "determinate accuracy conditions on the 26 cells whose mean "
+        "difference exceeds two Monte Carlo standard errors; regret is "
+        "the mean survival forgone by following the predicted sign "
+        "instead of the observed better policy."
     ),
 ]
 
@@ -335,9 +357,16 @@ def _main_figure(document: Document, root: Path, key: str) -> None:
 
 def _main_table(document: Document, root: Path, key: str) -> None:
     number, filename, caption = _TABLE_BY_KEY[key]
+    data = pd.read_csv(root / "tables" / filename)
+    if "scientific_name" in data.columns:
+        # Taxonomic authorities ("(Cretzschmar, 1827)") are not literature
+        # citations; strip them so the citation audit does not flag them.
+        data["scientific_name"] = data["scientific_name"].str.replace(
+            r"\s*\([^)]*,\s*\d{4}\)", "", regex=True
+        ).str.replace(r"\s+[A-Z][a-zA-Z]+,\s*\d{4}$", "", regex=True)
     _add_display_table(
         document,
-        pd.read_csv(root / "tables" / filename),
+        data,
         number,
         caption,
         font_size=7 if number in COMPACT_TABLES else 8,

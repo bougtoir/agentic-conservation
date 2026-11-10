@@ -49,10 +49,50 @@ class MovementResult:
     origin_returns: int
 
 
+# Verification-only hooks (ODD resubmission Q2/Q3). Defaults equal the
+# shipped literals; absent ``config["structural"]`` the dynamics are unchanged.
+STRUCTURAL_DEFAULTS = {
+    "e1_intercept": 0.72,
+    "e1_breadth_slope": 0.28,
+    "e1_specificity_penalty": 0.32,
+    "e1_tolerance_bonus": 0.25,
+    "e1_migration_penalty": 0.24,
+    "e6_eligibility_threshold": 0.58,
+    "e6_take_fraction": None,
+    "e11_habitat_mortality": 0.24,
+    "e11_pressure_mortality": 0.08,
+    "e12_birth_scale": 5.0,
+}
+
+
+def _structural(cfg: dict) -> dict:
+    return {**STRUCTURAL_DEFAULTS, **cfg.get("structural", {})}
+
+
+def climate_increment(cfg: dict, year: int, years: int, first_year: int = 1) -> float:
+    """Annual origin-quality decrement from directional climate.
+
+    ``accelerating`` (shipped) applies v*t/T in year t. Alternatives keep the
+    same total displacement over the run: ``linear`` (constant), ``decelerating``
+    (time-mirrored), ``step`` (all at mid-run).
+    """
+    v = cfg["climate_velocity"]
+    T = max(years, 1)
+    form = cfg.get("climate_form", "accelerating")
+    if form == "accelerating":
+        return v * year / T
+    total = v / T * sum(range(first_year, first_year + years))
+    if form == "linear":
+        return total / years
+    if form == "decelerating":
+        return v * (2 * first_year + years - 1 - year) / T
+    if form == "step":
+        return total if year == first_year + years // 2 - 1 else 0.0
+    raise ValueError(f"unknown climate_form {form!r}")
+
+
 def _keyed_rng(seed: int, process: str, year: int = 0) -> np.random.Generator:
-    return np.random.default_rng(
-        np.random.SeedSequence([seed, RNG_STREAMS[process], year])
-    )
+    return np.random.default_rng(np.random.SeedSequence([seed, RNG_STREAMS[process], year]))
 
 
 def load_project(root: str | Path) -> Project:
@@ -157,7 +197,7 @@ def _quality_update(
     else:
         trend = deterioration
     quality[wild] -= trend
-    directional = cfg["climate_velocity"] * year / max(cfg["years"], 1)
+    directional = climate_increment(cfg, year, cfg["years"])
     quality[0] -= directional
     quality[1] += directional * 0.65
     quality[wild] += (
@@ -186,12 +226,13 @@ def _species_node_suitability(project: Project, quality: np.ndarray) -> np.ndarr
     breadth = species.niche_breadth.to_numpy()[:, None]
     wild = nodes["type"].isin(WILD_TYPES).to_numpy()[None, :]
     managed = nodes["type"].isin(MANAGED_TYPES).to_numpy()[None, :]
-    base = quality[None, :] * (0.72 + 0.28 * breadth)
-    base -= specificity * (1.0 - quality[None, :]) * 0.32
+    k = _structural(project.config)
+    base = quality[None, :] * (k["e1_intercept"] + k["e1_breadth_slope"] * breadth)
+    base -= specificity * (1.0 - quality[None, :]) * k["e1_specificity_penalty"]
     tolerance = species.captivity_tolerance.to_numpy()[:, None]
-    base += managed * (~wild) * (tolerance - 0.5) * 0.25
+    base += managed * (~wild) * (tolerance - 0.5) * k["e1_tolerance_bonus"]
     migration = species.migration_need.to_numpy()[:, None]
-    base -= managed * (~wild) * migration * 0.24
+    base -= managed * (~wild) * migration * k["e1_migration_penalty"]
     return np.clip(base, 0.02, 0.99)
 
 
@@ -222,6 +263,13 @@ def _observed_state(
     return observed, quality
 
 
+def _take_quota(n_candidates: int, cfg: dict) -> int:
+    frac = _structural(cfg)["e6_take_fraction"]
+    if frac is None:
+        return n_candidates // 5
+    return int(np.floor(n_candidates * float(frac)))
+
+
 def _target_node(
     policy: str,
     sp: int,
@@ -239,9 +287,19 @@ def _target_node(
     if policy == "S3":
         return int(nodes.index[nodes.id == "origin"][0])
     if policy == "S4":
-        score += nodes["type"].isin(
-            {"protected_reserve", "conservation_zoo", "breeding_center", "semi_wild_pre_release"}
-        ).to_numpy() * 0.10
+        score += (
+            nodes["type"]
+            .isin(
+                {
+                    "protected_reserve",
+                    "conservation_zoo",
+                    "breeding_center",
+                    "semi_wild_pre_release",
+                }
+            )
+            .to_numpy()
+            * 0.10
+        )
     if policy == "S7":
         score += nodes.restoration.to_numpy() * 0.08
         score += nodes.research.to_numpy() * 0.05
@@ -262,7 +320,16 @@ def _move_agents(
     year: int,
     rng: np.random.Generator,
 ) -> MovementResult:
-    if policy in {"S0", "S6"} or rescue_spend <= 0:
+    # Factorial attribution: ``decision_rule_override`` swaps the
+    # eligibility/target rule while budget allocation still uses ``policy``;
+    # ``movement_disabled`` suppresses all relocation. Both default to the
+    # shipped behavior (S0/S6 never move).
+    rule = project.config.get("decision_rule_override", policy)
+    if (
+        rule in {"S0", "S6"}
+        or bool(project.config.get("movement_disabled", False))
+        or rescue_spend <= 0
+    ):
         empty = np.array([], dtype=int)
         return MovementResult(empty, empty, 0, 0)
     nodes = project.nodes
@@ -286,18 +353,16 @@ def _move_agents(
         if moved >= capacity:
             break
         mask = alive & (agents["species"] == sp)
-        if policy == "S1":
+        if rule == "S1":
             mask &= nodes.iloc[agents["node"]]["type"].isin(MANAGED_TYPES).to_numpy()
-        elif policy == "S3":
+        elif rule == "S3":
             origin_score = decision_suitability[sp, 0]
             if origin_score < project.config["s3_refuge_trigger"]:
                 mask &= agents["node"] == 0
                 refuge_targets = nodes.index[
                     nodes.id.isin(["conservation_zoo", "breeding"])
                 ].to_numpy()
-                target_scores = (
-                    decision_suitability[sp, refuge_targets]
-                )
+                target_scores = decision_suitability[sp, refuge_targets]
                 target = int(refuge_targets[np.argmax(target_scores)])
                 movement_mode = "refuge"
             elif (
@@ -311,20 +376,20 @@ def _move_agents(
                 continue
         else:
             current_score = decision_suitability[sp, agents["node"]]
-            mask &= current_score < 0.58
+            mask &= current_score < _structural(project.config)["e6_eligibility_threshold"]
         candidates = np.flatnonzero(mask)
         if len(candidates) == 0:
             continue
-        if policy != "S3":
+        if rule != "S3":
             target = _target_node(
-                policy,
+                rule,
                 sp,
                 decision_suitability,
-                project.config["origin_fidelity"] if policy in {"S4", "S7"} else 0.0,
+                project.config["origin_fidelity"] if rule in {"S4", "S7"} else 0.0,
                 project,
             )
             movement_mode = "other"
-        if policy == "S1":
+        if rule == "S1":
             wild_targets = np.flatnonzero(nodes["type"].isin(WILD_TYPES).to_numpy())
             target_scores = decision_suitability[sp, wild_targets]
             target = int(wild_targets[np.argmax(target_scores)])
@@ -333,17 +398,13 @@ def _move_agents(
             continue
         target_capacity = int(nodes.iloc[target].capacity)
         target_occupancy = int(
-            np.sum(
-                alive
-                & (agents["species"] == sp)
-                & (agents["node"] == target)
-            )
+            np.sum(alive & (agents["species"] == sp) & (agents["node"] == target))
         )
         target_space = max(0, target_capacity - target_occupancy)
         take = min(
             len(candidates),
             capacity - moved,
-            max(1, len(candidates) // 5),
+            max(1, _take_quota(len(candidates), project.config)),
             target_space,
         )
         if take <= 0:
@@ -381,14 +442,8 @@ def _move_agents(
             refuge_moves += take
         elif movement_mode == "return":
             origin_returns += take
-    all_moved = (
-        np.concatenate(moved_indices) if moved_indices else np.array([], dtype=int)
-    )
-    all_released = (
-        np.concatenate(released_indices)
-        if released_indices
-        else np.array([], dtype=int)
-    )
+    all_moved = np.concatenate(moved_indices) if moved_indices else np.array([], dtype=int)
+    all_released = np.concatenate(released_indices) if released_indices else np.array([], dtype=int)
     return MovementResult(all_moved, all_released, refuge_moves, origin_returns)
 
 
@@ -459,11 +514,11 @@ def run_simulation(
             if n_latent:
                 species.loc[species.index[-n_latent:], "known"] = False
         if latent_detectability is not None:
-            species.loc[~species.known, "detectability"] = float(
-                latent_detectability
-            )
+            species.loc[~species.known, "detectability"] = float(latent_detectability)
         project = Project(config=config, species=species, nodes=project.nodes)
     cfg = project.config
+    structural = _structural(cfg)
+    origin_quality_sum = 0.0
     agents = _initialize_agents(project, _keyed_rng(seed, "initialization"))
     quality = project.nodes.base_quality.to_numpy(dtype=float)
     if "origin_quality_override" in cfg:
@@ -507,10 +562,7 @@ def run_simulation(
         movement_rng = _keyed_rng(seed, "movement", year)
         disease_rng = _keyed_rng(seed, "disease", year)
         demography_rng = _keyed_rng(seed, "demography", year)
-        if (
-            policy != "S0"
-            and funding_rng.random() < cfg["funding_collapse_probability"]
-        ):
+        if policy != "S0" and funding_rng.random() < cfg["funding_collapse_probability"]:
             budget *= 0.72
             events.append(f"{year}:funding_collapse")
         budget = max(0.0, budget)
@@ -519,8 +571,7 @@ def run_simulation(
             raise ValueError(f"{policy} allocation exceeds the annual budget")
         total_available_budget += budget
         spending = {
-            key: budget * value / max(allocation_total, 1.0)
-            for key, value in allocation.items()
+            key: budget * value / max(allocation_total, 1.0) for key, value in allocation.items()
         }
         total_cost += sum(spending.values())
         new_quality, event = _quality_update(
@@ -533,6 +584,7 @@ def run_simulation(
         if event != "none":
             events.append(f"{year}:{event}")
         quality = new_quality
+        origin_quality_sum += float(quality[0])
         quality_history.append(quality.copy())
         delay = max(0, int(cfg["observation_delay"]))
         delayed_index = max(0, len(quality_history) - 1 - delay)
@@ -610,11 +662,7 @@ def run_simulation(
                 infected_in_transit = moved_susceptible[
                     disease_rng.random(len(moved_susceptible))
                     < cfg["movement_disease_risk"]
-                    * (
-                        1.0
-                        - quarantine_coverage
-                        * cfg["quarantine_effectiveness"]
-                    )
+                    * (1.0 - quarantine_coverage * cfg["quarantine_effectiveness"])
                 ]
                 agents["infection"][infected_in_transit] = 1
 
@@ -654,15 +702,12 @@ def run_simulation(
             * cfg["anthropogenic_pressure_multiplier"]
         )
         infection_penalty = (agents["infection"] == 1) * 0.14
-        base_mortality = (
-            project.species.iloc[sp].mortality.to_numpy()
-            * cfg["mortality_multiplier"]
-        )
+        base_mortality = project.species.iloc[sp].mortality.to_numpy() * cfg["mortality_multiplier"]
         survival_p = (
             1.0
             - base_mortality
-            - (1.0 - habitat) * 0.24
-            - pressure * 0.08
+            - (1.0 - habitat) * structural["e11_habitat_mortality"]
+            - pressure * structural["e11_pressure_mortality"]
             - infection_penalty
         )
         survival_p += managed * project.nodes.iloc[node].research.to_numpy() * 0.035
@@ -673,20 +718,14 @@ def run_simulation(
             * 0.035
         )
         survival_p -= (1.0 - agents["health"]) * 0.08
-        survival_p -= (
-            agents["inbreeding"]
-            * cfg["inbreeding_mortality_penalty"]
-        )
+        survival_p -= agents["inbreeding"] * cfg["inbreeding_mortality_penalty"]
         survival_p = np.clip(survival_p, 0.05, 0.995)
-        agents["alive"][
-            alive & (demography_rng.random(len(alive)) > survival_p)
-        ] = False
+        agents["alive"][alive & (demography_rng.random(len(alive)) > survival_p)] = False
 
         alive = agents["alive"]
         agents["age"][alive] += 1
         agents["health"][alive] = np.clip(
-            agents["health"][alive]
-            + demography_rng.normal(0.0, 0.015, np.sum(alive)),
+            agents["health"][alive] + demography_rng.normal(0.0, 0.015, np.sum(alive)),
             0.35,
             1.0,
         )
@@ -705,20 +744,16 @@ def run_simulation(
                     * (0.50 + row.fertility)
                     * suitability[species_id, node_id]
                     * max(0.05, 1.0 - density)
-                    * 5.0
+                    * structural["e12_birth_scale"]
                 )
                 if project.nodes.iloc[node_id].managed:
                     rate *= 1.0 + cfg["ex_situ_breeding_benefit"] * (
                         spending.get("ex_situ", 0.0) / max(budget, 1.0)
                     )
-                local_infection = float(
-                    np.mean(agents["infection"][local] == 1)
-                )
+                local_infection = float(np.mean(agents["infection"][local] == 1))
                 rate *= max(
                     0.05,
-                    1.0
-                    - local_infection
-                    * cfg["infection_fertility_penalty"],
+                    1.0 - local_infection * cfg["infection_fertility_penalty"],
                 )
                 rate *= max(
                     0.05,
@@ -745,8 +780,7 @@ def run_simulation(
                     father_pool = male_indices
                     if diversity_aware:
                         different_founder = father_pool[
-                            agents["founder"][father_pool]
-                            != agents["founder"][mother]
+                            agents["founder"][father_pool] != agents["founder"][mother]
                         ]
                         if len(different_founder):
                             father_pool = different_founder
@@ -765,11 +799,9 @@ def run_simulation(
                     else:
                         father = int(demography_rng.choice(father_pool))
                     same_founder = agents["founder"][mother] == agents["founder"][father]
-                    child_inbreeding = (
-                        0.5
-                        * (agents["inbreeding"][mother] + agents["inbreeding"][father])
-                        + (0.08 if same_founder else 0.0)
-                    )
+                    child_inbreeding = 0.5 * (
+                        agents["inbreeding"][mother] + agents["inbreeding"][father]
+                    ) + (0.08 if same_founder else 0.0)
                     if diversity_aware:
                         child_inbreeding *= 0.82
                     founder = int(
@@ -796,14 +828,9 @@ def run_simulation(
                 and ebd_year[species_id] < 0
             ):
                 ebd_year[species_id] = year
-            if (
-                extant
-                and stages[species_id] >= 2
-                and cfg.get("biobank_enabled", True)
-            ):
+            if extant and stages[species_id] >= 2 and cfg.get("biobank_enabled", True):
                 biobank[species_id] = np.clip(
-                    biobank[species_id]
-                    + spending.get("biobank", 0.0) / max(budget, 1.0) * 0.05,
+                    biobank[species_id] + spending.get("biobank", 0.0) / max(budget, 1.0) * 0.05,
                     0.0,
                     1.0,
                 )
@@ -817,53 +844,30 @@ def run_simulation(
         node_welfare = project.nodes.iloc[node].welfare.to_numpy()
         occupancy = np.zeros(len(project.nodes), dtype=float)
         for node_id in range(len(project.nodes) - 1):
-            occupancy[node_id] = (
-                np.sum(alive & (node == node_id))
-                / max(project.nodes.iloc[node_id].capacity, 1)
+            occupancy[node_id] = np.sum(alive & (node == node_id)) / max(
+                project.nodes.iloc[node_id].capacity, 1
             )
-        migration_need = (
-            project.species.iloc[agents["species"]]
-            .migration_need.to_numpy()
-        )
+        migration_need = project.species.iloc[agents["species"]].migration_need.to_numpy()
         burdens = {
             "predation": (
                 wild
                 * project.nodes.iloc[node].predation.to_numpy()
                 * cfg["wild_predation_welfare_weight"]
             ),
-            "food_insecurity": (
-                1.0 - suitability[agents["species"], node]
-            )
+            "food_insecurity": (1.0 - suitability[agents["species"], node])
             * cfg["food_insecurity_welfare_weight"],
-            "crowding": (
-                managed
-                * occupancy[node]
-                * cfg["managed_crowding_welfare_weight"]
-            ),
-            "restriction": (
-                managed
-                * migration_need
-                * cfg["managed_restriction_welfare_weight"]
-            ),
-            "infection": (
-                agents["infection"] == 1
-            )
-            * cfg["infection_welfare_weight"],
+            "crowding": (managed * occupancy[node] * cfg["managed_crowding_welfare_weight"]),
+            "restriction": (managed * migration_need * cfg["managed_restriction_welfare_weight"]),
+            "infection": (agents["infection"] == 1) * cfg["infection_welfare_weight"],
             "habituation": (
-                agents["habituation"]
-                * migration_need
-                * cfg["habituation_welfare_weight"]
+                agents["habituation"] * migration_need * cfg["habituation_welfare_weight"]
             ),
             "relocation": (
-                moved_recently
-                * cfg["relocation_stress"]
-                * cfg["relocation_welfare_weight"]
+                moved_recently * cfg["relocation_stress"] * cfg["relocation_welfare_weight"]
             ),
         }
         captivity_burden = (
-            managed
-            * cfg["captivity_welfare_penalty"]
-            * (1.0 - agents["stress_tolerance"])
+            managed * cfg["captivity_welfare_penalty"] * (1.0 - agents["stress_tolerance"])
         )
         if cfg.get("welfare_enabled", True):
             welfare = node_welfare - captivity_burden
@@ -871,10 +875,7 @@ def run_simulation(
                 welfare -= burden
         else:
             welfare = np.ones(len(alive), dtype=float)
-            burdens = {
-                name: np.zeros(len(alive), dtype=float)
-                for name in burdens
-            }
+            burdens = {name: np.zeros(len(alive), dtype=float) for name in burdens}
         for name, burden in burdens.items():
             cumulative_welfare_burdens[name] += (
                 float(np.mean(burden[alive])) if np.any(alive) else 0.0
@@ -890,10 +891,7 @@ def run_simulation(
         exposure = float(np.mean(visitor_exposure[alive])) if np.any(alive) else 0.0
         habitat_signal = float(np.mean(quality[:3]))
         engagement_effect = cfg["engagement_coefficient"] * (
-            exposure
-            + spending.get("engagement", 0.0)
-            / max(budget, 1.0)
-            * 0.2
+            exposure + spending.get("engagement", 0.0) / max(budget, 1.0) * 0.2
         )
         engagement = float(
             np.clip(
@@ -907,10 +905,12 @@ def run_simulation(
         if policy != "S0":
             budget = cfg["initial_budget"] * (0.82 + 0.24 * engagement)
 
-        counts = np.array([
-            np.sum(agents["alive"] & (agents["species"] == x))
-            for x in range(len(project.species))
-        ])
+        counts = np.array(
+            [
+                np.sum(agents["alive"] & (agents["species"] == x))
+                for x in range(len(project.species))
+            ]
+        )
         extant = counts > 0
         if year == 50:
             survival_50 = float(np.mean(extant))
@@ -926,8 +926,7 @@ def run_simulation(
                     "latent_ebd": int(np.sum(ebd_year > 0)),
                     "wild_abundance": int(
                         np.sum(
-                            agents["alive"]
-                            & project.nodes.iloc[agents["node"]]["wild"].to_numpy()
+                            agents["alive"] & project.nodes.iloc[agents["node"]]["wild"].to_numpy()
                         )
                     ),
                     "mean_welfare": float(np.mean(welfare[alive])) if np.any(alive) else 0.0,
@@ -943,8 +942,23 @@ def run_simulation(
     )
     extant = counts > 0
     founder_effective, mean_inbreeding = _genetic_metrics(agents, len(project.species))
-    wild_mask = project.nodes.iloc[agents["node"]]["wild"].to_numpy()
+    wild_mask = project.nodes.iloc[agents["node"]]["wild"].to_numpy().astype(bool)
     n_ebd = int(np.sum(ebd_year > 0))
+    # Observer-only endpoints (no RNG draws): reproductive co-location proxy
+    # (>=1 mature female and >=1 mature male in the same non-biobank node)
+    # and wild-node persistence.
+    breeding_nodes = np.flatnonzero(project.nodes["type"].to_numpy() != "biobank")
+    mature = alive & (agents["age"] >= 2)
+    viable = np.zeros(len(project.species), dtype=bool)
+    wild_extant = np.zeros(len(project.species), dtype=bool)
+    for x in range(len(project.species)):
+        sp_mask = alive & (agents["species"] == x)
+        wild_extant[x] = bool(np.any(sp_mask & wild_mask))
+        for node_id in breeding_nodes:
+            local = mature & (agents["species"] == x) & (agents["node"] == node_id)
+            if np.any(local & (agents["sex"] == 0)) and np.any(local & (agents["sex"] == 1)):
+                viable[x] = True
+                break
     latent_count = int(np.sum(~project.species.known.to_numpy()))
     future_option = float(
         0.45 * np.mean(extant)
@@ -960,15 +974,18 @@ def run_simulation(
             "S2": "rule",
             "S3": "rule",
             "S4": "state_dependent_rule",
-            "S5": "greedy_expected_utility",
+            "S5": "greedy_suitability_heuristic",
             "S6": "rule",
-            "S7": "forward_rollout_proxy",
+            "S7": "weighted_suitability_heuristic",
         }[policy],
         "oracle": oracle,
         "seed": seed,
         "survival_50": survival_50,
         "survival_100": float(np.mean(extant)),
         "species_retained_50": biodiversity_50,
+        "viable_persistence_100": float(np.mean(viable)),
+        "wild_persistence_100": float(np.mean(wild_extant)),
+        "origin_quality_mean": origin_quality_sum / max(cfg["years"], 1),
         "species_retained_100": int(np.sum(extant)),
         "total_abundance": int(counts.sum()),
         "wild_abundance": int(np.sum(alive & wild_mask)),
@@ -982,9 +999,7 @@ def run_simulation(
         "mean_individual_welfare": cumulative_mean_welfare / max(cfg["years"], 1),
         "founder_effective": founder_effective,
         "mean_inbreeding": mean_inbreeding,
-        "heterozygosity_proxy": 1.0 - mean_inbreeding
-        if np.isfinite(mean_inbreeding)
-        else np.nan,
+        "heterozygosity_proxy": 1.0 - mean_inbreeding if np.isfinite(mean_inbreeding) else np.nan,
         "successful_reintroductions": successful_reintroductions,
         "refuge_moves": refuge_moves,
         "origin_returns": origin_returns,

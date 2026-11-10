@@ -1,0 +1,158 @@
+claim,recomputed,stored,ok,source
+Q1 survival_100 S6 mean,0.5286458333333334,0.5286458333333334,True,q1_base_contrast.csv
+Q1 survival_100 S7 mean,0.4733072916666667,0.4733072916666667,True,q1_base_contrast.csv
+Q1 survival_100 S7-S6,-0.055338541666666664,-0.0553385416666666,True,q1_base_contrast.csv
+Q1 survival_100 SE,0.02218723683249261,0.0221872368324926,True,q1_base_contrast.csv
+Q1 survival_100 n paired seeds,192.0,192.0,True,design
+Q1 viable_persistence_100 S6 mean,0.5149739583333334,0.5149739583333334,True,q1_base_contrast.csv
+Q1 viable_persistence_100 S7 mean,0.4661458333333333,0.4661458333333333,True,q1_base_contrast.csv
+Q1 viable_persistence_100 S7-S6,-0.048828125,-0.048828125,True,q1_base_contrast.csv
+Q1 viable_persistence_100 SE,0.02253340145357512,0.0225334014535751,True,q1_base_contrast.csv
+Q1 viable_persistence_100 n paired seeds,192.0,192.0,True,design
+Q1 wild_persistence_100 S6 mean,0.5286458333333334,0.5286458333333334,True,q1_base_contrast.csv
+Q1 wild_persistence_100 S7 mean,0.4661458333333333,0.4661458333333333,True,q1_base_contrast.csv
+Q1 wild_persistence_100 S7-S6,-0.0625,-0.0625,True,q1_base_contrast.csv
+Q1 wild_persistence_100 SE,0.022705726390219373,0.0227057263902193,True,q1_base_contrast.csv
+Q1 wild_persistence_100 n paired seeds,192.0,192.0,True,design
+Q2 accelerating year-100 displacement,0.6059999999999999,0.6059999999999999,True,closed form vs q2_summary.csv
+Q2 accelerating cumulative exposure,20.604,20.604,True,closed form vs q2_summary.csv
+Q2 linear year-100 displacement,0.6059999999999998,0.6059999999999998,True,closed form vs q2_summary.csv
+Q2 linear cumulative exposure,30.603000000000016,30.603000000000016,True,closed form vs q2_summary.csv
+Q2 linear S7-S6,0.103515625,0.103515625,True,q2_linear_base_runs.csv
+Q2 linear SE,0.02002687708748171,0.0200268770874817,True,q2_linear_base_runs.csv
+Q2 decelerating year-100 displacement,0.6060000000000001,0.6060000000000001,True,closed form vs q2_summary.csv
+Q2 decelerating cumulative exposure,40.602000000000004,40.602,True,closed form vs q2_summary.csv
+Q2 decelerating S7-S6,0.248046875,0.248046875,True,q2_decelerating_base_runs.csv
+Q2 decelerating SE,0.017257057275203568,0.0172570572752035,True,q2_decelerating_base_runs.csv
+Q2 step year-100 displacement,0.606,0.606,True,closed form vs q2_summary.csv
+Q2 step cumulative exposure,30.906000000000006,30.90600000000001,True,closed form vs q2_summary.csv
+Q2 step S7-S6,0.388671875,0.388671875,True,q2_step_base_runs.csv
+Q2 step SE,0.014131609876125852,0.0141316098761258,True,q2_step_base_runs.csv
+Q3 e1_intercept@0.5 S7-S6,-0.03125,-0.03125,True,q3_stage1_base_runs.csv
+Q3 e1_intercept@0.5 SE,0.008728443558295752,0.0087284435582957,True,q3_stage1_base_runs.csv
+Q3 e1_intercept@1.5 S7-S6,0.15885416666666666,0.1588541666666666,True,q3_stage1_base_runs.csv
+Q3 e1_intercept@1.5 SE,0.029479918480251027,0.029479918480251,True,q3_stage1_base_runs.csv
+Q3 e1_breadth_slope@0.5 S7-S6,-0.12760416666666666,-0.1276041666666666,True,q3_stage1_base_runs.csv
+Q3 e1_breadth_slope@0.5 SE,0.03929819554877144,0.0392981955487714,True,q3_stage1_base_runs.csv
+Q3 e1_breadth_slope@1.5 S7-S6,-0.0234375,-0.0234375,True,q3_stage1_base_runs.csv
+Q3 e1_breadth_slope@1.5 SE,0.038795630948833475,0.0387956309488334,True,q3_stage1_base_runs.csv
+Q3 e1_specificity_penalty@0.5 S7-S6,-0.06510416666666667,-0.0651041666666666,True,q3_stage1_base_runs.csv
+Q3 e1_specificity_penalty@0.5 SE,0.03740190763405091,0.0374019076340509,True,q3_stage1_base_runs.csv
+Q3 e1_specificity_penalty@1.5 S7-S6,-0.08333333333333333,-0.0833333333333333,True,q3_stage1_base_runs.csv
+Q3 e1_specificity_penalty@1.5 SE,0.03764991703782471,0.0376499170378247,True,q3_stage1_base_runs.csv
+Q3 e1_tolerance_bonus@0.5 S7-S6,-0.07552083333333333,-0.0755208333333333,True,q3_stage1_base_runs.csv
+Q3 e1_tolerance_bonus@0.5 SE,0.04255582472136712,0.0425558247213671,True,q3_stage1_base_runs.csv
+Q3 e1_tolerance_bonus@1.5 S7-S6,-0.08333333333333333,-0.0833333333333333,True,q3_stage1_base_runs.csv
+Q3 e1_tolerance_bonus@1.5 SE,0.041500110370413484,0.0415001103704134,True,q3_stage1_base_runs.csv
+Q3 e1_migration_penalty@0.5 S7-S6,-0.08072916666666667,-0.0807291666666666,True,q3_stage1_base_runs.csv
+Q3 e1_migration_penalty@0.5 SE,0.041359056778954705,0.0413590567789547,True,q3_stage1_base_runs.csv
+Q3 e1_migration_penalty@1.5 S7-S6,-0.07552083333333333,-0.0755208333333333,True,q3_stage1_base_runs.csv
+Q3 e1_migration_penalty@1.5 SE,0.04206474018286445,0.0420647401828644,True,q3_stage1_base_runs.csv
+Q3 e6_eligibility_threshold@0.5 S7-S6,-0.23177083333333334,-0.2317708333333333,True,q3_stage1_base_runs.csv
+Q3 e6_eligibility_threshold@0.5 SE,0.04450488298557465,0.0445048829855746,True,q3_stage1_base_runs.csv
+Q3 e6_eligibility_threshold@1.5 S7-S6,-0.11458333333333333,-0.1145833333333333,True,q3_stage1_base_runs.csv
+Q3 e6_eligibility_threshold@1.5 SE,0.04091182389622059,0.0409118238962206,True,q3_stage1_base_runs.csv
+Q3 e6_take_fraction@0.5 S7-S6,-0.0859375,-0.0859375,True,q3_stage1_base_runs.csv
+Q3 e6_take_fraction@0.5 SE,0.039415514800129406,0.0394155148001294,True,q3_stage1_base_runs.csv
+Q3 e6_take_fraction@1.5 S7-S6,-0.11197916666666667,-0.1119791666666666,True,q3_stage1_base_runs.csv
+Q3 e6_take_fraction@1.5 SE,0.04064112189196686,0.0406411218919668,True,q3_stage1_base_runs.csv
+Q3 e11_habitat_mortality@0.5 S7-S6,-0.041666666666666664,-0.0416666666666666,True,q3_stage1_base_runs.csv
+Q3 e11_habitat_mortality@0.5 SE,0.032303461012414984,0.0323034610124149,True,q3_stage1_base_runs.csv
+Q3 e11_habitat_mortality@1.5 S7-S6,-0.08072916666666667,-0.0807291666666666,True,q3_stage1_base_runs.csv
+Q3 e11_habitat_mortality@1.5 SE,0.03598628998669495,0.0359862899866949,True,q3_stage1_base_runs.csv
+Q3 e11_pressure_mortality@0.5 S7-S6,-0.08854166666666667,-0.0885416666666666,True,q3_stage1_base_runs.csv
+Q3 e11_pressure_mortality@0.5 SE,0.038129747214424775,0.0381297472144247,True,q3_stage1_base_runs.csv
+Q3 e11_pressure_mortality@1.5 S7-S6,-0.08072916666666667,-0.0807291666666666,True,q3_stage1_base_runs.csv
+Q3 e11_pressure_mortality@1.5 SE,0.04034178820425713,0.0403417882042571,True,q3_stage1_base_runs.csv
+Q3 e12_birth_scale@0.5 S7-S6,-0.1328125,-0.1328125,True,q3_stage1_base_runs.csv
+Q3 e12_birth_scale@0.5 SE,0.03122921516231644,0.0312292151623164,True,q3_stage1_base_runs.csv
+Q3 e12_birth_scale@1.5 S7-S6,-0.03125,-0.03125,True,q3_stage1_base_runs.csv
+Q3 e12_birth_scale@1.5 SE,0.03804640340500976,0.0380464034050097,True,q3_stage1_base_runs.csv
+Q3 perturbations with determinate S7 > S6 (count),1.0,1.0,True,expect only e1_intercept x1.5: ['e1_intercept@1.5']
+V0 held-out determinate cells,26.0,26.0,True,holdout_runs + holdout_psi
+V0 held-out determinate accuracy,0.8461538461538461,0.8461538461538461,True,holdout_runs + holdout_psi
+V0 held-out all-cell accuracy,0.39285714285714285,0.3928571428571428,True,holdout_runs + holdout_psi
+V0 held-out regret,0.045014880952380945,0.0450148809523809,True,holdout_runs + holdout_psi
+confirmatory cells,60.0,60.0,True,ibm_runs.csv
+confirmatory paired seeds per cell,12.0,12.0,True,ibm_runs.csv
+confirmatory survival_100 all determinate cells,34.0,34.0,True,ibm_runs + psi_predictions
+confirmatory survival_100 all S7 cells,18.0,18.0,True,ibm_runs + psi_predictions
+confirmatory survival_100 all determinate accuracy,0.9705882352941176,0.9705882352941176,True,ibm_runs + psi_predictions
+confirmatory survival_100 all all-cell accuracy,0.55,0.55,True,ibm_runs + psi_predictions
+confirmatory survival_100 all Wilson lower,0.8508409778365519,0.8508409778365519,True,independent Wilson
+confirmatory survival_100 all Wilson upper,0.9947892280744034,0.9947892280744034,True,independent Wilson
+confirmatory survival_100 all regret Psi,0.00954861111111111,0.0095486111111111,True,ibm_runs + psi_predictions
+confirmatory survival_100 all regret always-S6,0.08072916666666666,0.0807291666666666,True,ibm_runs
+confirmatory survival_100 all regret always-S7,0.07586805555555554,0.0758680555555555,True,ibm_runs
+confirmatory survival_100 in_domain determinate cells,22.0,22.0,True,ibm_runs + psi_predictions
+confirmatory survival_100 in_domain S7 cells,12.0,12.0,True,ibm_runs + psi_predictions
+confirmatory survival_100 in_domain determinate accuracy,0.9545454545454546,0.9545454545454546,True,ibm_runs + psi_predictions
+confirmatory survival_100 in_domain all-cell accuracy,0.525,0.525,True,ibm_runs + psi_predictions
+confirmatory survival_100 in_domain Wilson lower,0.7820151050048196,0.7820151050048196,True,independent Wilson
+confirmatory survival_100 in_domain Wilson upper,0.9919307806988522,0.9919307806988522,True,independent Wilson
+confirmatory survival_100 in_domain regret Psi,0.013020833333333334,0.0130208333333333,True,ibm_runs + psi_predictions
+confirmatory survival_100 in_domain regret always-S6,0.08046875,0.08046875,True,ibm_runs
+confirmatory survival_100 in_domain regret always-S7,0.07005208333333332,0.0700520833333333,True,ibm_runs
+confirmatory survival_100 shifted determinate cells,12.0,12.0,True,ibm_runs + psi_predictions
+confirmatory survival_100 shifted S7 cells,6.0,6.0,True,ibm_runs + psi_predictions
+confirmatory survival_100 shifted determinate accuracy,1.0,1.0,True,ibm_runs + psi_predictions
+confirmatory survival_100 shifted all-cell accuracy,0.6,0.6,True,ibm_runs + psi_predictions
+confirmatory survival_100 shifted Wilson lower,0.7574992425007574,0.7574992425007574,True,independent Wilson
+confirmatory survival_100 shifted Wilson upper,1.0,1.0,True,independent Wilson
+confirmatory survival_100 shifted regret Psi,0.0026041666666666657,0.0026041666666666,True,ibm_runs + psi_predictions
+confirmatory survival_100 shifted regret always-S6,0.08124999999999999,0.0812499999999999,True,ibm_runs
+confirmatory survival_100 shifted regret always-S7,0.0875,0.0875,True,ibm_runs
+confirmatory viable_persistence_100 all determinate cells,33.0,33.0,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 all S7 cells,19.0,19.0,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 all determinate accuracy,0.9696969696969697,0.9696969696969696,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 all all-cell accuracy,0.5333333333333333,0.5333333333333333,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 all Wilson lower,0.8468093832683193,0.8468093832683193,True,independent Wilson
+confirmatory viable_persistence_100 all Wilson upper,0.9946307279103482,0.9946307279103482,True,independent Wilson
+confirmatory viable_persistence_100 all regret Psi,0.010243055555555554,0.0102430555555555,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 all regret always-S6,0.08611111111111111,0.0861111111111111,True,ibm_runs
+confirmatory viable_persistence_100 all regret always-S7,0.0704861111111111,0.0704861111111111,True,ibm_runs
+confirmatory viable_persistence_100 in_domain determinate cells,22.0,22.0,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 in_domain S7 cells,13.0,13.0,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 in_domain determinate accuracy,0.9545454545454546,0.9545454545454546,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 in_domain all-cell accuracy,0.525,0.525,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 in_domain Wilson lower,0.7820151050048196,0.7820151050048196,True,independent Wilson
+confirmatory viable_persistence_100 in_domain Wilson upper,0.9919307806988522,0.9919307806988522,True,independent Wilson
+confirmatory viable_persistence_100 in_domain regret Psi,0.01328125,0.01328125,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 in_domain regret always-S6,0.08776041666666667,0.0877604166666666,True,ibm_runs
+confirmatory viable_persistence_100 in_domain regret always-S7,0.0640625,0.0640625,True,ibm_runs
+confirmatory viable_persistence_100 shifted determinate cells,11.0,11.0,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 shifted S7 cells,6.0,6.0,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 shifted determinate accuracy,1.0,1.0,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 shifted all-cell accuracy,0.55,0.55,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 shifted Wilson lower,0.7411599827511859,0.7411599827511859,True,independent Wilson
+confirmatory viable_persistence_100 shifted Wilson upper,1.0,1.0,True,independent Wilson
+confirmatory viable_persistence_100 shifted regret Psi,0.004166666666666666,0.0041666666666666,True,ibm_runs + psi_predictions
+confirmatory viable_persistence_100 shifted regret always-S6,0.08281249999999998,0.0828124999999999,True,ibm_runs
+confirmatory viable_persistence_100 shifted regret always-S7,0.08333333333333331,0.0833333333333333,True,ibm_runs
+confirmatory wild_persistence_100 all determinate cells,28.0,28.0,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 all S7 cells,11.0,11.0,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 all determinate accuracy,0.9642857142857143,0.9642857142857144,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 all all-cell accuracy,0.45,0.45,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 all Wilson lower,0.8228742388150135,0.8228742388150135,True,independent Wilson
+confirmatory wild_persistence_100 all Wilson upper,0.9936676435024582,0.9936676435024582,True,independent Wilson
+confirmatory wild_persistence_100 all regret Psi,0.009201388888888887,0.0092013888888888,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 all regret always-S6,0.0638888888888889,0.0638888888888889,True,ibm_runs
+confirmatory wild_persistence_100 all regret always-S7,0.08003472222222222,0.0800347222222222,True,ibm_runs
+confirmatory wild_persistence_100 in_domain determinate cells,18.0,18.0,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 in_domain S7 cells,8.0,8.0,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 in_domain determinate accuracy,0.9444444444444444,0.9444444444444444,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 in_domain all-cell accuracy,0.425,0.425,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 in_domain Wilson lower,0.7424220019799247,0.7424220019799247,True,independent Wilson
+confirmatory wild_persistence_100 in_domain Wilson upper,0.9901250641690756,0.9901250641690756,True,independent Wilson
+confirmatory wild_persistence_100 in_domain regret Psi,0.013020833333333332,0.0130208333333333,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 in_domain regret always-S6,0.06276041666666668,0.0627604166666666,True,ibm_runs
+confirmatory wild_persistence_100 in_domain regret always-S7,0.07447916666666667,0.0744791666666666,True,ibm_runs
+confirmatory wild_persistence_100 shifted determinate cells,10.0,10.0,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 shifted S7 cells,3.0,3.0,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 shifted determinate accuracy,1.0,1.0,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 shifted all-cell accuracy,0.5,0.5,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 shifted Wilson lower,0.7224598312333834,0.7224598312333834,True,independent Wilson
+confirmatory wild_persistence_100 shifted Wilson upper,1.0,1.0,True,independent Wilson
+confirmatory wild_persistence_100 shifted regret Psi,0.0015625,0.0015625,True,ibm_runs + psi_predictions
+confirmatory wild_persistence_100 shifted regret always-S6,0.06614583333333332,0.0661458333333333,True,ibm_runs
+confirmatory wild_persistence_100 shifted regret always-S7,0.09114583333333331,0.0911458333333333,True,ibm_runs

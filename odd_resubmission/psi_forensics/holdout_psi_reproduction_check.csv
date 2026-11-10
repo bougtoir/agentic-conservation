@@ -1,0 +1,4 @@
+candidate,max_abs_diff_psi,max_abs_diff_channels,exact_cells_1e-9,sign_agreement,n_cells
+committed_f964b66,19.468752741308457,19.480591239247044,0,37,56
+reconstructed_launch_state_mbp4,3.552713678800501e-15,3.552713678800501e-15,56,56,56
+reconstructed_launch_state_mbp8,0.999977281777441,1.3666015998919647,0,39,56
