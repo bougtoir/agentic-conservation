@@ -2228,6 +2228,7 @@ def _force_times(path: Path) -> None:
 
 
 def build_all(root: Path) -> dict[str, Path]:
+    (root / OUT_DIR).mkdir(parents=True, exist_ok=True)
     clean, n = build_clean(root)
     v = load_values(root)
     outs = {
