@@ -16,6 +16,23 @@ disease, genetics, welfare, biobanking, engagement feedback, and explicit
 annual budgets. Synthetic outcomes and empirical data-availability evidence are
 kept separate.
 
+## ODD 2020 revision (new submission referring to ECOMOD-26-2231)
+
+The revised manuscript describes the unchanged model with the ODD 2020
+protocol. Its verification outputs are in `results/odd_verification/` (Q1–Q3),
+`results/psi_confirmatory/` (prospective Ψ evaluation) and
+`odd_resubmission/psi_forensics/` (reconstruction of the historical held-out Ψ).
+
+```bash
+PYTHONPATH=src python3 -m pytest -q
+PYTHONPATH=src python3 scripts/final_numeric_audit.py          # independent recomputation
+PYTHONPATH=src python3 odd_resubmission/psi_forensics/reproduce_holdout_psi.py
+PYTHONPATH=src python3 src/agentic_conservation/documents_em_odd.py  # manuscript, appendix, cover
+```
+
+Editorial correspondence and the journal submission files are not part of the
+public repository; the builder skips the response letter when they are absent.
+
 ## Reproduce
 
 ```bash

@@ -1,0 +1,6 @@
+holdout_metrics columns: ['cell', 'name', 'group', 'mean_diff', 'se', 'obs_sign', 'psi', 'habitat_channel', 'circulation_channel', 'overrides', 'pred_sign', 'pred_B1', 'pred_B2']
+                  version  dev_acc_all  dev_acc_det  holdout_acc_all  holdout_acc_det  holdout_regret
+     V0_launch_state_mbp4        0.608     0.622951         0.392857         0.846154        0.045015
+     V0_launch_state_mbp8        0.896     0.918033         0.428571         0.923077        0.016369
+V1_committed_f964b66_mbp4        0.888     0.909836         0.446429         0.961538        0.010417
+V1_committed_f964b66_mbp8        0.848     0.868852         0.446429         0.961538        0.011347

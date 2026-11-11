@@ -1,0 +1,15 @@
+literal,factor,stage2_evaluated
+e1_intercept,0.5,True
+e1_breadth_slope,1.5,True
+e12_birth_scale,0.5,True
+e6_eligibility_threshold,0.5,True
+e1_breadth_slope,0.5,True
+e11_habitat_mortality,1.5,True
+e1_specificity_penalty,1.5,False
+e11_pressure_mortality,1.5,False
+e6_take_fraction,1.5,False
+e1_intercept,1.5,False
+e6_eligibility_threshold,1.5,False
+e11_pressure_mortality,0.5,False
+e6_take_fraction,0.5,False
+e1_tolerance_bonus,1.5,False

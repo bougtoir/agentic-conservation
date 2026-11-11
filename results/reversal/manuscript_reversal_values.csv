@@ -1,0 +1,32 @@
+value_id,estimate,definition
+dev_cells,125,development sweep cells at n=8
+dev_det_cells,122,development cells with nonzero robust sign
+dev_acc_all,0.888,"Psi sign accuracy, all dev cells"
+dev_acc_det,0.9098360655737705,"Psi sign accuracy, determinate dev cells"
+holdout_cells,56,held-out cells
+holdout_det_cells,26,held-out determinate cells
+holdout_s7_cells,17,held-out cells favouring S7
+holdout_s6_cells,9,held-out cells favouring S6
+holdout_ind_cells,30,held-out indeterminate cells
+psi_acc_all,0.39285714285714285,"Psi sign accuracy, all held-out cells"
+psi_acc_det,0.8461538461538461,"Psi sign accuracy, determinate held-out cells"
+psi_bacc3,0.5185185185185185,"Psi balanced accuracy, 3-class"
+psi_sensitivity,1.0,Psi sensitivity for S7-favoured cells
+psi_specificity,0.5555555555555556,Psi specificity for S6-favoured cells
+psi_bacc2,0.7777777777777778,Psi two-class balanced accuracy on determinate cells
+regret_psi,0.045014880952380945,decision regret of Psi's sign as policy pick
+regret_B0,0.08370535714285714,decision regret of always-S6 baseline
+B0_acc_all,0.16071428571428573,always-S6 sign accuracy
+B0_bacc,0.3333333333333333,always-S6 balanced accuracy
+B1_param,climate_velocity,B1 threshold parameter (dev-fitted)
+B1_threshold,0.021875000000000002,B1 threshold value (dev-fitted)
+B1_dev_acc,0.728,B1 sign accuracy on dev
+B1_acc_all,0.2857142857142857,"B1 sign accuracy, held-out"
+B1_bacc,0.4705882352941176,"B1 balanced accuracy, held-out"
+B2_dev_acc,0.728,B2 sign accuracy on dev
+B2_acc_all,0.19642857142857142,"B2 sign accuracy, held-out"
+B2_bacc,0.33769063180827885,"B2 balanced accuracy, held-out"
+near_boundary_cells,23,cells with |Psi| < 0.2
+near_boundary_acc,0.17391304347826086,Psi sign accuracy within |Psi| < 0.2
+abstain_tau01_cells,36,cells covered by |Psi| >= 0.1 abstention
+abstain_tau01_acc_det,0.9473684210526315,determinate accuracy under |Psi| >= 0.1 abstention

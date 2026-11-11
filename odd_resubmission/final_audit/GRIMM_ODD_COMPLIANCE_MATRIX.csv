@@ -1,0 +1,48 @@
+id,odd_element,odd_source_location,s1_guidance,manuscript_section,implementation,evidence,status,remaining_deficiency
+E1.1,1 Purpose and patterns,S1 p.6 checklist,specific purpose(s),2.1 Purpose,n/a (text),Purpose stated as theoretical exposition with defined endpoint terms,PASS,
+E1.2,1 Purpose and patterns,S1 p.6 checklist; main article: patterns new in ODD 2020,patterns used as evaluation criteria,"2.1 Patterns, Table 1",figures/tables from canonical results,P1–P4 with reproduction status; P1/P3 flagged as weak (construction-implied),PASS,"patterns are general expectations, not system data (stated)"
+E2.1,"2 Entities, state variables, scales",S1 p.10 checklist,kinds of entities and what they represent,"2.2, Table 2, Fig. 1",simulation.py classes/config,"individuals, species, nodes, manager, environment",PASS,
+E2.2,2,S1 p.10,why entities included / excluded,2.2,—,biobank holds material only; no topology; inert variables listed,PASS,no explicit sentence on why no interspecific competitors entity (Discussion limitation only)
+E2.3,2,S1 p.10,"state variables with meaning, units, dynamic/static, type, range",Table 2,config + simulation.py,type/units and ranges given; inert variables marked,PARTIAL,dynamic vs static not a separate column (inferable); minor
+E2.4,2,S1 p.10,"time representation, step length, extent",2.2,years=100,"one-year step, 100 years",PASS,
+E2.5,2,S1 p.10,space representation,2.2,no coordinates,"space implicit, no adjacency",PASS,
+E2.6,2,S1 p.10,other dimensions,2.2/Table 2,knowledge stage,knowledge stage 0–5 as dimension of visibility,PASS,
+E2.7,2,S1 p.10,why scales chosen,"2.2, 2.3",—,annual management cycle stated in 2.3; explicit scale rationale brief,PARTIAL,one sentence would close it; minor
+E3.1,3 Process overview and scheduling,S1 p.14 checklist,complete schedule; who executes; variables updated; order,2.3 Algorithm 1 (14 steps),simulation.py step order,implemented order verified against code (FINAL_SEMANTIC_CODE_AUDIT),PASS,
+E3.2,3,S1 p.14,continuous-time actions,2.3,none,discrete only (implicit),PASS,n/a
+E3.3,3,S1 p.14,rationale for processes included,"2.3, 2.7 rationale blocks",—,management-cycle rationale,PASS,
+E3.4,3,S1 p.14,rationale for order; entity execution order,2.3,species/node index order,"synchronous update, index order matters only for cap (tested by doubling cap)",PASS,
+E4.1,4 Design concepts,S1 pp.15–23 (Basic principles),Basic principles checklist,2.4 Basic principles,—,addressed in its own labelled paragraph,PARTIAL,names principles; does not say whether theory is new or existing for manager rules (S1 item 3)
+E4.2,4 Design concepts,S1 pp.15–23 (Emergence),Emergence checklist,2.4 Emergence,—,addressed in its own labelled paragraph,PASS,
+E4.3,4 Design concepts,S1 pp.15–23 (Adaptation),Adaptation checklist,2.4 Adaptation,—,addressed in its own labelled paragraph,PASS,
+E4.4,4 Design concepts,S1 pp.15–23 (Objectives),Objectives checklist,2.4 Objectives,—,addressed in its own labelled paragraph,PASS,rationale of Eq. 5 weights given in 2.7.6 not in 2.4
+E4.5,4 Design concepts,S1 pp.15–23 (Learning),Learning checklist,2.4 Learning,—,addressed in its own labelled paragraph,PASS,
+E4.6,4 Design concepts,S1 pp.15–23 (Prediction),Prediction checklist,2.4 Prediction,—,addressed in its own labelled paragraph,PASS,
+E4.7,4 Design concepts,S1 pp.15–23 (Sensing),Sensing checklist,2.4 Sensing,—,addressed in its own labelled paragraph,PASS,
+E4.8,4 Design concepts,S1 pp.15–23 (Interaction),Interaction checklist,2.4 Interaction,—,addressed in its own labelled paragraph,PASS,
+E4.9,4 Design concepts,S1 pp.15–23 (Stochasticity),Stochasticity checklist,2.4 Stochasticity,—,addressed in its own labelled paragraph,PASS,
+E4.10,4 Design concepts,S1 pp.15–23 (Collectives),Collectives checklist,2.4 Collectives,—,addressed in its own labelled paragraph,PASS,
+E4.11,4 Design concepts,S1 pp.15–23 (Observation),Observation checklist,2.4 Observation,—,addressed in its own labelled paragraph,PASS,
+E5.1,5 Initialization,S1 p.25 checklist,"entities created, numbers, initial values",2.5,config initial sizes,"364 individuals, 32–58 per species, distributions stated",PASS,
+E5.2,5,S1 p.25,initial locations,2.5,wild nodes,placed in wild nodes,PASS,
+E5.3,5,S1 p.25,initial collectives/networks,2.5,—,node populations from placement; no network,PASS,
+E5.4,5,S1 p.25,site-specific data,2.5/2.6,none,none used,PASS,
+E5.5,5,S1 p.25,initialization varies among scenarios?,2.5,—,only the seed differs,PASS,
+E5.6,5,S1 p.25,rationale for initialization,2.5,—,implicit (synthetic standard start),PARTIAL,no explicit sentence why all replicates share configuration; minor
+E6.1,6 Input data,S1 p.26 checklist,time-varying input data used?,2.6,none,no external time series,PASS,
+E6.2,6,S1 p.26,input description,2.6,GBIF context only,"GBIF aggregates are context, not input",PASS,
+E6.3,6,S1 p.26,preparation methods,2.6 + repo ledger,data/raw ledger,ledger in repository,PASS,
+E6.4,6,S1 p.26,input from another model,2.6,none,none,PASS,n/a
+E7.1,7 Submodels,S1 p.28 checklist,each submodel in its own subsection,2.7.1–2.7.10,simulation.py,10 subsections,PASS,
+E7.2,7,S1 p.28,"equations, algorithms, parameters, value selection","2.7, Table 3, Eqs. 1–7 (OMML), Alg. 2",simulation.py,all parameters synthetic class C; selection stated as non-calibrated,PASS,
+E7.3,7,S1 p.28,analyses testing submodels by themselves,"2.8, 2.9, 3.5","Q3, ablations",ablations and one-at-a-time perturbations; no isolated submodel tests,PARTIAL,tests are whole-model; isolated submodel analyses absent; stated implicitly
+R1,7 Submodels – rationale (editor request),S1 p.28 + AE comment,"process, form, reason, alternatives, assumptions, implications, evidence, missing evidence",2.7.1 Habitat/climate (Eq. 1),simulation.py,full 8-part block,PASS,
+R2,7 Submodels – rationale (editor request),S1 p.28 + AE comment,"process, form, reason, alternatives, assumptions, implications, evidence, missing evidence",2.7.2 Suitability (Eq. 2),simulation.py,full,PASS,
+R3,7 Submodels – rationale (editor request),S1 p.28 + AE comment,"process, form, reason, alternatives, assumptions, implications, evidence, missing evidence",2.7.3 Observation,simulation.py,"compressed rationale (process, alternatives, evidence status)",PARTIAL,no explicit effect-on-conclusions line beyond comparator bound
+R4,7 Submodels – rationale (editor request),S1 p.28 + AE comment,"process, form, reason, alternatives, assumptions, implications, evidence, missing evidence",2.7.4 Discovery (Eq. 3),simulation.py,compressed rationale,PARTIAL,alternatives and evidence given; assumptions partly
+R5,7 Submodels – rationale (editor request),S1 p.28 + AE comment,"process, form, reason, alternatives, assumptions, implications, evidence, missing evidence",2.7.5 Budget/engagement (Eq. 4),simulation.py,compressed; non-decreasing engagement disclosed,PARTIAL,effect on conclusions via ablation in 3.5 not cross-referenced in block
+R6,7 Submodels – rationale (editor request),S1 p.28 + AE comment,"process, form, reason, alternatives, assumptions, implications, evidence, missing evidence","2.7.6 Movement (Eq. 5, Alg. 2)",simulation.py,full,PASS,
+R7,7 Submodels – rationale (editor request),S1 p.28 + AE comment,"process, form, reason, alternatives, assumptions, implications, evidence, missing evidence",2.7.7 Disease,simulation.py,compressed,PARTIAL,assumptions brief; ablation bounds role (+0.188)
+R8,7 Submodels – rationale (editor request),S1 p.28 + AE comment,"process, form, reason, alternatives, assumptions, implications, evidence, missing evidence",2.7.8 Survival (Eq. 6),simulation.py,full,PASS,
+R9,7 Submodels – rationale (editor request),S1 p.28 + AE comment,"process, form, reason, alternatives, assumptions, implications, evidence, missing evidence",2.7.9 Reproduction (Eq. 7),simulation.py,full,PASS,
+R10,7 Submodels – rationale (editor request),S1 p.28 + AE comment,"process, form, reason, alternatives, assumptions, implications, evidence, missing evidence",2.7.10 Biobank/welfare/EBD,simulation.py,compressed; normative status stated,PARTIAL,alternatives not listed
