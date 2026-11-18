@@ -27,8 +27,22 @@ protocol. Its verification outputs are in `results/odd_verification/` (Q1–Q3),
 PYTHONPATH=src python3 -m pytest -q
 PYTHONPATH=src python3 scripts/final_numeric_audit.py          # independent recomputation
 PYTHONPATH=src python3 odd_resubmission/psi_forensics/reproduce_holdout_psi.py
-PYTHONPATH=src python3 src/agentic_conservation/documents_em_odd.py  # manuscript, appendix, cover
+make integrated   # inline-figure manuscript (no appendix), tracked copy, PDF, cover, QC
 ```
+
+`make integrated` runs `scripts/build_integrated_submission.py` (corrected
+Figure 1 and historical-Ψ figure variants, the document generator
+`src/agentic_conservation/documents_em_odd.py`, and a LibreOffice PDF render)
+and then `scripts/qc_integrated_submission.py`. The manuscript has no appendix:
+Figures 1–10 are embedded in the text, and the sensitivity, interaction-screen,
+ablation and alternative-weight results are reported in Sections 3.5 and 3.7.
+The complete tables behind those summaries stay in `tables/`
+(`table4_sensitivity.csv`, `table4_sensitivity_interactions.csv`,
+`table7_robustness.csv`, `table8_information_weight_sensitivity.csv`,
+`table9_reversal_predictors.csv`, `table5_empirical_coverage.csv`,
+`table6_empirical_evidence.csv`). Release tag `odd-2020-revision-v2` is the
+earlier appendix version and is kept unchanged; the inline-figure version is
+released under its own tag.
 
 Editorial correspondence and the journal submission files are not part of the
 public repository; the builder skips the response letter when they are absent.

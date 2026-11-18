@@ -1,7 +1,7 @@
 PYTHON ?= python3
 export PYTHONPATH := src
 
-.PHONY: quick full fetch empirical figures package test lint clean
+.PHONY: quick full fetch empirical figures package integrated test lint clean
 
 quick:
 	$(PYTHON) scripts/run_pipeline.py --mode quick
@@ -21,6 +21,10 @@ figures:
 
 package:
 	$(PYTHON) scripts/build_submission.py
+
+integrated:
+	$(PYTHON) scripts/build_integrated_submission.py
+	$(PYTHON) scripts/qc_integrated_submission.py
 
 audit:
 	PYTHONPATH=src $(PYTHON) scripts/run_structural_audits.py --mode full

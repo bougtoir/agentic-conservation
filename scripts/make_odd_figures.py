@@ -14,6 +14,9 @@ import pandas as pd  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from matplotlib.lines import Line2D  # noqa: E402
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch  # noqa: E402
+
 from agentic_conservation.simulation import climate_increment  # noqa: E402
 
 OUT = ROOT / "figures/odd"
@@ -50,6 +53,139 @@ def climate_forms_figure() -> None:
     plt.close(fig)
 
 
+def network_figure() -> None:
+    """Node schematic in which only living-animal nodes are connected by movement
+    arrows; the biobank stores genetic material and is never a movement target."""
+    nodes = pd.read_json(ROOT / "config/nodes.json")
+    positions = {
+        "origin": (0.10, 0.70),
+        "alternative": (0.30, 0.84),
+        "reserve": (0.30, 0.55),
+        "zoo": (0.56, 0.85),
+        "conservation_zoo": (0.78, 0.78),
+        "breeding": (0.57, 0.58),
+        "semiwild": (0.79, 0.49),
+        "rehabilitation": (0.56, 0.32),
+        "biobank": (0.82, 0.22),
+    }
+    fig, ax = plt.subplots(figsize=(11, 7))
+    ax.set_xlim(-0.02, 1.02)
+    ax.set_ylim(0, 1)
+    ax.axis("off")
+    ax.text(0.18, 0.97, "Wild environments", ha="center", weight="bold", fontsize=13)
+    ax.text(
+        0.68, 0.97, "Managed conservation environments", ha="center", weight="bold", fontsize=13
+    )
+    ax.axvline(0.43, ymin=0.12, color="#bbbbbb", lw=1.2, ls="--")
+    for row in nodes.itertuples():
+        x, y = positions[row.id]
+        color = "#cfe8d5" if row.wild else "#d8e5f4"
+        label = row.id.replace("_", " ").title()
+        h = 0.09
+        if row.type == "biobank":
+            color, h = "#e7dcf4", 0.15
+            label = "Biobank\n(stored genetic material;\nno animals)"
+        ax.add_patch(
+            FancyBboxPatch(
+                (x - 0.09, y - h / 2),
+                0.18,
+                h,
+                boxstyle="round,pad=0.012",
+                facecolor=color,
+                edgecolor="#333333",
+                linewidth=1.1,
+                linestyle="--" if row.type == "biobank" else "-",
+            )
+        )
+        ax.text(x, y, label, ha="center", va="center", fontsize=9)
+    edges = [
+        ("origin", "alternative"),
+        ("origin", "reserve"),
+        ("origin", "rehabilitation"),
+        ("alternative", "semiwild"),
+        ("reserve", "semiwild"),
+        ("zoo", "conservation_zoo"),
+        ("conservation_zoo", "breeding"),
+        ("breeding", "semiwild"),
+        ("rehabilitation", "semiwild"),
+        ("semiwild", "origin"),
+        ("semiwild", "alternative"),
+    ]
+    for source, target in edges:
+        ax.add_patch(
+            FancyArrowPatch(
+                positions[source],
+                positions[target],
+                arrowstyle="-|>",
+                mutation_scale=11,
+                color="#555555",
+                alpha=0.65,
+                linewidth=1.1,
+                connectionstyle="arc3,rad=0.07",
+                shrinkA=34,
+                shrinkB=34,
+            )
+        )
+    ax.text(
+        0.5,
+        0.045,
+        "Arrows: example pathways along which living animals can be moved "
+        "(optional, resource-limited, not recommendations).\nThe biobank "
+        "receives budget, not animals, and is never a movement target.",
+        ha="center",
+        fontsize=10,
+    )
+    fig.savefig(OUT / "fig1_network_living_nodes.png", dpi=320, bbox_inches="tight")
+    plt.close(fig)
+
+
+def psi_historical_figure() -> None:
+    """Historical held-out Psi (implementation V0) against the observed contrast."""
+    m = pd.read_csv(ROOT / "results/reversal/holdout_metrics.csv")
+    fig, ax = plt.subplots(figsize=(8, 5.2))
+    ax.axvline(0, color="#777777", lw=1.0, ls="--")
+    ax.axhline(0, color="#777777", lw=1.0, ls="--")
+    for sign, colour in [(1, "#2878b5"), (-1, "#c1443c")]:
+        d = m[m.obs_sign == sign]
+        ax.scatter(d.psi, d.mean_diff, c=colour, s=42, edgecolor="black", linewidth=0.4, zorder=3)
+    ind = m[m.obs_sign == 0]
+    ax.scatter(ind.psi, ind.mean_diff, c="#bbbbbb", s=34, marker="x", linewidth=1.4, zorder=2)
+    ax.set_xscale("symlog", linthresh=0.5)
+    ax.set(
+        xlabel="Reduced reversal criterion \u03a8, implementation V0 (symlog scale)",
+        ylabel="Observed S7 \u2212 S6 year-100 survival difference",
+        title="Historical held-out evaluation of \u03a8 (implementation V0)",
+    )
+    ax.grid(alpha=0.25)
+    handles = [
+        Line2D(
+            [],
+            [],
+            marker="o",
+            ls="",
+            color="#2878b5",
+            markeredgecolor="black",
+            label="determinate, S7 higher (|mean diff| > 2 MC SE)",
+        ),
+        Line2D(
+            [],
+            [],
+            marker="o",
+            ls="",
+            color="#c1443c",
+            markeredgecolor="black",
+            label="determinate, S6 higher (|mean diff| > 2 MC SE)",
+        ),
+        Line2D([], [], marker="x", ls="", color="#bbbbbb", label="indeterminate"),
+    ]
+    ax.legend(handles=handles, loc="upper left", fontsize=9)
+    fig.savefig(OUT / "fig_psi_historical_v0.png", dpi=320, bbox_inches="tight")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
-    climate_forms_figure()
+    if "--all" in sys.argv:
+        climate_forms_figure()
+    network_figure()
+    psi_historical_figure()

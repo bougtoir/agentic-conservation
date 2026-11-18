@@ -36,8 +36,20 @@ TITLE = (
     "individual-based model of habitat, managed-care and discovery policies "
     "under directional change"
 )
-OUT_DIR = "odd_resubmission/submission"
-MIRROR_TAG = "odd-2020-revision-v2"
+OUT_DIR = "odd_resubmission/submission/integrated"
+MIRROR_TAG = "odd-2020-revision-v3-inline"
+AUTHOR = "Onishi Tatsuki"
+AFFILIATION = "Data Science and AI Innovation Research Promotion Center, Shiga University"
+ADDRESS = "1-1-1, Bamba, Hikone, Shiga, 522-8522, Japan"
+EMAIL = "bougtoir@gmail.com"
+ORCID = "0000-0001-7261-9062"
+OUTPUTS = {
+    "clean": "EM_ODD_MAIN_TEXT_INTEGRATED_CLEAN.docx",
+    "tracked": "EM_ODD_MAIN_TEXT_INTEGRATED_TRACKED.docx",
+    "pdf": "EM_ODD_MAIN_TEXT_INTEGRATED.pdf",
+    "response": "EM_ODD_EDITOR_RESPONSE_INTEGRATED.docx",
+    "cover": "EM_ODD_COVER_LETTER_INTEGRATED.docx",
+}
 EXTRA_REFERENCES = [
     {
         "key": "grimm_2020",
@@ -180,32 +192,56 @@ class Numbering:
 
 FIGURES = {
     "network": (
-        "figures/fig1_conservation_network.png",
-        "Conservation network represented in the model. Arrows denote "
-        "potential movement among wild, managed, transitional and "
-        "rehabilitation nodes; the biobank holds genetic material only.",
+        "figures/odd/fig1_network_living_nodes.png",
+        "Nodes of the modelled conservation network. Green: wild nodes (the "
+        "semi-wild pre-release station is both wild and managed); blue: "
+        "managed-care nodes; purple, dashed: biobank. Arrows show example "
+        "pathways along which living animals can be moved; under the movement "
+        "rules (Section 2.7.6) any node that can hold animals can be a target. "
+        "The biobank stores genetic material funded from the budget; it never "
+        "holds or receives animals. Schematic, no data.",
     ),
     "observation": (
         "figures/fig7_partial_observation_architecture.png",
-        "Separation of true ecological state, observations, policy "
-        "actions and realised outcomes (ODD Sensing and Observation).",
+        "Partial-observation architecture (ODD design concepts Sensing and "
+        "Observation). The manager acts on the observed state O(t) (count error, "
+        "node quality observed with a one-year lag and error, latent species "
+        "unobserved), not on the true state X(t); the perfect-current-state "
+        "comparator replaces O(t) with X(t). Schematic, no data.",
     ),
     "trajectories": (
         "figures/fig2_century_trajectories.png",
-        "Mean 100-year trajectories under the eight policies in the "
-        "base scenario. Synthetic model outcomes, not forecasts.",
+        "Species retained (left) and total number of living individuals "
+        "(right) over 100 years under the eight policies, base scenario, for a "
+        "single replicate (seed {traj_seed}). Single-replicate trajectories "
+        "illustrate the dynamics and are not means; means with replicate "
+        "intervals over {n_base} paired seeds are in {outcomes_table}. Synthetic "
+        "model outcomes, not forecasts.",
     ),
     "pareto": (
         "figures/fig3_pareto_outcomes.png",
-        "Multi-objective policy comparison and Pareto status.",
+        "Mean 100-year cost against mean proportion of species retained at year "
+        "100 for the eight policies ({n_base} paired seeds). Circles: Pareto "
+        "non-dominated across the six tracked objectives (exact dominance on "
+        "means); crosses: dominated ({dominated}). Marker area scales with mean "
+        "individual welfare.",
     ),
     "tradeoffs": (
         "figures/fig6_objective_tradeoffs.png",
-        "Normalised cross-objective outcomes (descriptive normalisation; not a cardinal utility).",
+        "Policy means on six objectives, each rescaled within the objective so "
+        "that the best policy scores 1 and the worst 0; extinction before "
+        "discovery (EBD) and cost are reversed so that higher is better. This "
+        "is a descriptive normalisation, not a cardinal utility; S0 scores 1 "
+        "on cost efficiency because it spends nothing.",
     ),
     "reversal": (
         "figures/fig4_policy_reversal_thresholds.png",
-        "Policy-reversal surfaces for two-factor sweeps: S7 − S6 difference in year-100 survival.",
+        "Two of the five two-factor sweeps: mean S7 − S6 difference in year-100 "
+        "survival per cell ({n_sweep} paired replicates per cell; red, S6 "
+        "higher; blue, S7 higher; colour scale symmetric about zero and "
+        "specific to each panel). Colour shows the cell mean only; the "
+        "robustness classification used in Section 3.2 is not shown. All five "
+        "sweeps are in results/threshold_sweeps.csv.",
     ),
     "climate_forms": (
         "figures/odd/fig_q2_climate_forms.png",
@@ -213,25 +249,51 @@ FIGURES = {
         "origin-quality displacement for four trajectories with the "
         "same year-100 displacement; the legend gives cumulative "
         "exposure (displacement-years). (b) Base-scenario S7 − S6 "
-        "contrast in year-100 survival with ±2 SE (192 paired seeds).",
+        "contrast in year-100 survival with ±2 SE ({n_base} paired seeds).",
     ),
     "ebd": (
         "figures/fig5_extinction_before_discovery.png",
-        "Extinction before discovery across latent-species fraction and survey-cost conditions.",
+        "Mean fraction of latent species that went extinct before discovery "
+        "under S7 (hybrid portfolio) across latent-species fraction and survey "
+        "cost ({n_sweep} paired replicates per cell). With a latent fraction of "
+        "0 there are no latent species and the fraction is recorded as 0.",
     ),
     "origin_future": (
         "figures/fig9_origin_future_optimum.png",
-        "Origin-to-alternative habitat-quality shift produced by the "
-        "deterministic part of directional change (shipped "
-        "accelerating form).",
+        "Mean synthetic-species suitability of the historical origin and the "
+        "alternative wild habitat from the deterministic directional-change "
+        "component only (shipped accelerating form; no intervention, "
+        "catastrophe or noise). The dashed line marks the first year in which "
+        "the alternative habitat has the higher mean suitability.",
     ),
     "psi": (
-        "figures/fig10_reversal_psi.png",
-        "Historical held-out evaluation of Ψ (V0 launch-state implementation; "
-        "see Section 2.10.2) against the observed S7 − S6 difference on the "
-        "56 held-out cells. Filled: determinate cells; crosses: indeterminate.",
+        "figures/odd/fig_psi_historical_v0.png",
+        "Historical held-out evaluation of Ψ computed with implementation V0 "
+        "(Section 2.10.2) against the observed S7 − S6 difference in year-100 "
+        "survival in the 56 held-out cells ({n_hold} paired replicates per "
+        "cell). Filled circles: determinate cells (|mean difference| > 2 Monte "
+        "Carlo SE; blue, S7 higher; red, S6 higher); grey crosses: "
+        "indeterminate cells. Horizontal axis symmetric-logarithmic. Historical, "
+        "not confirmatory; the prospective evaluation is in {psi_table}.",
     ),
 }
+
+
+def _figure_values(root: Path, n: Numbering) -> dict:
+    pareto = pd.read_csv(root / "results/pareto_front.csv")
+    sweeps = pd.read_csv(root / "results/threshold_sweeps.csv")
+    hold = pd.read_csv(root / "results/reversal/holdout_runs.csv")
+    base = pd.read_csv(root / "results/policy_outcomes.csv")
+    base = base[~base.oracle] if "oracle" in base else base
+    return {
+        "traj_seed": int(pd.read_csv(root / "results/trajectories.csv").seed.unique()[0]),
+        "n_base": int(base.groupby("policy").size().min()),
+        "dominated": ", ".join(pareto[~pareto.pareto_efficient].policy),
+        "n_sweep": int(sweeps.groupby(["sweep", "x", "y", "policy"]).size().min()),
+        "n_hold": int(hold.groupby(["cell", "policy"]).size().min()),
+        "outcomes_table": n.t("outcomes") if "outcomes" in n.tables else "the outcome table",
+        "psi_table": n.t("psi") if "psi" in n.tables else "the predictive-performance table",
+    }
 
 
 # -------------------------------------------------------------------- helpers
@@ -257,13 +319,36 @@ def _algorithm(doc: Document, heading: str, lines: list[str]) -> None:
 
 
 def _caption(doc: Document, n: Numbering, key: str, root: Path) -> None:
+    """Inline figure (Word inline drawing) followed by an editable caption."""
+    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    from docx.shared import Inches
+    from PIL import Image
+
     rel, caption = FIGURES[key]
+    caption = caption.format(**_figure_values(root, n))
     label = n.f(key)
-    n.figure_files.append((label, root / rel, caption))
+    path = root / rel
+    n.figure_files.append((label, path, caption))
+    w, h = Image.open(path).size
+    pic = doc.add_paragraph()
+    pic.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    pic.paragraph_format.space_before = Pt(12)
+    pic.paragraph_format.keep_with_next = True
+    pic.add_run().add_picture(str(path), width=Inches(min(6.3, 7.4 * w / h)))
     para = doc.add_paragraph()
-    para.paragraph_format.space_before = Pt(8)
-    para.add_run(f"{label.replace('Fig.', 'Figure')}. {caption}").italic = True
-    para.add_run(" [Figure supplied as a separate file.]")
+    para.paragraph_format.space_before = Pt(6)
+    para.paragraph_format.space_after = Pt(12)
+    lab = para.add_run(f"{label.replace('Fig.', 'Figure')}. ")
+    lab.bold = True
+    lab.font.size = Pt(10)
+    para.add_run(caption).font.size = Pt(10)
+
+
+def _table_note(doc: Document, text: str) -> None:
+    para = doc.paragraphs[-1] if doc.paragraphs and not doc.paragraphs[-1].text else None
+    para = para or doc.add_paragraph()
+    para.paragraph_format.space_after = Pt(10)
+    para.add_run(f"Note. {text}").font.size = Pt(10)
 
 
 def _table(
@@ -390,6 +475,293 @@ def _literature(root: Path) -> pd.DataFrame:
     return pd.concat([base, pd.DataFrame(EXTRA_REFERENCES)], ignore_index=True)
 
 
+POLICY3 = ["S4", "S6", "S7"]
+
+
+def _and_join(items: list[str]) -> str:
+    return items[0] if len(items) == 1 else ", ".join(items[:-1]) + " and " + items[-1]
+
+
+OUTCOME_LABELS = {
+    "survival_100": "survival_100 (species retained, year 100)",
+    "fraction_ebd": "fraction_ebd (extinct before discovery)",
+    "mean_individual_welfare": "mean_individual_welfare",
+    "future_option_value": "future_option_value",
+}
+
+
+def _override_text(overrides: dict) -> str:
+    return "; ".join(f"{k} = {v}" for k, v in overrides.items())
+
+
+def _robustness_frame(root: Path) -> pd.DataFrame:
+    """Former supplementary ablation/adverse table, all 45 canonical values, wide.
+
+    Point estimates are the canonical tables/table7_robustness.csv values; the
+    paired SE of S7 − S6 is computed from the per-seed records."""
+    from agentic_conservation.analysis import ABLATIONS, ADVERSE
+
+    t = pd.read_csv(root / "tables/table7_robustness.csv")
+    se = {}
+    for f in ("results/ablations.csv", "results/adverse_conditions.csv"):
+        a = pd.read_csv(root / f)
+        w = a[a.policy.isin(["S6", "S7"])].pivot_table(
+            index=["name", "seed"], columns="policy", values="survival_100"
+        )
+        d = (w.S7 - w.S6).groupby("name")
+        se.update((d.std(ddof=1) / d.count() ** 0.5).to_dict())
+    specs = {**ABLATIONS, **ADVERSE}
+    rows = []
+    for (analysis, design), g in t.groupby(["analysis", "design"], sort=False):
+        g = g.set_index("policy")
+        diff = g.loc["S7", "survival_100"] - g.loc["S6", "survival_100"]
+        rows.append(
+            [
+                "ablation" if analysis == "ablations" else "adverse condition",
+                design,
+                _override_text(specs[design]),
+                *[f"{g.loc[q, 'survival_100']:.3f}" for q in POLICY3],
+                f"{diff:+.3f} ({se[design]:.3f})",
+                *[f"{g.loc[q, 'fraction_ebd']:.3f}" for q in POLICY3],
+                *[f"{g.loc[q, 'mean_individual_welfare']:.3f}" for q in POLICY3],
+            ]
+        )
+    cols = (
+        ["set", "design", "change from base"]
+        + [f"survival_100 {q}" for q in POLICY3]
+        + ["survival_100 S7 − S6 (paired SE)"]
+        + [f"fraction_ebd {q}" for q in POLICY3]
+        + [f"mean_individual_welfare {q}" for q in POLICY3]
+    )
+    return pd.DataFrame(rows, columns=cols)
+
+
+def _robustness_contrasts(root: Path) -> pd.DataFrame:
+    f = _robustness_frame(root)
+    est = f["survival_100 S7 − S6 (paired SE)"].str.extract(r"([+-][0-9.]+) \(([0-9.]+)\)")
+    return f.assign(diff=est[0].astype(float), se=est[1].astype(float))
+
+
+def _lhs_frame(root: Path) -> pd.DataFrame:
+    a = pd.read_csv(root / "tables/table4_sensitivity.csv")
+    a = a.assign(abs_rho=a.spearman_rho.abs()).sort_values("abs_rho", ascending=False)
+    rows = []
+    for metric in OUTCOME_LABELS:
+        for q in POLICY3:
+            top = a[(a.metric == metric) & (a.policy == q)].head(2)
+            rows.append(
+                [
+                    metric,
+                    q,
+                    *[f"{r.parameter} ({r.spearman_rho:+.3f})" for r in top.itertuples()],
+                ]
+            )
+    return pd.DataFrame(
+        rows, columns=["outcome", "policy", "strongest association (ρ)", "second (ρ)"]
+    )
+
+
+def _wide_landscape_table(
+    doc: Document, n: Numbering, key: str, frame: pd.DataFrame, caption: str, note: str
+) -> None:
+    from docx.enum.section import WD_ORIENT, WD_SECTION
+    from docx.shared import Inches
+
+    sec = doc.add_section(WD_SECTION.NEW_PAGE)
+    sec.orientation = WD_ORIENT.LANDSCAPE
+    sec.page_width, sec.page_height = Inches(11), Inches(8.5)
+    for side in ("left_margin", "right_margin", "top_margin", "bottom_margin"):
+        setattr(sec, side, Inches(0.75))
+    _grouped_table(doc, frame, n.t(key), caption, note)
+    sec = doc.add_section(WD_SECTION.NEW_PAGE)
+    sec.orientation = WD_ORIENT.PORTRAIT
+    sec.page_width, sec.page_height = Inches(8.5), Inches(11)
+    for side in ("left_margin", "right_margin", "top_margin", "bottom_margin"):
+        setattr(sec, side, Inches(1))
+
+
+def _grouped_table(doc: Document, frame: pd.DataFrame, number: str, caption: str, note: str):
+    """Editable table with a two-row header: three leading label columns and
+    column groups named by outcome variable (e.g. survival_100: S4, S6, S7)."""
+    from docx.enum.table import WD_TABLE_ALIGNMENT
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+    from docx.shared import Inches
+
+    from agentic_conservation.documents import _repeat_header
+
+    lead = list(frame.columns[:3])
+    groups: list[tuple[str, list[int]]] = []
+    for k, c in enumerate(frame.columns[3:], 3):
+        var, sub = c.split(" ", 1)
+        if not groups or groups[-1][0] != var:
+            groups.append((var, []))
+        groups[-1][1].append(k)
+    widths = [0.8, 1.4, 2.0] + [0.85 if "SE" in c else 0.46 for c in frame.columns[3:]]
+    cap = doc.add_paragraph()
+    cap.paragraph_format.space_before = Pt(10)
+    cap.paragraph_format.space_after = Pt(4)
+    cap.paragraph_format.keep_with_next = True
+    cap.add_run(f"{number}. {caption}").bold = True
+    table = doc.add_table(rows=2, cols=len(frame.columns))
+    table.style = "Table Grid"
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    table.autofit = False
+    layout = OxmlElement("w:tblLayout")
+    layout.set(qn("w:type"), "fixed")
+    table._tbl.tblPr.append(layout)
+    top, sub = table.rows
+    for k, h in enumerate(lead):
+        top.cells[k].merge(sub.cells[k]).text = h
+    for var, ks in groups:
+        top.cells[ks[0]].merge(top.cells[ks[-1]]).text = var
+        for k in ks:
+            sub.cells[k].text = frame.columns[k].split(" ", 1)[1]
+    _repeat_header(top)
+    _repeat_header(sub)
+    for k, col in enumerate(table._tbl.tblGrid.findall(qn("w:gridCol"))):
+        col.set(qn("w:w"), str(int(widths[k] * 1440)))
+    for row in frame.itertuples(index=False):
+        cells = table.add_row().cells
+        for k, val in enumerate(row):
+            cells[k].text = str(val)
+    for i, row in enumerate(table.rows):
+        for k, cell in enumerate(row.cells):
+            cell.width = Inches(widths[k])
+            for para in cell.paragraphs:
+                para.paragraph_format.space_after = Pt(0)
+                para.paragraph_format.line_spacing = 1.0
+                for run in para.runs:
+                    run.font.size = Pt(7.5)
+                    run.font.color.rgb = RGBColor(0, 0, 0)
+                    run.bold = i < 2
+    n = doc.add_paragraph()
+    n.paragraph_format.line_spacing = 1.0
+    n.paragraph_format.space_after = Pt(8)
+    n.add_run(f"Note. {note}").font.size = Pt(10)
+
+
+def _sensitivity_results(
+    doc: Document,
+    n: Numbering,
+    root: Path,
+    abl_n: int,
+    abl_pos: str,
+    abl_neg: str,
+    abl_small: str,
+) -> None:
+    lhs = pd.read_csv(root / "tables/table4_sensitivity.csv")
+    reps = int(lhs.replicates_per_design.min())
+    designs = int(lhs.n_designs.min())
+    top = (
+        lhs.assign(a=lhs.spearman_rho.abs()).sort_values("a").groupby(["policy", "metric"]).tail(1)
+    )
+    hab = {"habitat_deterioration", "habitat_protection_efficiency"}
+    persist = top[top.metric != "fraction_ebd"]
+    assert set(persist.parameter) <= hab, persist
+    ebd = top[top.metric == "fraction_ebd"].set_index("policy").parameter
+    ebd_txt = "; ".join(f"{q}: {ebd[q]}" for q in POLICY3)
+    rho = top.set_index(["policy", "metric"]).spearman_rho
+    _p(
+        doc,
+        (
+            f"In the Latin-hypercube screen ({designs} designs × {reps} replicates), "
+            "each value is the Spearman rank correlation, across designs, between a "
+            "sampled parameter and the design-mean outcome, computed separately for "
+            f"each policy ({n.t('lhs')}). For year-100 persistence, welfare and "
+            "future-option value the strongest association under S4, S6 and S7 was "
+            "always habitat deterioration (negative) or habitat-protection efficiency "
+            f"(positive); for example ρ = {rho['S6', 'survival_100']:+.3f} for "
+            f"protection efficiency under S6 and ρ = {rho['S7', 'survival_100']:+.3f} "
+            "for deterioration under S7. For extinction before discovery the "
+            f"strongest association was with {ebd_txt}. These are descriptive "
+            "sensitivity profiles of the synthetic model within the sampled ranges, "
+            "not calibrated or causal effects."
+        ),
+    )
+    inter = pd.read_csv(root / "results/sensitivity_interactions.csv")
+    best = inter.loc[inter.partial_rank_interaction.abs().idxmax()]
+    npairs = int(inter.groupby(["policy", "metric"]).size().min())
+    _p(
+        doc,
+        (
+            "An exploratory partial-rank interaction screen asked whether two "
+            "parameters act jointly beyond their separate effects: for each pair, the "
+            "score is the correlation between the outcome rank residual and the "
+            "residual of the product of the two parameter ranks, after removing both "
+            f"main effects ({npairs} pairs for each of {len(inter) // npairs} policy–outcome "
+            f"combinations, {len(inter)} scores). The largest absolute score was "
+            f"{best.partial_rank_interaction:+.3f} ({best.parameter_1} × "
+            f"{best.parameter_2}, {best.policy}, {best.metric}). With this many "
+            "scores on the same designs the screen is not a significance test and "
+            "provides no mechanistic proof; it only flags pairs for targeted sweeps."
+        ),
+    )
+    _table(
+        doc,
+        n,
+        "lhs",
+        _lhs_frame(root),
+        "Latin-hypercube sensitivity profile: the two parameters with the largest "
+        f"absolute Spearman correlation per outcome and policy ({designs} designs × "
+        f"{reps} replicates)",
+        size=8,
+    )
+    _table_note(
+        doc,
+        "Descriptive rank correlations across designs, not causal effects. All 12 "
+        "parameters, four outcomes and three policies are in "
+        "tables/table4_sensitivity.csv.",
+    )
+    rc = _robustness_contrasts(root)
+    abl = rc[rc.set == "ablation"]
+    adv = rc[rc.set == "adverse condition"]
+    det = rc[rc["diff"].abs() > 2 * rc.se]
+
+    def names(d: pd.DataFrame) -> str:
+        return _and_join(list(d.design)) if len(d) else "none"
+
+    assert (adv["diff"] < 0).all()
+    _p(
+        doc,
+        (
+            "Nine feature ablations and six adverse-condition designs "
+            f"({abl_n} paired seeds each; {n.t('robustness')}) also moved the contrast. "
+            "In point estimates S7 had the higher persistence when "
+            f"{abl_pos}, and S6 had it when {abl_neg}; differences were within ±0.05 when "
+            f"{abl_small}. S6 retained more species than S7 in all six adverse "
+            f"conditions. With {abl_n} seeds, however, only {len(det)} of {len(rc)} "
+            "S7 − S6 differences exceeded 2 paired SE (ablations: "
+            f"{names(det[det.set == 'ablation'])}; "
+            f"adverse conditions: {names(det[det.set == 'adverse condition'])}), so "
+            "the other ablation effects are indications, not established reversals. "
+            f"{n.t('robustness')} gives every value for S4, S6 and S7, including the "
+            "designs in which the policies did poorly, and shows that the ablations "
+            "change extinction before discovery and welfare as well as persistence. "
+            "The base ordering is therefore conditional on several submodels, not "
+            "only on the climate and suitability terms, but only the disease "
+            "ablation reversed it beyond Monte Carlo error."
+            if list(det[det.set == "ablation"].design) == ["disease"]
+            else "The base ordering is therefore conditional on several submodels."
+        ),
+    )
+    _ = abl
+    _wide_landscape_table(
+        doc,
+        n,
+        "robustness",
+        _robustness_frame(root),
+        f"Feature ablations and adverse conditions: S4, S6 and S7 means over {abl_n} paired seeds",
+        "Means of the per-seed records (tables/table7_robustness.csv), rounded to "
+        "three decimals. survival_100: proportion of species retained at year 100; "
+        "fraction_ebd: proportion of latent species extinct before discovery; "
+        "mean_individual_welfare: mean welfare index (0–1). The paired SE of S7 − "
+        "S6 is the standard deviation of the per-seed differences divided by the "
+        "square root of the number of seeds. Designs are not run on the base-case "
+        "seeds, so compare policies within a row, not rows with the base case.",
+    )
+
+
 def build_clean(root: Path) -> tuple[Path, Numbering]:
     v = load_values(root)
     lit = _literature(root)
@@ -425,19 +797,19 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
         "climate": "directional climate was removed",
         "latent_species": "no species were latent",
     }
-    abl_pos = ", ".join(f"{labels.get(k, k)} ({d:+.3f})" for k, d in ad.items() if d > 0.05)
-    abl_neg = ", ".join(f"{labels.get(k, k)} ({d:+.3f})" for k, d in ad.items() if d < -0.05)
-    abl_small = ", ".join(labels.get(k, k) for k, d in ad.items() if abs(d) <= 0.05)
-    out = root / OUT_DIR / "EM_ODD_REVISED_MANUSCRIPT_CLEAN_FINAL.docx"
+    abl_pos = _and_join([f"{labels.get(k, k)} ({d:+.3f})" for k, d in ad.items() if d > 0.05])
+    abl_neg = _and_join([f"{labels.get(k, k)} ({d:+.3f})" for k, d in ad.items() if d < -0.05])
+    abl_small = _and_join([labels.get(k, k) for k, d in ad.items() if abs(d) <= 0.05])
+    out = root / OUT_DIR / OUTPUTS["clean"]
     out.parent.mkdir(parents=True, exist_ok=True)
 
     doc = Document()
     _configure_document(doc, TITLE)
     doc.core_properties.subject = "Ecological Modelling new submission (ref. ECOMOD-26-2231)"
     _add_title(doc, TITLE, "Research paper")
-    _p(doc, "Author: Tatsuki Onishi (corresponding author).")
-    _p(doc, "Affiliation: Independent researcher.")
-    _p(doc, "Corresponding author contact: see cover letter.")
+    _p(doc, f"Author: {AUTHOR} (sole and corresponding author).")
+    _p(doc, f"Affiliation: {AFFILIATION}, {ADDRESS}.")
+    _p(doc, f"Email: {EMAIL}. ORCID: {ORCID}.")
 
     _add_heading(doc, "Highlights", 1)
     _bullets(
@@ -656,7 +1028,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             "configuration but are not used by any process; they are listed as "
             "inert so that readers do not infer mechanisms that are absent. One time "
             "step is one year, the horizon is 100 years, and all quantities are in "
-            "model units."
+            f"model units; {n.t('params')} lists the base parameter values."
         ),
     )
     _table(
@@ -1178,7 +1550,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             "convergence was checked with nested prefixes up to n = 384. Twelve "
             "parameters were varied by Latin hypercube (128 designs × 4 replicates) "
             "and summarised with Spearman rank correlations and partial-rank "
-            "interaction screens (Appendix A, Tables A1–A2). Five two-factor sweeps "
+            "interaction screens (Section 3.5). Five two-factor sweeps "
             "(5 × 5 cells × 8 paired replicates) compared S4, S6 and S7; a cell's "
             "direction is robust only if sign-stable from n = 4 to n = 8 and the "
             "mean exceeds 1.96 Monte Carlo SEs. Nine feature ablations and six "
@@ -1520,13 +1892,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             "among the six held-out reruns, so its held-out effect is not evaluated. "
             "Halving the movement-eligibility threshold produced the largest shift "
             "towards S6. The specificity, tolerance and migration literals and the "
-            "pressure mortality changed magnitude or determinacy only. Feature "
-            f"ablations ({abl_n} paired seeds each, point estimates; Appendix A, "
-            "Table A3) also moved the contrast: S7 had the higher persistence when "
-            f"{abl_pos}, and S6 kept a clear advantage when {abl_neg}; differences "
-            f"were within ±0.05 when {abl_small}. The ablations "
-            "therefore confirm that the base ordering is conditional on several "
-            "submodels, not only on the climate and suitability terms."
+            "pressure mortality changed magnitude or determinacy only."
         ),
     )
     _table(
@@ -1538,6 +1904,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
         "literals (48 paired seeds; individual persistence)",
         size=7,
     )
+    _sensitivity_results(doc, n, root, abl_n, abl_pos, abl_neg, abl_small)
 
     _add_heading(doc, "3.6 Predictive performance of Ψ", 2)
     hc = q1(v, "survival_100", "psi_code")
@@ -1581,6 +1948,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
                 "confirmatory",
             )
         )
+    rows += _historical_baselines(root)
     psit = pd.DataFrame(
         rows,
         columns=[
@@ -1589,7 +1957,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             "determinate",
             "det. accuracy [Wilson 95%]",
             "all-cell accuracy",
-            "Ψ regret",
+            "regret of predictor",
             "best fixed-policy regret",
             "status",
         ],
@@ -1610,7 +1978,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             f"All-cell accuracy was only {cf.acc_all:.3f}, because Ψ always makes a "
             "call while many cells have no determinate answer at 12 replicates. In "
             f"the historical V0 evaluation Ψ signed {hist.acc_det:.3f} of "
-            f"{int(hist.det_cells)} determinate cells correctly (Appendix A, Table A5), with "
+            f"{int(hist.det_cells)} determinate cells correctly ({n.t('psi')}), with "
             f"{rev.near_boundary_acc:.3f} accuracy among the "
             f"{int(rev.near_boundary_cells)} cells with |Ψ| < 0.2 "
             f"({n.f('psi')}); a post hoc abstention rule (|Ψ| ≥ 0.1) is reported "
@@ -1644,6 +2012,19 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
         "Predictive performance of Ψ for the S7 − S6 sign (individual persistence)",
         size=7,
     )
+    _table_note(
+        doc,
+        "Determinate cells have |mean S7 − S6| > 2 Monte Carlo SE (12 paired "
+        "replicates per cell). Historical rows use the 56 held-out cells of the "
+        "original evaluation; Ψ was computed with implementation V0 (Section "
+        "2.10.2). B0 always predicts S6; B1 (single-parameter threshold) and B2 "
+        "(logistic surrogate) were fitted on the development cells and make a "
+        "call in every cell; their regret was not computed in the historical "
+        "run. Confirmatory rows are the prospective evaluation frozen before any "
+        "IBM outcome (Section 2.10.3); Wilson 95% intervals in brackets; the "
+        "best fixed-policy regret is the smaller of always-S6 and always-S7. "
+        "The V1 row is exploratory: it reuses cells whose outcomes were known.",
+    )
     _caption(doc, n, "psi", root)
 
     _add_heading(doc, "3.7 Extinction before discovery and information", 2)
@@ -1664,6 +2045,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             f"used by a different or adaptive rule {cite('canessa_2015')}."
         ),
     )
+    _p(doc, _weight_sentence(root))
     _caption(doc, n, "ebd", root)
 
     # ------------------------------------------------------------- Discussion
@@ -1737,7 +2119,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             "about optimised or belief-updating management, and the S7–S6 contrast "
             "bundles budget and movement. Many cells are indeterminate at 12 "
             "replicates. Welfare and utility weights are normative devices; the "
-            "information effect under alternative weights is in Appendix A, Table A4."
+            "information effect was examined under six weight vectors (Section 3.7)."
         ),
     )
     _add_heading(doc, "5. Conclusions", 1)
@@ -1767,7 +2149,16 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             "https://github.com/bougtoir/agentic-conservation, release tag "
             f"{MIRROR_TAG} (commit {_mirror_commit(root)}). Every run record stores its random "
             "seed, and the preregistration and freeze records in odd_resubmission/ "
-            "specify each analysis. The repository holds "
+            "specify each analysis. Complete versions of the summarised analyses "
+            "are in tables/: all Latin-hypercube rank correlations "
+            "(table4_sensitivity.csv), the interaction screen "
+            "(table4_sensitivity_interactions.csv; all 792 scores in "
+            "results/sensitivity_interactions.csv), the information effect under "
+            "each weight vector (table8_information_weight_sensitivity.csv), the "
+            "historical Ψ comparison (table9_reversal_predictors.csv), and the GBIF "
+            "coverage aggregates and bibliographic evidence levels used as context "
+            "only (table5_empirical_coverage.csv, table6_empirical_evidence.csv). "
+            "The repository holds "
             "aggregated GBIF counts and bibliographic metadata only, not individual "
             "occurrence records or article full texts. This is a substantially "
             "revised new submission referring to ECOMOD-26-2231."
@@ -1791,6 +2182,50 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
     _validate_office_file(out)
     _check_citations(out, lit)
     return out, n
+
+
+def _historical_baselines(root: Path) -> list[tuple]:
+    """Historical held-out comparators B0–B2 recomputed from the per-cell record."""
+    m = pd.read_csv(root / "results/reversal/holdout_metrics.csv")
+    t = pd.read_csv(root / "tables/table9_reversal_predictors.csv")
+    regret_b0 = float(t[t.predictor.str.startswith("B0")].regret.iloc[0])
+    det = m.obs_sign != 0
+    rows = []
+    for label, pred, regret in [
+        ("historical B0 always-S6", pd.Series(-1, index=m.index), f"{regret_b0:.3f}"),
+        ("historical B1 threshold", m.pred_B1, "—"),
+        ("historical B2 logistic", m.pred_B2, "—"),
+    ]:
+        rows.append(
+            (
+                label,
+                str(len(m)),
+                int(det.sum()),
+                f"{(pred[det] == m.obs_sign[det]).mean():.3f}",
+                f"{(pred == m.obs_sign).mean():.3f}",
+                regret,
+                "—",
+                "historical",
+            )
+        )
+    return rows
+
+
+def _weight_sentence(root: Path) -> str:
+    w = pd.read_csv(root / "tables/table8_information_weight_sensitivity.csv")
+    alt = w[w.scenario != "registered"]
+    cover = bool(((w.lower < 0) & (w.upper > 0)).all())
+    return (
+        "The same comparison under five alternative weightings of the utility index "
+        "(equal weights, and 0.6 on persistence, welfare, future-option value or "
+        "EBD avoidance in turn) gave paired mean effects from "
+        f"{alt.estimate.min():+.4f} to {alt.estimate.max():+.4f} (Monte Carlo 95% "
+        f"half-widths ≤ {w.mc_half_width.max():.3f}; {int(w.n.min())} paired seeds)"
+        + (", and every replicate-distribution interval contained zero" if cover else "")
+        + ". Under this decision rule and model specification better current "
+        "observation therefore gave no detectable improvement under any of the "
+        "weightings; this is not evidence that information has zero value."
+    )
 
 
 def _doc_text(path: Path) -> str:
@@ -1828,7 +2263,7 @@ def build_tracked(root: Path, clean: Path) -> Path:
     compared; table bodies and figures are listed by caption only."""
     old = _paragraphs(root / "manuscript/EM_MANUSCRIPT.docx")
     new = _paragraphs(clean)
-    out = root / OUT_DIR / "EM_ODD_REVISED_MANUSCRIPT_TRACKED_FINAL.docx"
+    out = root / OUT_DIR / OUTPUTS["tracked"]
     doc = Document()
     _configure_document(doc, TITLE + " (tracked)")
     note = doc.add_paragraph()
@@ -1836,7 +2271,8 @@ def build_tracked(root: Path, clean: Path) -> Path:
         "Comparison with the version submitted as ECOMOD-26-2231 "
         "(manuscript/EM_MANUSCRIPT.docx). Additions in red; deletions in blue "
         "with strikethrough. Body text is compared paragraph by paragraph and "
-        "word by word; table bodies are not diffed (see the clean version)."
+        "word by word; table bodies and the ten inline figures are not diffed "
+        "(see the clean version)."
     ).italic = True
     sm = difflib.SequenceMatcher(a=old, b=new, autojunk=False)
     for tag, i1, i2, j1, j2 in sm.get_opcodes():
@@ -1878,34 +2314,42 @@ def build_tracked(root: Path, clean: Path) -> Path:
     return out
 
 
-# ------------------------------------------------------- letters and appendix
+# ------------------------------------------------------------------ letters
+SIGNATURE = [AUTHOR, AFFILIATION, ADDRESS, f"Email: {EMAIL}", f"ORCID: {ORCID}"]
+
+
 def _letter(path: Path, title: str, paras: list[str]) -> Path:
     doc = Document()
     _configure_document(doc, title)
     _add_title(doc, title)
     for t in paras:
         _p(doc, t)
+    for t in SIGNATURE:
+        doc.add_paragraph(t)
     doc.save(path)
     _validate_office_file(path)
     return path
 
 
 def _mirror_commit(root: Path) -> str:
-    f = root / "odd_resubmission/PUBLIC_MIRROR_COMMIT.txt"
+    f = root / OUT_DIR / "PUBLIC_RELEASE_COMMIT.txt"
     return f.read_text().strip()[:12] if f.exists() else "[to be inserted]"
 
 
-def build_cover(root: Path, v: dict) -> Path:
+def build_cover(root: Path, v: dict, n: Numbering) -> Path:
     cf = conf(v)
+    rc = _robustness_contrasts(root)
+    det_abl = rc[(rc.set == "ablation") & (rc["diff"].abs() > 2 * rc.se)]
+    assert list(det_abl.design) == ["disease"], det_abl
     return _letter(
-        root / OUT_DIR / "EM_ODD_COVER_LETTER_FINAL.docx",
+        root / OUT_DIR / OUTPUTS["cover"],
         "Cover letter",
         [
             "Dear Dr Wang,",
             f"I submit \u201c{TITLE}\u201d as a substantially revised new submission "
             "to Ecological Modelling, referring to manuscript ECOMOD-26-2231, as the "
             "decision letter permitted. A detailed point-by-point response is "
-            "attached (EDITOR_RESPONSE_ODD_FINAL).",
+            "attached (EM_ODD_EDITOR_RESPONSE_INTEGRATED).",
             "The Associate Editor, Dr Volker Grimm, found the work interesting but "
             "not acceptable as presented. He recommended the ODD protocol (Grimm et "
             "al. 2020), following the hints in its Supplement S1, and asked for the "
@@ -1918,7 +2362,12 @@ def build_cover(root: Path, v: dict) -> Path:
             "update semantics, all eleven design concepts, and one subsection per "
             "submodel. Each submodel states the process it approximates, why the "
             "form was chosen, the alternatives, its assumptions, how they can affect "
-            "the conclusions, and the evidence available and missing.",
+            "the conclusions, and the evidence available and missing. The "
+            "sensitivity, interaction-screen, ablation and alternative-weight "
+            f"results are reported in the article itself (Section 3.5, "
+            f"{n.t('lhs')} and {n.t('robustness')}; Section 3.7), and the ten "
+            "figures are placed in the text beside their first citation; complete "
+            "coefficient tables are in the public repository.",
             "Writing the rationale led me to test three assumptions that could "
             "decide the main result, under a plan frozen before any run: the "
             "persistence endpoint, the climate trajectory, and ten uncalibrated "
@@ -1937,11 +2386,13 @@ def build_cover(root: Path, v: dict) -> Path:
             "added verification and the corrected interpretation.",
             "I believe the paper suits Ecological Modelling because its subject is "
             "a mechanistic model of a conservation decision: when moving animals "
-            "among wild, managed-care and biobank nodes, rather than investing in "
-            "habitat, improves persistence under directional habitat decline. The "
-            "contribution is the mechanism-level account of when the ordering "
-            "flips (timing of climate exposure, baseline suitability, disease and "
-            "engagement feedbacks) and a reduced criterion whose predictive use is "
+            "among wild and managed-care nodes, supported by a biobank of stored "
+            "genetic material, rather than investing in habitat, improves "
+            "persistence under directional habitat decline. The contribution is "
+            "the mechanism-level account of when the ordering flips (timing of "
+            "climate exposure, baseline suitability and, among the feature "
+            "ablations, removal of disease, the only ablation that reversed it "
+            "beyond Monte Carlo error) and a reduced criterion whose predictive use is "
             "tested prospectively, documented in ODD so that the assumptions can "
             "be examined and reused.",
             "I also found that the original held-out evaluation of the reduced "
@@ -1963,7 +2414,6 @@ def build_cover(root: Path, v: dict) -> Path:
             "The manuscript is not under consideration elsewhere. I declare no "
             "competing interests.",
             "Sincerely,",
-            "Tatsuki Onishi",
         ],
     )
 
@@ -2007,7 +2457,11 @@ def build_response(root: Path, v: dict, n: Numbering) -> Path:
             "marked the inert ones. I gave synchronous-update and order rules, "
             "addressed all eleven design concepts, and wrote one subsection per "
             "submodel. The essential description is in the main text, not in the "
-            "repository.",
+            "repository: the sensitivity, interaction-screen, ablation and "
+            f"alternative-weight results are reported in Section 3.5 ({n.t('lhs')}, "
+            f"{n.t('robustness')}) and Section 3.7, and all ten figures are placed in "
+            "the text next to their first citation. Only complete coefficient "
+            "tables and run records are left to the public repository.",
         ),
         (
             "Point 3 (Associate Editor): explain the ecological rationale of every "
@@ -2019,9 +2473,11 @@ def build_response(root: Path, v: dict, n: Numbering) -> Path:
             "Because rationale alone cannot show whether an assumption matters, I "
             "ran preregistered tests (2.9). "
             f"Endpoints: {n.t('q1')}. Climate trajectory: {n.t('q2')} and "
-            f"{n.f('climate_forms')}. Coefficients: {n.t('q3')}. The climate "
-            "trajectory and the suitability intercept proved load-bearing, and the "
-            "conclusions were narrowed accordingly (Sections 3.3–3.5, 4).",
+            f"{n.f('climate_forms')}. Coefficients: {n.t('q3')}. Latin-hypercube "
+            f"profile, ablations and adverse conditions: {n.t('lhs')} and "
+            f"{n.t('robustness')}. The climate trajectory and the suitability "
+            "intercept proved load-bearing, and the conclusions were narrowed "
+            "accordingly (Sections 3.3–3.5, 4).",
         ),
         (
             "Point 4 (Editor-in-Chief): a substantially revised new submission "
@@ -2048,7 +2504,7 @@ def build_response(root: Path, v: dict, n: Numbering) -> Path:
     points.append(
         (
             quotes[-1],
-            "The cover letter (EM_ODD_COVER_LETTER_FINAL) refers to ECOMOD-26-2231 and "
+            "The cover letter (EM_ODD_COVER_LETTER_INTEGRATED) refers to ECOMOD-26-2231 and "
             "summarises the revision; this document gives the detail. What was "
             "not changed: the model dynamics, the parameter values and the "
             "canonical results. The revision changes how the model is described "
@@ -2072,52 +2528,21 @@ def build_response(root: Path, v: dict, n: Numbering) -> Path:
         para = doc.add_paragraph()
         para.add_run("Response: ").bold = True
         para.add_run(a)
-    _p(doc, "Tatsuki Onishi")
-    out = root / OUT_DIR / "EDITOR_RESPONSE_ODD_FINAL.docx"
+    for t in SIGNATURE:
+        doc.add_paragraph(t)
+    out = root / OUT_DIR / OUTPUTS["response"]
     doc.save(out)
     _validate_office_file(out)
     return out
-
-
-APPENDIX_TABLES = [
-    (
-        "tables/table4_sensitivity.csv",
-        "Latin-hypercube Spearman rank correlations between each varied parameter "
-        "and each outcome, by policy",
-        "128 designs × 4 replicates. Useful secondary evidence for Section 2.8.",
-    ),
-    (
-        "tables/table4_sensitivity_interactions.csv",
-        "Partial-rank interaction screens for parameter pairs",
-        "Descriptive screen on the same designs as Table A1; not a test.",
-    ),
-    (
-        "tables/table7_robustness.csv",
-        "Ablation and adverse-condition outcomes (point estimates)",
-        "Paired seeds per design as stated in Section 3.5; cited in Section 3.5.",
-    ),
-    (
-        "tables/table8_information_weight_sensitivity.csv",
-        "Perfect-current-state information effect on the utility index under "
-        "alternative normative weights",
-        "Columns survival_100 to mean_individual_welfare are the weights; estimate, "
-        "lower and upper are the paired effect and its 95% interval; the comparator "
-        "keeps the S7 rule (Section 3.7).",
-    ),
-    (
-        "tables/table9_reversal_predictors.csv",
-        "Historical (V0) held-out performance of Ψ and baselines B0–B2",
-        "Historical result from implementation V0 (Section 2.10.2); not the "
-        "prospective evaluation of Section 3.6.",
-    ),
-]
 
 
 def _token_len(value: object) -> int:
     return max((len(t) for t in str(value).split()), default=1)
 
 
-def _appendix_table(doc: Document, frame: pd.DataFrame, number: str, caption: str, note: str):
+def _wide_table(
+    doc: Document, frame: pd.DataFrame, number: str, caption: str, note: str, usable: float
+):
     from docx.enum.table import WD_TABLE_ALIGNMENT
     from docx.oxml import OxmlElement
     from docx.oxml.ns import qn
@@ -2136,7 +2561,6 @@ def _appendix_table(doc: Document, frame: pd.DataFrame, number: str, caption: st
         max([_token_len(h)] + [_token_len(r[k]) for r in cells]) for k, h in enumerate(heads)
     ]
     mean = [sum(len(r[k]) for r in cells) / max(len(cells), 1) for k in range(len(heads))]
-    usable = 9.7
     font = 8.0
 
     def minimum(f: float) -> list[float]:
@@ -2179,37 +2603,7 @@ def _appendix_table(doc: Document, frame: pd.DataFrame, number: str, caption: st
     n.paragraph_format.line_spacing = 1.0
     n.paragraph_format.space_after = Pt(8)
     r = n.add_run(f"Note. {note}")
-    r.font.size = Pt(9)
-
-
-def build_appendix(root: Path) -> Path:
-    from docx.enum.section import WD_ORIENT
-    from docx.shared import Inches
-
-    doc = Document()
-    _configure_document(doc, "Appendix A")
-    doc.core_properties.subject = "Appendix A"
-    sec = doc.sections[0]
-    sec.orientation = WD_ORIENT.LANDSCAPE
-    sec.page_width, sec.page_height = Inches(11), Inches(8.5)
-    for side in ("left_margin", "right_margin", "top_margin", "bottom_margin"):
-        setattr(sec, side, Inches(0.65))
-    _add_title(doc, "Appendix A. Supplementary tables", TITLE)
-    intro = doc.add_paragraph(
-        "Tables A1–A5 are secondary scientific evidence cited in the main text. "
-        "Variable names are the column names of the public files in tables/. The "
-        "GBIF coverage aggregates and bibliographic evidence levels used as "
-        "context only are reproducibility material and are provided in the public "
-        "repository (tables/table5_empirical_coverage.csv, "
-        "tables/table6_empirical_evidence.csv)."
-    )
-    intro.paragraph_format.line_spacing = 1.0
-    for i, (f, cap, note) in enumerate(APPENDIX_TABLES, 1):
-        _appendix_table(doc, pd.read_csv(root / f), f"Table A{i}", cap, note)
-    out = root / OUT_DIR / "EM_ODD_APPENDIX_A_FINAL.docx"
-    doc.save(out)
-    _validate_office_file(out)
-    return out
+    r.font.size = Pt(10)
 
 
 def _force_times(path: Path) -> None:
@@ -2235,8 +2629,7 @@ def build_all(root: Path) -> dict[str, Path]:
     outs = {
         "clean": clean,
         "tracked": build_tracked(root, clean),
-        "cover": build_cover(root, v),
-        "appendix": build_appendix(root),
+        "cover": build_cover(root, v, n),
     }
     if (root / EDITORIAL_QUOTES).exists():
         outs["response"] = build_response(root, v, n)
