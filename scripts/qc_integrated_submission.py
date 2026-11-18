@@ -89,7 +89,7 @@ def doc_text(p: Path) -> str:
 
 def main() -> None:
     AUD.mkdir(parents=True, exist_ok=True)
-    for stale in (SUB / "SHA256SUMS.txt", SUB / "EM_ODD_SUBMISSION_PACKAGE_INTEGRATED.zip"):
+    for stale in (SUB / "SHA256SUMS.txt", SUB / "EM_ODD_SUBMISSION_PACKAGE_FINAL.zip"):
         stale.unlink(missing_ok=True)
     rows: list[tuple[str, str, str, str]] = []
 
@@ -130,12 +130,9 @@ def main() -> None:
         allowed = (
             "figures/odd/fig1_network_living_nodes.png",
             "figures/odd/fig_psi_historical_v0.png",
+            "tables/table9_reversal_predictors_corrected_v1.csv",
         )
-        extra = [
-            a
-            for a in added
-            if not (a in allowed or a.startswith("odd_resubmission/submission/integrated/"))
-        ]
+        extra = [a for a in added if not (a in allowed or a.startswith(f"{OUT_DIR}/"))]
         check("baseline", "only expected additions in protected paths", not extra, extra or added)
         for f in ["EM_ODD_APPENDIX_A_FINAL.docx", "EM_ODD_REVISED_MANUSCRIPT_CLEAN_FINAL.docx"]:
             check(
@@ -508,7 +505,7 @@ def main() -> None:
         + sorted(fig_dir.glob("Figure_*.png"), key=lambda p: int(p.stem.split("_")[1]))
     )
     (SUB / "SHA256SUMS.txt").write_text("".join(f"{sha(p)}  {p.relative_to(SUB)}\n" for p in files))
-    pkg = SUB / "EM_ODD_SUBMISSION_PACKAGE_INTEGRATED.zip"
+    pkg = SUB / "EM_ODD_SUBMISSION_PACKAGE_FINAL.zip"
     with zipfile.ZipFile(pkg, "w", zipfile.ZIP_DEFLATED) as z:
         for p in files + [SUB / "SHA256SUMS.txt"]:
             z.write(p, p.relative_to(SUB))

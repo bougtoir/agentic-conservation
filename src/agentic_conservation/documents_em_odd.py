@@ -35,19 +35,19 @@ TITLE = (
     "individual-based model of habitat, managed-care and discovery policies "
     "under directional change"
 )
-OUT_DIR = "odd_resubmission/submission/integrated"
-MIRROR_TAG = "odd-2020-revision-v3.2-inline"
+OUT_DIR = "odd_resubmission/submission/final"
+MIRROR_TAG = "odd-2020-revision-v3.3-inline"
 AUTHOR = "Onishi Tatsuki"
 AFFILIATION = "Data Science and AI Innovation Research Promotion Center, Shiga University"
 ADDRESS = "1-1-1, Bamba, Hikone, Shiga, 522-8522, Japan"
 EMAIL = "bougtoir@gmail.com"
 ORCID = "0000-0001-7261-9062"
 OUTPUTS = {
-    "clean": "EM_ODD_MAIN_TEXT_INTEGRATED_CLEAN.docx",
-    "tracked": "EM_ODD_MAIN_TEXT_INTEGRATED_TRACKED.docx",
-    "pdf": "EM_ODD_MAIN_TEXT_INTEGRATED.pdf",
-    "response": "EM_ODD_EDITOR_RESPONSE_INTEGRATED.docx",
-    "cover": "EM_ODD_COVER_LETTER_INTEGRATED.docx",
+    "clean": "EM_ODD_REVISED_MANUSCRIPT_CLEAN_FINAL.docx",
+    "tracked": "EM_ODD_REVISED_MANUSCRIPT_TRACKED_FINAL.docx",
+    "pdf": "EM_ODD_REVISED_MANUSCRIPT_FINAL.pdf",
+    "response": "EDITOR_RESPONSE_ODD_FINAL.docx",
+    "cover": "EM_ODD_COVER_LETTER_FINAL.docx",
 }
 EXTRA_REFERENCES = [
     {
@@ -646,6 +646,10 @@ def _literature(root: Path) -> pd.DataFrame:
 
 
 POLICY3 = ["S4", "S6", "S7"]
+ABL_NAMES = {
+    "human_feedback": "the engagement-feedback ablation",
+    "origin_fidelity": "the origin-fidelity ablation",
+}
 
 
 def _and_join(items: list[str]) -> str:
@@ -904,7 +908,17 @@ def _sensitivity_results(
             "S7 − S6 differences exceeded 2 paired SE (ablations: "
             f"{names(det[det.set == 'ablation'])}; "
             f"adverse conditions: {names(det[det.set == 'adverse condition'])}), so "
-            "the other ablation effects are indications, not established reversals. "
+            "the other ablation effects are indications, not established reversals: "
+            + _and_join(
+                [
+                    f"{ABL_NAMES.get(r.design, r.design)} {r['diff']:+.3f} (SE {r.se:.3f})"
+                    for _i, r in abl[
+                        (abl["diff"] > 0.05) & (abl["diff"].abs() <= 2 * abl.se)
+                    ].iterrows()
+                ]
+            )
+            + " have positive point estimates (sign) below 2 SE (robustness), "
+            "which does not mean that these mechanisms have no effect. "
             f"{n.t('robustness')} gives every value for S4, S6 and S7, including the "
             "designs in which the policies did poorly, and shows that the ablations "
             "change extinction before discovery and welfare as well as persistence. "
@@ -2190,7 +2204,11 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
         "2.10.2). B0 always predicts S6; B1 (single-parameter threshold) and B2 "
         "(logistic surrogate) were fitted on the development cells and make a "
         "call in every cell; their regret was not computed in the historical "
-        "run. Confirmatory rows are the prospective evaluation frozen before any "
+        "run. Baseline accuracies are recomputed from the per-cell record "
+        "(tables/table9_reversal_predictors_corrected_v1.csv); the original "
+        "historical table lists B0 determinate accuracy as 0.0, a literal in its "
+        "generator, and is kept unchanged. Confirmatory rows are the prospective "
+        "evaluation frozen before any "
         "IBM outcome (Section 2.10.3); Wilson 95% intervals in brackets; the "
         "best fixed-policy regret is the smaller of always-S6 and always-S7. "
         "The V1 row is exploratory: it reuses cells whose outcomes were known.",
@@ -2325,7 +2343,9 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             "(table4_sensitivity_interactions.csv; all 792 scores in "
             "results/sensitivity_interactions.csv), the information effect under "
             "each weight vector (table8_information_weight_sensitivity.csv), the "
-            "historical Ψ comparison (table9_reversal_predictors.csv), and the GBIF "
+            "historical Ψ comparison (table9_reversal_predictors.csv, with the "
+            "corrected B0 determinate accuracy in "
+            "table9_reversal_predictors_corrected_v1.csv), and the GBIF "
             "coverage aggregates and bibliographic evidence levels used as context "
             "only (table5_empirical_coverage.csv, table6_empirical_evidence.csv). "
             "The repository holds "
@@ -2355,25 +2375,24 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
 
 
 def _historical_baselines(root: Path) -> list[tuple]:
-    """Historical held-out comparators B0–B2 recomputed from the per-cell record."""
-    m = pd.read_csv(root / "results/reversal/holdout_metrics.csv")
-    t = pd.read_csv(root / "tables/table9_reversal_predictors.csv")
-    regret_b0 = float(t[t.predictor.str.startswith("B0")].regret.iloc[0])
-    det = m.obs_sign != 0
+    """Historical held-out comparators B0–B2 from the versioned corrected table
+    (scripts/correct_b0_historical_metric.py; the original table is kept)."""
+    t = pd.read_csv(root / "tables/table9_reversal_predictors_corrected_v1.csv")
+    labels = {
+        "B0 always-S6": "historical B0 always-S6",
+        "B1 single-parameter threshold (dev-fitted)": "historical B1 threshold",
+        "B2 logistic surrogate (dev-fitted)": "historical B2 logistic",
+    }
     rows = []
-    for label, pred, regret in [
-        ("historical B0 always-S6", pd.Series(-1, index=m.index), f"{regret_b0:.3f}"),
-        ("historical B1 threshold", m.pred_B1, "—"),
-        ("historical B2 logistic", m.pred_B2, "—"),
-    ]:
+    for r in t[t.predictor.isin(labels)].itertuples():
         rows.append(
             (
-                label,
-                str(len(m)),
-                int(det.sum()),
-                f"{(pred[det] == m.obs_sign[det]).mean():.3f}",
-                f"{(pred == m.obs_sign).mean():.3f}",
-                regret,
+                labels[r.predictor],
+                str(r.cells),
+                int(r.determinate_cells),
+                f"{r.determinate_accuracy:.3f}",
+                f"{r.all_cell_accuracy:.3f}",
+                "—" if pd.isna(r.regret) else f"{r.regret:.4f}",
                 "—",
                 "historical",
             )
@@ -2519,7 +2538,7 @@ def build_cover(root: Path, v: dict, n: Numbering) -> Path:
             f"I submit \u201c{TITLE}\u201d as a substantially revised new submission "
             "to Ecological Modelling, referring to manuscript ECOMOD-26-2231, as the "
             "decision letter permitted. A detailed point-by-point response is "
-            "attached (EM_ODD_EDITOR_RESPONSE_INTEGRATED).",
+            f"attached ({OUTPUTS['response'].removesuffix('.docx')}).",
             "The Associate Editor, Dr Volker Grimm, found the work interesting but "
             "not acceptable as presented. He recommended the ODD protocol (Grimm et "
             "al. 2020), following the hints in its Supplement S1, and asked for the "
@@ -2674,7 +2693,8 @@ def build_response(root: Path, v: dict, n: Numbering) -> Path:
     points.append(
         (
             quotes[-1],
-            "The cover letter (EM_ODD_COVER_LETTER_INTEGRATED) refers to ECOMOD-26-2231 and "
+            f"The cover letter ({OUTPUTS['cover'].removesuffix('.docx')}) refers to "
+            "ECOMOD-26-2231 and "
             "summarises the revision; this document gives the detail. What was "
             "not changed: the model dynamics, the parameter values and the "
             "canonical results. The revision changes how the model is described "
@@ -2685,6 +2705,11 @@ def build_response(root: Path, v: dict, n: Numbering) -> Path:
     doc = Document()
     _configure_document(doc, "Response to the editors")
     _add_title(doc, "Response to the editors", "Reference: ECOMOD-26-2231")
+    _p(
+        doc,
+        f"Manuscript: \u201c{TITLE}\u201d, a substantially revised new submission "
+        "referring to ECOMOD-26-2231.",
+    )
     _p(
         doc,
         "Dear Editors, I thank the Associate Editor and the Editor-in-Chief "

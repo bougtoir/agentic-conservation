@@ -1,0 +1,5 @@
+predictor,cells,determinate_cells,determinate_correct,determinate_accuracy,all_cell_accuracy,balanced_accuracy_3class,regret,original_determinate_accuracy,determinate_accuracy_status
+Psi (minimal-model criterion),56,26,22,0.8461538461538461,0.39285714285714285,0.519,0.045014880952380945,0.846,"unchanged (recomputed, equal)"
+B0 always-S6,56,26,9,0.34615384615384615,0.16071428571428573,0.333,0.08370535714285714,0.0,corrected: original literal 0.0 in scripts/build_outputs.py
+B1 single-parameter threshold (dev-fitted),56,26,16,0.6153846153846154,0.2857142857142857,0.471,,,added: not reported in the original table
+B2 logistic surrogate (dev-fitted),56,26,11,0.4230769230769231,0.19642857142857142,0.338,,,added: not reported in the original table
