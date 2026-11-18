@@ -29,7 +29,6 @@ from agentic_conservation.documents import (
     _sweep_counts,
     _validate_office_file,
 )
-from agentic_conservation.documents_em import _omml_equation
 
 TITLE = (
     "When does a dynamic conservation network pay? An ODD-documented "
@@ -342,6 +341,177 @@ def _caption(doc: Document, n: Numbering, key: str, root: Path) -> None:
     lab.bold = True
     lab.font.size = Pt(10)
     para.add_run(caption).font.size = Pt(10)
+
+
+EQ_MAX = 84
+
+
+def _depth_positions(text: str, token: str) -> list[int]:
+    depth, out = 0, []
+    for i, ch in enumerate(text):
+        if ch in "([{":
+            depth += 1
+        elif ch in ")]}":
+            depth -= 1
+        elif depth == 0 and text.startswith(token, i):
+            out.append(i)
+    return out
+
+
+def _equation_lines(math: str) -> list[str]:
+    """Split a long linear-format equation into balanced display lines.
+
+    Lines break only at top-level separators: the comma between definitions,
+    then + / − / · at bracket depth 0, continuation lines starting with the
+    operator. A long ``clip(argument; lower, upper)`` is written with an
+    auxiliary z for the unclipped argument. The mathematics is unchanged."""
+    m = re.match(r"^(.*?)\s+(\(\d+\))$", math)
+    body, number = (m.group(1), m.group(2)) if m else (math, "")
+    parts = [x.strip() for x in re.split(r",\s{2,}", body)]
+    lines: list[str] = []
+    for part in parts:
+        c = re.match(r"^(.+?) = clip\((.+); ([^;]+)\)$", part)
+        if len(part) > EQ_MAX and c and len(c.group(2)) > 30:
+            lines += [f"{c.group(1)} = clip(z; {c.group(3)})", f"z = {c.group(2)}"]
+        else:
+            lines.append(part)
+    out: list[str] = []
+    for line in lines:
+        while len(line) > EQ_MAX:
+            cuts: list[int] = []
+            for toks in ((" + ", " − "), ("·",)):
+                cuts = [i for tok in toks for i in _depth_positions(line, tok) if 20 < i <= EQ_MAX]
+                if cuts:
+                    break
+            if not cuts:
+                break
+            k = max(cuts)
+            out.append(line[:k].rstrip())
+            line = "    " + line[k:].lstrip()
+        out.append(line)
+    if number:
+        out[-1] = f"{out[-1]}   {number}"
+    return out
+
+
+_WORD = r"[\w\u0304]"
+_SCRIPT = re.compile(rf"{_WORD}+(?:[,\-]{_WORD}+)*")
+
+
+def _math_runs(text: str) -> list:
+    """Linear notation -> OMML elements: X_y / X_{..} become m:sSub and
+    X^{..} m:sSup; everything else is literal m:r text."""
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+
+    def run(t: str):
+        r = OxmlElement("m:r")
+        el = OxmlElement("m:t")
+        el.set(qn("xml:space"), "preserve")
+        el.text = t
+        r.append(el)
+        return r
+
+    out: list = []
+    buf = ""
+    i = 0
+    while i < len(text):
+        ch = text[i]
+        if ch == "(":
+            depth, j = 0, i
+            while j < len(text):
+                depth += {"(": 1, ")": -1}.get(text[j], 0)
+                if depth == 0:
+                    break
+                j += 1
+            if j + 2 < len(text) and text[j + 1] == "^" and text[j + 2] == "{":
+                k = text.index("}", j + 2)
+                if buf:
+                    out.append(run(buf))
+                    buf = ""
+                node, d, e, sup = (
+                    OxmlElement("m:sSup"),
+                    OxmlElement("m:d"),
+                    OxmlElement("m:e"),
+                    OxmlElement("m:sup"),
+                )
+                dpr = OxmlElement("m:dPr")
+                for tag, val in (("m:begChr", "("), ("m:endChr", ")")):
+                    c = OxmlElement(tag)
+                    c.set(qn("m:val"), val)
+                    dpr.append(c)
+                d.append(dpr)
+                inner = OxmlElement("m:e")
+                for x in _math_runs(text[i + 1 : j]):
+                    inner.append(x)
+                d.append(inner)
+                e.append(d)
+                for x in _math_runs(text[j + 3 : k]):
+                    sup.append(x)
+                node.append(e)
+                node.append(sup)
+                out.append(node)
+                i = k + 1
+                continue
+        if ch in "_^" and buf:
+            m = re.search(rf"{_WORD}+$", buf)
+            base = m.group(0) if m else buf[-1]
+            if base == ")":
+                depth = 0
+                for k in range(len(buf) - 1, -1, -1):
+                    depth += {")": 1, "(": -1}.get(buf[k], 0)
+                    if depth == 0:
+                        base = buf[k:]
+                        break
+            buf = buf[: len(buf) - len(base)]
+            if i + 1 < len(text) and text[i + 1] == "{":
+                depth, j = 0, i + 1
+                while True:
+                    depth += {"{": 1, "}": -1}.get(text[j], 0)
+                    if depth == 0:
+                        break
+                    j += 1
+                script, i = text[i + 2 : j], j + 1
+            else:
+                sm = _SCRIPT.match(text, i + 1)
+                script = sm.group(0) if sm else ""
+                i = i + 1 + len(script)
+            if buf:
+                out.append(run(buf))
+                buf = ""
+            tag, part = ("m:sSub", "m:sub") if ch == "_" else ("m:sSup", "m:sup")
+            node = OxmlElement(tag)
+            e = OxmlElement("m:e")
+            for x in _math_runs(base):
+                e.append(x)
+            sc = OxmlElement(part)
+            for x in _math_runs(script):
+                sc.append(x)
+            node.append(e)
+            node.append(sc)
+            out.append(node)
+            continue
+        buf += ch
+        i += 1
+    if buf:
+        out.append(run(buf))
+    return out
+
+
+def _equation(doc: Document, math: str) -> None:
+    """Display equation as structured Word OMML, one balanced line per paragraph."""
+    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    from docx.oxml import OxmlElement
+
+    for line in _equation_lines(math.replace(" ~ ", " ∼ ")):
+        para = doc.add_paragraph()
+        para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        opara = OxmlElement("m:oMathPara")
+        om = OxmlElement("m:oMath")
+        for x in _math_runs(line.strip()):
+            om.append(x)
+        opara.append(om)
+        para._p.append(opara)
 
 
 def _table_note(doc: Document, text: str) -> None:
@@ -1203,7 +1373,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
         ),
     )
     _add_heading(doc, "2.7.1 Habitat quality and directional climate", 3)
-    _omml_equation(
+    _equation(
         doc,
         "q_j(t) = clip(q_j(t−1) − δ − 1[j=0]·v·t/T + 1[j=1]·0.65·v·t/T "
         "+ (spend_hab/B_0)·e·r_j − κ_j(t); 0.05, 0.98)   (1)",
@@ -1263,7 +1433,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
         ],
     )
     _add_heading(doc, "2.7.2 Species–node suitability", 3)
-    _omml_equation(
+    _equation(
         doc,
         "s(x,j) = clip(q_j·(0.72 + 0.28·b_x) − 0.32·h_x·(1 − q_j) "
         "+ 0.25·M_j(1−W_j)(τ_x − 0.5) − 0.24·M_j(1−W_j)·m_x; 0.02, 0.99)   (2)",
@@ -1327,7 +1497,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
         ),
     )
     _add_heading(doc, "2.7.4 Discovery of latent species", 3)
-    _omml_equation(
+    _equation(
         doc, "P(k → k+1) = min(cap_k, p_0 + c_k·spend_survey/c_survey · [d_x if k = 0])   (3)"
     )
     _p(
@@ -1347,7 +1517,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
         ),
     )
     _add_heading(doc, "2.7.5 Budget, engagement and funding shocks", 3)
-    _omml_equation(
+    _equation(
         doc,
         "E_{t+1} = clip(E_t + 0.08·(x̄ + 0.2·spend_eng/B_t) + 0.02·q̄_{0–2}; 0, 1.5),  "
         "B_{t+1} = B_0·(0.82 + 0.24·E_{t+1})   (4)",
@@ -1390,7 +1560,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             "0.03·(1 − 0.65·coverage).",
         ],
     )
-    _omml_equation(
+    _equation(
         doc,
         "score_j = s_obs(x,j) − 0.04·cost_j + 0.03·research_j + b_π,j + φ·1[j = origin]   (5)",
     )
@@ -1443,7 +1613,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
         ),
     )
     _add_heading(doc, "2.7.8 Survival", 3)
-    _omml_equation(
+    _equation(
         doc,
         "p_i = clip(1 − μ_x·m − 0.24·(1 − s) − 0.08·a_i − 0.14·I_i + "
         "0.035·M_j·r_j − 0.035·W_j·ρ_j·m_ρ − 0.08·(1 − h_i) − 0.08·F_i; 0.05, 0.995)   (6)",
@@ -1482,7 +1652,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
         ],
     )
     _add_heading(doc, "2.7.9 Reproduction, genetics and population cap", 3)
-    _omml_equation(
+    _equation(
         doc,
         "births ~ Poisson(n_F·λ),  λ = (μ_x + g_x)(0.5 + f_x)·s·max(0.05, "
         "1 − n_xj/K_j)·5.0·(1 + 0.22·spend_exsitu/B_t)^{M_j}·max(0.05, "
@@ -1604,7 +1774,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             "movement disabled, and the S6 allocation, and"
         ),
     )
-    _omml_equation(
+    _equation(
         doc,
         "Ψ = H + C,  H = ln[(M_S7,no-move + ε)/(M_S6 + ε)],  "
         "C = ln[(M_S7,rule + ε)/(M_S7,no-move + ε)],  ε = 0.02   (8)",

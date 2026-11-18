@@ -95,7 +95,7 @@ def main() -> None:
     base = git("merge-base", "HEAD", "origin/master").strip()
     changed = [
         ln.split("\t")
-        for ln in git("diff", "--name-status", base, "--", *PROTECTED).splitlines()
+        for ln in git("diff", "--relative", "--name-status", base, "--", *PROTECTED).splitlines()
         if ln
     ]
     bad = [c for c in changed if c[0] != "A"]
@@ -353,6 +353,21 @@ def main() -> None:
         check(
             "pdf", f"page {pg}: no replacement glyph", "\ufffd" not in t
         ) if "\ufffd" in t else None
+    bbox = subprocess.run(
+        ["pdftotext", "-bbox", str(pdf), "-"], capture_output=True, text=True
+    ).stdout
+    overflow = []
+    for pg, page in enumerate(bbox.split("<page ")[1:], 1):
+        width = float(re.search(r'width="([\d.]+)"', page).group(1))
+        right = width - 54
+        overflow += [
+            (pg, w_)
+            for x_, w_ in re.findall(r'xMax="([\d.]+)" yMax="[\d.]+">([^<]*)<', page)
+            if float(x_) > right
+        ]
+    check(
+        "pdf", "no text beyond the right margin (equations and tables)", not overflow, overflow[:8]
+    )
     ptxt = subprocess.run(["pdftotext", str(pdf), "-"], capture_output=True, text=True).stdout
     check(
         "pdf",
@@ -404,6 +419,9 @@ def main() -> None:
         f"Inline drawings: {n_inline}; floating anchors: {n_anchor}. The PDF is a "
         "LibreOffice rendering of the clean DOCX; it re-encodes images at about "
         "300 ppi, while the DOCX keeps the original 300–320 dpi PNG bytes.",
+        "",
+        "Scientific content of each figure against its caption: "
+        "FINAL_INLINE_FIGURE_CONTENT_REVIEW.md.",
     ]
     (AUD / "FINAL_INLINE_FIGURE_QC.md").write_text("\n".join(fig_md) + "\n")
     tab_md = [
@@ -433,7 +451,7 @@ def main() -> None:
             ["group", "check", "result", "detail"], [r for r in rows if r[0] in ("format", "pdf")]
         ),
     ]
-    (AUD / "FINAL_OMML_AND_FORMAT_QC_AUTOMATED.md").write_text("\n".join(fmt_md) + "\n")
+    (AUD / "FINAL_OMML_AND_FORMAT_QC.md").write_text("\n".join(fmt_md) + "\n")
     qc_md = [
         "# FINAL QC MATRIX (automated part)",
         "",
