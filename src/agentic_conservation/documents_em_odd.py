@@ -36,7 +36,7 @@ TITLE = (
     "under directional change"
 )
 OUT_DIR = "odd_resubmission/submission/integrated"
-MIRROR_TAG = "odd-2020-revision-v3-inline"
+MIRROR_TAG = "odd-2020-revision-v3.2-inline"
 AUTHOR = "Onishi Tatsuki"
 AFFILIATION = "Data Science and AI Innovation Research Promotion Center, Shiga University"
 ADDRESS = "1-1-1, Bamba, Hikone, Shiga, 522-8522, Japan"
