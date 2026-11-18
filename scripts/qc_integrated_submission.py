@@ -8,6 +8,7 @@ It never writes manuscript text or numerical outputs.
 from __future__ import annotations
 
 import hashlib
+import os
 import re
 import subprocess
 import sys
@@ -25,6 +26,7 @@ from agentic_conservation.documents_em_odd import (  # noqa: E402
     ADDRESS,
     AFFILIATION,
     AUTHOR,
+    EDITORIAL_QUOTES,
     EMAIL,
     FIGURES,
     ORCID,
@@ -87,42 +89,74 @@ def doc_text(p: Path) -> str:
 
 def main() -> None:
     AUD.mkdir(parents=True, exist_ok=True)
+    for stale in (SUB / "SHA256SUMS.txt", SUB / "EM_ODD_SUBMISSION_PACKAGE_INTEGRATED.zip"):
+        stale.unlink(missing_ok=True)
     rows: list[tuple[str, str, str, str]] = []
 
     def check(group: str, item: str, ok: bool, detail: str = "") -> None:
         rows.append((group, item, "PASS" if ok else "FAIL", str(detail)))
 
-    base = git("merge-base", "HEAD", "origin/master").strip()
-    changed = [
-        ln.split("\t")
-        for ln in git("diff", "--relative", "--name-status", base, "--", *PROTECTED).splitlines()
-        if ln
-    ]
-    bad = [c for c in changed if c[0] != "A"]
-    added = [c[1] for c in changed if c[0] == "A"]
-    check("baseline", f"no modified/deleted file in protected paths vs {base[:12]}", not bad, bad)
-    allowed = ("figures/odd/fig1_network_living_nodes.png", "figures/odd/fig_psi_historical_v0.png")
-    extra = [
-        a
-        for a in added
-        if not (a in allowed or a.startswith("odd_resubmission/submission/integrated/"))
-    ]
-    check("baseline", "only expected additions in protected paths", not extra, extra or added)
-    for f in ["EM_ODD_APPENDIX_A_FINAL.docx", "EM_ODD_REVISED_MANUSCRIPT_CLEAN_FINAL.docx"]:
-        check(
-            "baseline",
-            f"historical {f} retained",
-            (ROOT / "odd_resubmission/submission" / f).exists(),
+    def skip(group: str, item: str, detail: str) -> None:
+        rows.append((group, item, "SKIP", detail))
+
+    base_ref = os.environ.get("QC_BASE", "origin/master")
+    try:
+        base = git("merge-base", "HEAD", base_ref).strip()
+    except subprocess.CalledProcessError:
+        base = ""
+    if not base:
+        skip(
+            "baseline", "protected paths unchanged", f"base ref {base_ref!r} not found; set QC_BASE"
         )
+    else:
+        changed = [
+            ln.split("\t")
+            for ln in git(
+                "diff",
+                "--relative",
+                "--name-status",
+                base,
+                "--",
+                *PROTECTED,
+                f":(exclude){OUT_DIR}",
+            ).splitlines()
+            if ln
+        ]
+        bad = [c for c in changed if c[0] != "A"]
+        added = [c[1] for c in changed if c[0] == "A"]
+        check(
+            "baseline", f"no modified/deleted file in protected paths vs {base[:12]}", not bad, bad
+        )
+        allowed = (
+            "figures/odd/fig1_network_living_nodes.png",
+            "figures/odd/fig_psi_historical_v0.png",
+        )
+        extra = [
+            a
+            for a in added
+            if not (a in allowed or a.startswith("odd_resubmission/submission/integrated/"))
+        ]
+        check("baseline", "only expected additions in protected paths", not extra, extra or added)
+        for f in ["EM_ODD_APPENDIX_A_FINAL.docx", "EM_ODD_REVISED_MANUSCRIPT_CLEAN_FINAL.docx"]:
+            check(
+                "baseline",
+                f"historical {f} retained",
+                (ROOT / "odd_resubmission/submission" / f).exists(),
+            )
 
     clean, tracked = SUB / OUTPUTS["clean"], SUB / OUTPUTS["tracked"]
     resp, cover, pdf = SUB / OUTPUTS["response"], SUB / OUTPUTS["cover"], SUB / OUTPUTS["pdf"]
+    private = (ROOT / EDITORIAL_QUOTES).exists()
     for k, p in OUTPUTS.items():
+        if k == "response" and not private:
+            skip("files", f"{k}: {p}", "private editorial quotes absent (public clone)")
+            continue
         check("files", f"{k}: {p} exists", (SUB / p).exists())
     check("files", "no Appendix A document in package", not list(SUB.glob("*APPENDIX*")))
 
     # ---------------------------------------------------------- text checks
-    texts = {p.name: doc_text(p) for p in (clean, resp, cover)}
+    letters = [cover] + ([resp] if resp.exists() else [])
+    texts = {p.name: doc_text(p) for p in [clean] + letters}
     for name, t in texts.items():
         hits = [b for b in BANNED if b.lower() in t.lower()]
         check(
@@ -131,7 +165,7 @@ def main() -> None:
         for v in (AUTHOR, AFFILIATION, ADDRESS, EMAIL, ORCID):
             check("author", f"{name}: contains '{v[:40]}'", v in t)
         check("author", f"{name}: old name order absent", "Tatsuki Onishi" not in t)
-    for name in (resp.name, cover.name):
+    for name in (p.name for p in letters):
         check("letters", f"{name}: first person singular", " we " not in texts[name].lower())
         check("letters", f"{name}: cites ECOMOD-26-2231", "ECOMOD-26-2231" in texts[name])
 
@@ -463,18 +497,23 @@ def main() -> None:
 
     # ---------------------------------------------------------- package
     fig_dir = SUB / "figures"
-    files = [clean, tracked, pdf, resp, cover] + sorted(
-        fig_dir.glob("Figure_*.png"), key=lambda p: int(p.stem.split("_")[1])
+    fails = [r for r in rows if r[2] == "FAIL"]
+    if fails:
+        for r in fails:
+            print("FAIL", r)
+        raise SystemExit(f"{len(fails)} QC check(s) failed; package not written")
+    files = (
+        [clean, tracked, pdf]
+        + letters
+        + sorted(fig_dir.glob("Figure_*.png"), key=lambda p: int(p.stem.split("_")[1]))
     )
     (SUB / "SHA256SUMS.txt").write_text("".join(f"{sha(p)}  {p.relative_to(SUB)}\n" for p in files))
     pkg = SUB / "EM_ODD_SUBMISSION_PACKAGE_INTEGRATED.zip"
     with zipfile.ZipFile(pkg, "w", zipfile.ZIP_DEFLATED) as z:
         for p in files + [SUB / "SHA256SUMS.txt"]:
             z.write(p, p.relative_to(SUB))
-    fails = [r for r in rows if r[2] == "FAIL"]
-    print(f"{len(rows) - len(fails)}/{len(rows)} PASS; package {pkg.name} {sha(pkg)[:16]}")
-    for r in fails:
-        print("FAIL", r)
+    npass = sum(r[2] == "PASS" for r in rows)
+    print(f"{npass}/{len(rows)} PASS, {len(rows) - npass} SKIP; package {pkg.name} {sha(pkg)[:16]}")
 
 
 if __name__ == "__main__":
