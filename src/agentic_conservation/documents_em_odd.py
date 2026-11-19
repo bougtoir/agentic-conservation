@@ -36,7 +36,7 @@ TITLE = (
     "under directional change"
 )
 OUT_DIR = "odd_resubmission/submission/final"
-MIRROR_TAG = "odd-2020-revision-v3.3-inline"
+MIRROR_TAG = "odd-2020-revision-v3.4-inline"
 AUTHOR = "Onishi Tatsuki"
 AFFILIATION = "Data Science and AI Innovation Research Promotion Center, Shiga University"
 ADDRESS = "1-1-1, Bamba, Hikone, Shiga, 522-8522, Japan"
@@ -2362,7 +2362,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             "registries, the verification and confirmatory outputs, and the forensic "
             "reconstruction are available at "
             "https://github.com/bougtoir/agentic-conservation, release tag "
-            f"{MIRROR_TAG} (commit {_mirror_commit(root)}). Every run record stores its random "
+            f"{MIRROR_TAG}. Every run record stores its random "
             "seed, and the preregistration and freeze records in odd_resubmission/ "
             "specify each analysis. Complete versions of the summarised analyses "
             "are in tables/: all Latin-hypercube rank correlations "
@@ -2547,11 +2547,6 @@ def _letter(path: Path, title: str, paras: list[str]) -> Path:
     return path
 
 
-def _mirror_commit(root: Path) -> str:
-    f = root / OUT_DIR / "PUBLIC_RELEASE_COMMIT.txt"
-    return f.read_text().strip()[:12] if f.exists() else "[to be inserted]"
-
-
 def build_cover(root: Path, v: dict, n: Numbering) -> Path:
     cf = conf(v)
     rc = _robustness_contrasts(root)
@@ -2626,7 +2621,7 @@ def build_cover(root: Path, v: dict, n: Numbering) -> Path:
             "reconstruction are public.",
             "Code, configuration, outputs and the forensic reconstruction are "
             "public at https://github.com/bougtoir/agentic-conservation, release "
-            f"tag {MIRROR_TAG} (commit {_mirror_commit(root)}).",
+            f"tag {MIRROR_TAG}.",
             "The manuscript is not under consideration elsewhere. I declare no "
             "competing interests.",
             "Sincerely,",
