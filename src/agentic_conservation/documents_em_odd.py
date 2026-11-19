@@ -193,7 +193,8 @@ FIGURES = {
     "network": (
         "figures/odd/fig1_network_living_nodes.png",
         "Nodes of the modelled conservation network. Green: wild nodes (the "
-        "semi-wild pre-release station is both wild and managed); blue: "
+        "protected reserve and the semi-wild pre-release station are both wild "
+        "and managed); blue: "
         "managed-care nodes; purple, dashed: biobank. Arrows show example "
         "pathways along which living animals can be moved; under the movement "
         "rules (Section 2.7.6) any node that can hold animals can be a target. "
@@ -1130,7 +1131,8 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             "stricter endpoints are also reported: at least one mature female and "
             "one mature male co-located in a non-biobank node (a reproductive proxy, "
             "not a guarantee of viability) and at least one individual in a wild node "
-            "(wild persistence). \u2018Pays\u2019 means a positive paired S7 − S6 "
+            "(origin, alternative, reserve or semi-wild station; wild persistence). "
+            "\u2018Pays\u2019 means a positive paired S7 − S6 "
             "difference in a persistence endpoint that exceeds two Monte Carlo "
             "standard errors."
         ),
@@ -1300,14 +1302,17 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
         (
             "Objectives",
             "Rules S4, S5 and S7 rank target nodes by a score "
-            "(Eq. 5); S5 additionally uses a one-step greedy expected-utility "
-            "proxy. No policy optimises the evaluation endpoints directly.",
+            "(Eq. 5) and move to the highest-scoring node; S5 uses the plain score "
+            "without policy bonus or origin fidelity. The names ‘greedy’ (S5) and "
+            "‘forward-rollout proxy’ (S7) in Table 4 are labels from the original "
+            "submission: neither rule computes an expected utility or simulates "
+            "future states. No policy optimises the evaluation endpoints directly.",
         ),
         ("Learning", "Not modelled. Rules and allocation shares are constant."),
         (
             "Prediction",
-            "S7 uses an implicit one-step forward-rollout proxy in "
-            "target scoring; no other entity predicts.",
+            "Not modelled. No rule predicts future states; S7's restoration and "
+            "research bonuses (Eq. 5) are fixed weights, not forecasts.",
         ),
         (
             "Sensing",
@@ -1351,7 +1356,7 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
         (
             "Each replicate starts from the same configuration (Tables "
             f"{n.t('state').split()[1]}–{n.t('params').split()[1]}): 364 individuals "
-            "placed in wild nodes with species-specific initial sizes (32–58), "
+            "placed in the origin node with species-specific initial sizes (32–58), "
             "random sex and age (0–15 yr), health drawn from U(0.75, 1), zero "
             "inbreeding and a 2.5% chance of initial infection. Node qualities "
             "start at their base values, the budget at 100, engagement at 0.5 and "
@@ -1389,16 +1394,21 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
     _add_heading(doc, "2.7.1 Habitat quality and directional climate", 3)
     _equation(
         doc,
-        "q_j(t) = clip(q_j(t−1) − δ − 1[j=0]·v·t/T + 1[j=1]·0.65·v·t/T "
-        "+ (spend_hab/B_0)·e·r_j − κ_j(t); 0.05, 0.98)   (1)",
+        "q_j(t) = clip(q_j(t−1) − W_j·δ − 1[j=0]·v·t/T + 1[j=1]·0.65·v·t/T "
+        "+ W_j·(spend_hab/B_0)·e·r_j − κ_j(t); 0.05, 0.98)   (1)",
     )
     _p(
         doc,
         (
-            "where δ = 0.006 yr⁻¹ is background deterioration, v = 0.012 the "
+            "where W_j = 1 for the four wild nodes (origin, alternative, reserve, "
+            "semi-wild station) and 0 otherwise, δ = 0.006 yr⁻¹ is background "
+            "deterioration in the base scenario (scaled ×0.5, ×2 and ×−0.6 in the "
+            "slow, rapid and restoration scenarios and 0 in the stationary and "
+            "collapse scenarios), v = 0.012 the "
             "climate velocity, T = 100 the horizon, e the habitat-protection "
             "efficiency, r_j the restoration potential and κ_j(t) a catastrophe "
-            "loss (probability 0.035 yr⁻¹, size U(0.16, 0.38)). The annual climate "
+            "loss on one randomly chosen wild node (probability 0.035 yr⁻¹, size "
+            "U(0.16, 0.38)). Managed-only nodes keep their base quality. The annual climate "
             "decrement at the origin is v·t/T, so it increases each year and the "
             "cumulative displacement grows quadratically, reaching about 0.61 at "
             f"year 100 ({n.f('origin_future')}). The submitted version described "
@@ -1564,11 +1574,15 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
             "Capacity C = max(1, ⌊spend_rescue / 2.5⌋).",
             "Rank visible species by risk 1/(1 + n_obs) + (1 − observed origin suitability).",
             "Eligibility: S1 individuals in managed nodes; S2/S4/S5/S7 decision "
-            "suitability < 0.58; S3 refuge if origin suitability < 0.48, return if "
-            "year ≥ 5, suitability ≥ 0.62 and release readiness ≥ 0.40.",
+            "suitability of the current node < 0.58; S3 refuge (individuals at the "
+            "origin) if origin suitability < 0.48, otherwise return (individuals "
+            "outside the origin with release readiness ≥ 0.40) if year ≥ 5 and "
+            "origin suitability ≥ 0.62.",
             "Target: S1 best wild node; S2 conventional zoo; S3 best of {conservation "
             "zoo, breeding} or origin; S4/S5/S7 argmax of Eq. 5; biobank excluded.",
-            "Take = min(candidates, C − moved, max(1, ⌊0.20·candidates⌋), target capacity).",
+            "Take = min(candidates, C − moved, max(1, ⌊0.20·candidates⌋), free "
+            "capacity of the target for that species); individuals already at the "
+            "target are not candidates.",
             "Apply relocation stress, movement mortality (0.025), release mortality "
             "for managed → wild moves (0.08) and transit infection "
             "0.03·(1 − 0.65·coverage).",
@@ -1577,6 +1591,17 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
     _equation(
         doc,
         "score_j = s_obs(x,j) − 0.04·cost_j + 0.03·research_j + b_π,j + φ·1[j = origin]   (5)",
+    )
+    _p(
+        doc,
+        (
+            "where s_obs(x,j) is Eq. 2 evaluated with observed quality, b_π,j the "
+            "policy bonus (S4: +0.10 for the reserve, conservation zoo, breeding "
+            "centre and semi-wild station; S7: 0.08·r_j + 0.05·research_j; S5: 0) "
+            "and φ = 0.20 the origin fidelity for S4 and S7 (0 for S5). The "
+            "biobank score is fixed at −1, below every other node, so it is never "
+            "selected."
+        ),
     )
     _rationale(
         doc,
@@ -1620,8 +1645,10 @@ def build_clean(root: Path) -> tuple[Path, Numbering]:
         doc,
         (
             "Susceptibles in node j are infected with probability clip(β_j · "
-            "prevalence_j; 0, 0.65) and infected individuals recover with "
-            "probability 0.32 to permanent immunity. A frequency-dependent SIR "
+            "prevalence_j; 0, 0.65), with prevalence taken before that year's "
+            "infections, and every infected individual, including those infected "
+            "that year, recovers with probability 0.32 to permanent immunity. "
+            "A frequency-dependent SIR "
             f"form is the simplest representation {cite('kock_2010')}; annual steps "
             "are coarse for epidemics, and the disease ablation bounds its role."
         ),
